@@ -12,13 +12,13 @@ namespace WSTWeb.MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        //杨可鑫的注释
         public HomeController(ILogger<HomeController> logger)
         {
             //我是123
             _logger = logger;
         }
-
+        //吸烟的大鹏哟
         public IActionResult Index()
         {
             return View();
