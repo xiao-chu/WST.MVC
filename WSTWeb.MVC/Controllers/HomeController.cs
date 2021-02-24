@@ -15,6 +15,7 @@ namespace WSTWeb.MVC.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+            //我是123
             _logger = logger;
         }
 
