@@ -1,0 +1,191 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>维生特(上海)有限公司</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">维生特-上海</div>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">首页</a></li>
+                <li class="layui-nav-item"><a href="">黑名单</a></li>
+                <li class="layui-nav-item"><a href="">举报投诉</a></li>
+                <li class="layui-nav-item"><a href="">招聘管理</a></li>
+                <li class="layui-nav-item"><a href="">问卷管理</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">内容管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">栏目管理</a></dd>
+                        <dd><a href="">栏目公告</a></dd>
+                        <dd><a href="">栏目滚动图片</a></dd>
+                        <dd><a href="">文章管理</a></dd>
+                        <dd><a href="">文章审核</a></dd>
+                        <dd><a href="">视频审核</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其他管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">相关链接</a></dd>
+                        <dd><a href="">访问统计量</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">系统管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">用户管理</a></dd>
+                        <dd><a href="">角色管理</a></dd>
+                        <dd><a href="">菜单管理</a></dd>
+                        <dd><a href="">日志管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        贤心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="@Url.Action("Login","User")">退了</a></li>
+            </ul>
+        </div>
+
+        @*主内容区*@
+        <div class="layui-body">
+            <div>
+                <script type="text/html" id="barDemo">
+                    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail">查看</a>
+                    <a class="layui-btn layui-btn-xs" id="btngai" lay-event="edit">修改</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                    <a class="layui-btn layui-btn-xs" lay-event="quan">授权</a>
+                </script>
+                <div class="layui-form">
+                    <br />
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="tel" id="User_Name" name="User_Name" autocomplete="off" placeholder="请输入登录名" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline">
+                            <input type="tel" id="User_Realname" name="User_Realname" autocomplete="off" placeholder="请输入真实姓名" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="Department_Id" id="department_Id" lay-verify="">
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="role_Name" id="role_Name" lay-verify="">
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="layui-btn" id="btn-cha">🔍查询</button>
+                    <button type="button" id="chongzhi" class="layui-btn">⚪重置</button>
+                    <button type="button" id="btnadd" class="layui-btn">＋添加</button>
+                </div>
+                <div style="padding: 15px;">
+                    <table id="demo" lay-filter="test"></table>
+                </div>
+            </div>
+        </div>
+
+    </div>`
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script src="~/layui/layui.js"></script>
+    <script src="~/js/setCookie.js"></script>
+    <script>
+        //JavaScript代码区域
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider', 'form'], function () {
+            var laydate = layui.laydate //日期
+                , laypage = layui.laypage //分页
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+                , slider = layui.slider //滑块
+                , form = layui.form
+            //第一个实例
+            table.render({
+                elem: '#demo'
+                , height: 312
+                , url: 'http://localhost:53305/api/User/gets' //数据接口
+                , page: true //开启分页
+                , limit: 3
+                , cols: [[ //表头
+                    { field: 'user_Id', title: '序号', width: 80, fixed: 'left' }
+                    , { field: 'department_Name', title: '部门', width: 80 }
+                    , { field: 'user_Name', title: '登录名', width: 80 }
+                    , { field: 'user_Realname', title: '真实姓名', width: 80 }
+                    , { field: 'role_Name', title: '类型', width: 100 }
+                    , { field: 'user_Email', title: '邮箱', width: 177 }
+                    , { field: 'user_Phone', title: '手机号', width: 177 }
+                    , {
+                        field: 'user_CreateTime', title: '创建时间', width: 177, templet: function (d) {
+                            return (d.user_CreateTime.substring(0, 10) + ' ' + d.user_CreateTime.substring(11, 19));
+                        }
+                    }
+                    , { fixed: 'right', width: 190, align: 'center', toolbar: '#barDemo' }
+
+                ]]
+            });
+
+            //查询
+            $('#btn-cha').click(function () {
+                table.reload('demo', {
+                    where: { //设定异步数据接口的额外参数，任意设
+                        User_Name: $('#User_Name').val()
+                        , User_Realname: $('#User_Realname').val()
+                        , department_Id: $('#department_Id').val()
+                        , role_Name: $('#role_Name').val()
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                }); //只重载数据
+            });
+            //绑定部门下拉框
+            $.ajax({
+                url: 'http://localhost:53305/api/User/GetDepartments',
+                type: 'get',
+                success: function (result) {
+                    var str = '';
+                    str += '<option value=0>--请选择--</option>';
+                    $(result).each(function () {
+                        str += '<option value="' + this.department_Id + '">' + this.department_Name + '</option>';
+                    });
+                    $("#department_Id").empty().append(str);
+                    form.render();
+                }
+            });
+            //绑定类型下拉框
+            $.ajax({
+                url: 'http://localhost:53305/api/User/GetRoles',
+                type: 'get',
+                success: function (result) {
+                    var str = '';
+                    str += '<option value="">--请选择--</option>';
+                    $(result).each(function () {
+                        str += '<option value="' + this.role_Name + '">' + this.role_Name + '</option>';
+                    });
+                    $("#role_Name").empty().append(str);
+                    form.render();
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

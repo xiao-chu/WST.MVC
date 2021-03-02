@@ -1,7 +1,8 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    Layout = null;
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,43 +67,63 @@
         @*主内容区*@
         <div class="layui-body">
             <div>
-                <div style="padding: 15px;">
-                    <div style="width:800px;height:600px;float:left;background-color:azure;">
-                        <br />
-                        <span style="font-size:15px;margin-left:20px;">文章Top10</span><a>更多</a>
 
-                    </div>
-                    <div style="width:500px;height:300px;float:left;margin-left:20px;background-color:azure;">
+                <div style="padding: 15px;">
+                    <div style="width:800px;height:200px;float:left;margin:20px 20px;background-color:azure;">
                         <br />
-                        <span style="font-size:15px;margin-left:20px;">个人信息</span><a href="@Url.Action("Edit","User")">编辑</a>
+                        <h4>个人信息</h4>
                         <table class="layui-table" lay-skin="nob">
+
+                            <tr>
+                                <td>主题设置</td>
+                                <td>
+                                    <select name="user_Color">
+                                        <option value="default">default</option>
+                                        <option value="red">red</option>
+                                        <option value="blue">blue</option>
+                                    </select>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>登录名</td>
-                                <td><input type="text" id="User_Name" style="border:none;" readonly/><span id="aa"></span></td>
+                                <td><input type="text" id="user_Name" name="User_Name" style="border:none" readonly /></td>
                             </tr>
                             <tr>
                                 <td>昵称</td>
-                                <td><input type="text" id="User_Nickname" style="border:none" readonly/></td>
+                                <td><input type="text" name="user_Nickname" id="user_Nickname" /></td>
                             </tr>
                             <tr>
-                                <td>emali</td>
-                                <td><input type="text" id="User_Email" style="border:none" readonly/></td>
+                                <td>原始密码</td>
+                                <td><input type="text" name="pass" id="pass" /></td>
+                            </tr>
+                            <tr>
+                                <td>新密码</td>
+                                <td><input type="text" name="user_Password" id="user_Password" /></td>
+                            </tr>
+                            <tr>
+                                <td>重复密码</td>
+                                <td><input type="text" name="isPass" id="isPass" /></td>
+                            </tr>
+                            <tr>
+                                <td>email</td>
+                                <td><input type="text" name="user_Email" id="user_Email" /></td>
                             </tr>
                             <tr>
                                 <td>手机号</td>
-                                <td><input type="text" id="User_Phone" style="border:none" readonly/></td>
+                                <td><input type="text" name="user_Phone" id="user_Phone" /></td>
                             </tr>
                             <tr>
                                 <td>备注</td>
-                                <td><input type="text" id="User_Remark" style="border:none" readonly/></td>
+                                <td><input type="text" name="user_Remark" id="user_Remark" /></td>
                             </tr>
-                        </table>
-                    </div>
-                    <div style="width:500px;height:200px;float:left;margin:20px 20px;background-color:azure;">
-                        <br />
-                        <span style="font-size:15px;margin-left:20px;">注册用户Top10</span><a href="@Url.Action("Index","User")">编辑</a>
-                        <table class="layui-table" lay-skin="nob" id="tab">
-
+                            <tr>
+                                <td>
+                                    <button class="layui-btn" id="save" lay-submit lay-filter="*">立即提交</button>
+                                </td>
+                                <td>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -121,54 +142,57 @@
                 , layer = layui.layer //弹层
                 , table = layui.table //表格
                 , carousel = layui.carousel //轮播
-                , upload = layui.upload //上传
+                , upload = layui.upload //上传。
                 , element = layui.element //元素操作
                 , slider = layui.slider //滑块
 
-            //第一个实例
-            table.render({
-                elem: '#demo'
-                , height: 312
-                , url: '/demo/table/user/' //数据接口
-                , page: true //开启分页
-                , cols: [[ //表头
-                    { field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left' }
-                    , { field: 'username', title: '用户名', width: 80 }
-                    , { field: 'sex', title: '性别', width: 80, sort: true }
-                    , { field: 'city', title: '城市', width: 80 }
-                    , { field: 'sign', title: '签名', width: 177 }
-                    , { field: 'experience', title: '积分', width: 80, sort: true }
-                    , { field: 'score', title: '评分', width: 80, sort: true }
-                    , { field: 'classify', title: '职业', width: 80 }
-                    , { field: 'wealth', title: '财富', width: 135, sort: true }
-                ]]
-            });
-            //加载个人信息
-            //var user = getCookie("userName").toString();
+            //反填
+            var userId = getCookie("userId").toString();
             var userName = getCookie("userName").toString();
             var userNickname = getCookie("userNickname").toString();
             var userEmail = getCookie("userEmail").toString();
             var userPhone = getCookie("userPhone").toString();
             var userRemarks = getCookie("userRemark").toString();
-            $("#User_Name").val(userName);
-            $("#User_Nickname").val(userNickname);
-            $("#User_Email").val(userEmail);
-            $("#User_Phone").val(userPhone);
-            $("#User_Remark").val(userRemarks);
-            //加载注册用户top10
-            $.ajax({
-                url: 'http://localhost:53305/api/User/gets',
-                type: 'get',
-                success: function (result) {
-                    var str = '';
-                    $(result.data).each(function () {
-                        str += '<tr>'
-                            + '<td>用户：' + this.user_Nickname + '</td>'
-                            + '<td>' + (this.user_CreateTime.substring(0, 10) +' '+ this.user_CreateTime.substring(11, 19)) + '</td>'
-                            + '</tr>';
+            var userPassword = getCookie("userPassword").toString();
+            $("#user_Name").val(userName);
+            $("#user_Nickname").val(userNickname);
+            $("#user_Email").val(userEmail);
+            $("#user_Phone").val(userPhone);
+            $("#user_Remark").val(userRemarks);
+            //点击提交触发事件
+            $("#save").click(function () {
+
+                if ($("#pass").val() != userPassword) {
+                    alert('原始密码错误');
+                } else if ($("#isPass").val() != $("#user_Password").val()) {
+                    alert('两次密码不一致');
+                }
+                else {
+                    $.ajax({
+                        url: 'http://localhost:53305/api/User',
+                        type: 'put',
+                        data: JSON.stringify({
+                            user_Id: userId,
+                            user_Name: $("#user_Name").val(),
+                            user_Nickname: $("#user_Nickname").val(),
+                            user_Email: $("#user_Email").val(),
+                            user_Phone: $("#user_Phone").val(),
+                            user_Remark: $("#user_Remark").val(),
+                            user_Password: $("#user_Password").val(),
+                        }),
+                        success: function (result) {
+                            if (result > 0) {
+                                alert('修改成功,请重新登录！');
+                                location.href = '@Url.Action("Login","User")';
+                            }
+                            else {
+                                alert('修改失败！');
+                            }
+                        },
+                        contentType: 'application/json',
+                        dataType: 'json'
                     });
-                    $("#tab").empty().append(str);
-                },
+                }
             });
         });
     </script>
