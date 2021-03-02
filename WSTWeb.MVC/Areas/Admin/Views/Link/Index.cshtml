@@ -1,0 +1,370 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>维生特(上海)有限公司</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">维生特-上海</div>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">首页</a></li>
+                <li class="layui-nav-item"><a href="">黑名单</a></li>
+                <li class="layui-nav-item"><a href="">举报投诉</a></li>
+                <li class="layui-nav-item"><a href="">招聘管理</a></li>
+                <li class="layui-nav-item"><a href="">问卷管理</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">内容管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">栏目管理</a></dd>
+                        <dd><a href="">栏目公告</a></dd>
+                        <dd><a href="">栏目滚动图片</a></dd>
+                        <dd><a href="">文章管理</a></dd>
+                        <dd><a href="">文章审核</a></dd>
+                        <dd><a href="">视频审核</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其他管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">相关链接</a></dd>
+                        <dd><a href="">访问统计量</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">系统管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">用户管理</a></dd>
+                        <dd><a href="">角色管理</a></dd>
+                        <dd><a href="">菜单管理</a></dd>
+                        <dd><a href="">日志管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        贤心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退了</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-body">
+            <div style="padding: 15px;">
+                @*查询表格*@
+                <div class="layui-form">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="text" id="lName" name="lName" placeholder="请输入名称" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button class="layui-btn" id="sou">查询</button>
+                            <button type="reset" class="layui-btn" id="reseted">重置</button>
+                            <button lay-submit id="submit" type="reset" class="layui-btn" lay-filter="*">提交</button>
+                        </div>
+                    </div>
+                </div>
+                @*数据表格*@
+                <table id="demoLink" lay-filter="test"></table>
+
+                @*添加查看修改表单*@
+                <form class="layui-form form-inline" hidden="hidden" action="" id="formLink">
+                    <div class="layui-form-item">
+                        <div class="layui-input-inline">
+                            <input type="hidden" id="lId2" value="0" name="LId" required lay-verify="required" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="lName" name="lName" required lay-verify="required" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">URL</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="url" name="url" required lay-verify="required" placeholder="超级管理员" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">类型</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="lType" name="lType" required lay-verify="required" placeholder="2018-08-08" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">排序号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="lsort" name="lsort" required lay-verify="required" placeholder="10" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">是否显示</label>
+                        <div class="layui-input-inline">
+                            <input type="radio" id="show1" name="show" value="0" title="显示">
+                            <input type="radio" id="show2" name="show" value="1" title="隐藏" checked="checked">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">站点</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="sites" name="sites" required lay-verify="required" placeholder="10" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">备注</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="remark" name="remark" required lay-verify="required" placeholder="10" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </form>
+
+                <script type="text/html" id="barDemo">
+                    <a class="layui-btn layui-btn-checked layui-btn-xs" lay-event="detail">查看</a>
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                </script>
+            </div>
+        </div>
+
+    </div>
+    <script src="~/layui/layui.js"></script>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script>
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider', 'form'], function () {
+            var laydate = layui.laydate //日期
+                , laypage = layui.laypage //分页
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+                , slider = layui.slider //滑块
+                , form = layui.form
+            //查询
+            $("#sou").click(function () {
+                //表格重载
+                table.reload('demoLink', {
+                    where: {
+                        lName: $('#lName').val(),
+                    } //设定异步数据接口的额外参数
+                    //,height: 300
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                });
+            });
+
+            //重置功能
+            $("#reseted").click(function () {
+                $('#lName').val("");
+                form.render()
+            });
+
+            //第一个实例
+            table.render({
+                elem: '#demoLink'
+                , height: 312
+                , url: 'http://localhost:53305/api/Link' //数据接口
+                , page: true //开启分页
+                , limit: 5
+                , method: 'get'
+                , cols: [[ //表头
+                    { field: 'lId', title: '序号', width: 80, sort: true, fixed: 'left' }
+                    , { field: 'lName', title: '名称', width: 80 }
+                    , { field: 'url', title: 'URL', width: 80, sort: true }
+                    , { field: 'lType', title: '类型', width: 80 }
+                    , { field: 'lsort', title: '排序号', width: 177 }
+                    , { field: 'show', title: '是否显示', width: 80, sort: true }
+                    , { field: 'sistes', title: '站点', width: 80, sort: true }
+                    , { field: 'remark', title: '备注', width: 80 }
+                    , { fixed: 'right', width: 190, align: 'center', toolbar: '#barDemo' }
+                ]]
+            });
+            //监听行工具事件
+            table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据
+                    , layEvent = obj.event; //获得 lay-event 对应的值
+
+                if (layEvent === 'detail') {
+                    layer.open({
+                        type: 1,
+                        title: ['查看详情', 'background-color:lightgreen;'],
+                        area: ['1000px', '500px'],
+                        shade: 0,
+                        closeBtn: 1,
+                        content: $('#formLink'), //这里content是一个普通的String
+                        success: function () {
+                            $("#lid").val(data.lId);
+                            $("#lName").val(data.lName);
+                            $("#url").val(data.url);
+                            $("#lType").val(data.lType);
+                            $("#release_time").val(data.release_time);
+                            $("#lsort").val(data.lsort);
+                            if (data.show == 1) {
+                                $("#show1").prop('checked', true);
+                            }
+                            else {
+                                $("#show2").prop('checked', true);
+                            }
+                            $("#sites").val(data.sites);
+                            $("#remark").val(data.remark);
+                        }
+                    });
+                }
+                else if (layEvent === 'del') {
+                    if (confirm("确定删除吗？")) {
+                        $.ajax({
+                            url: 'http://localhost:53305/api/Link',
+                            type: 'delete',
+                            data: '"' + data.lId + '"',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function (result) {
+                                if (result.code > 0) {
+                                    alert(result.msg);
+                                    //重新加载表格
+                                    table.reload('demoLink', {
+                                        where: {
+                                        }
+                                        , page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    });
+                                }
+                                else {
+                                    alert(result.msg);
+                                }
+                            }
+                        });
+                    }
+                }
+                else if (layEvent === 'edit') {
+                    layer.open({
+                        type: 1,
+                        title: ['查看详情', 'background-color:lightgreen;'],
+                        area: ['1000px', '500px'],
+                        shade: 0,
+                        closeBtn: 1,
+                        content: $('#formLink'), //这里content是一个普通的String
+                        success: function () {
+                            $("#lId2").val(data.lId);
+                            $("#lName").val(data.lName);
+                            $("#url").val(data.url);
+                            $("#lType").val(data.lType);
+                            $("#lsort").val(data.lsort);
+                            if (data.show == 1) {
+                                $("#show1").prop('checked', true);
+                            }
+                            else {
+                                $("#show2").prop('checked', true);
+                            }
+                            $("#sites").val(data.sites);
+                            $("#remark").val(data.remark);
+                        },
+                        btn: ['修改', '取消']
+                        , yes: function (index, layero) {
+                            $.ajax({
+                                url: 'http://localhost:53305/api/Link',
+                                type: 'put',
+                                data: JSON.stringify({
+                                    lId: $("#lId2").val(),
+                                    lName: $("#lName").val(),
+                                    url: $("#url").val(),
+                                    lType: $("#lType").val(),
+                                    lsort: $("#lsort").val(),
+                                    show: $("#show1").prop('checked') == true ? 0 : 1,
+                                    sites: $("#sites").val(),
+                                    remark: $("#remark").val()
+                                }),
+                                contentType: "application/json",
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.code > 0) {
+                                        layer.closeAll();
+                                        alert(data.msg);
+
+                                        table.reload('demoLink', {
+                                            where: {
+
+                                            } //设定异步数据接口的额外参数
+                                            //,height: 300
+                                            , page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        layer.alert(data.msg);
+                                    }
+                                }
+                            })
+                        }
+                    });
+                }
+                return false;
+            });
+
+            //提交
+            $("#submit").on('click', function () {
+                layer.open({
+                    type: 1,
+                    title: ['添加链接', 'background-color:lightgreen;'],
+                    area: ['1000px', '500px'],
+                    shade: 0,
+                    content: $('#formLink'), //这里content是一个普通的String
+                    btn: ['保存', '取消'],
+                    success: function (index, layero) {//清空表单元素
+                        $("#formLink")[0].reset();
+                        layui.form.render();
+                    },
+                    btn1: function (index, layero) {
+                        $.ajax({
+                            url: 'http://localhost:53305/api/Link',
+                            type: 'post',
+                            data: JSON.stringify({
+                                lId: $("#lId2").val(),
+                                lName: $("#lName").val(),
+                                url: $("#url").val(),
+                                lType: $("#lType").val(),
+                                lsort: $("#lsort").val(),
+                                show: $("#show1").prop('checked') == true ? 0 : 1,
+                                sites: $("#sites").val(),
+                                remark: $("#remark").val()
+                            }),
+                            contentType: 'application/json',
+                            success: function (result) {
+                                if (result.code > 0) {
+                                    layer.closeAll();
+                                    layer.alert(result.msg);
+                                    //重新加载表格
+                                    table.reload('demoLink', {
+                                        where: {
+                                        }
+                                        , page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    });
+                                }
+                                else {
+                                    layer.alert(result.msg);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        })
+    </script>
+</body>
+</html>
