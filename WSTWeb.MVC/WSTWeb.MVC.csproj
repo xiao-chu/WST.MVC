@@ -8,7 +8,6 @@
     <Folder Include="Data\" />
     <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\bootstrap\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\js\" />
@@ -17,6 +16,13 @@
     <Folder Include="wwwroot\lib\jquery-validation\dist\" />
     <Folder Include="wwwroot\lib\jquery\" />
     <Folder Include="wwwroot\lib\jquery\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\ʾ��ͼ1.png" />
+    <None Include="wwwroot\images\ʾ��ͼ2.png" />
+    <None Include="wwwroot\images\ʾ��ͼ3.png" />
+    <None Include="wwwroot\images\ʾ��ͼ4.png" />
   </ItemGroup>
 
   <ItemGroup>
