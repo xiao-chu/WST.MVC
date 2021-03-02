@@ -14,9 +14,10 @@ namespace WSTWeb.MVC.Controllers
         private readonly ILogger<HomeController> _logger;
         public HomeController(ILogger<HomeController> logger)
         {
+            //我是123
             _logger = logger;
         }
-
+        //吸烟的大鹏哟
         public IActionResult Index()
         {
             return View();
