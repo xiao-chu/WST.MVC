@@ -1,0 +1,362 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>维生特(上海)有限公司</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">维生特-上海</div>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">首页</a></li>
+                <li class="layui-nav-item"><a href="@Url.Action("Index","BlackList")">黑名单</a></li>
+                <li class="layui-nav-item"><a href="@Url.Action("Index","Complaint")">举报投诉</a></li>
+                <li class="layui-nav-item"><a href="">招聘管理</a></li>
+                <li class="layui-nav-item"><a href="">问卷管理</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">内容管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">栏目管理</a></dd>
+                        <dd><a href="">栏目公告</a></dd>
+                        <dd><a href="">栏目滚动图片</a></dd>
+                        <dd><a href="">文章管理</a></dd>
+                        <dd><a href="">文章审核</a></dd>
+                        <dd><a href="">视频审核</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其他管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">相关链接</a></dd>
+                        <dd><a href="">访问统计量</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">系统管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">用户管理</a></dd>
+                        <dd><a href="">角色管理</a></dd>
+                        <dd><a href="">菜单管理</a></dd>
+                        <dd><a href="">日志管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        贤心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退了</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-body">
+            <div style="padding: 15px;">
+                <!--查询违纪人-->
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="tel" id="Cbyname" name="Cbyname" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+                        </div>
+                    </div>
+                    <button type="button" class="layui-btn" id="btn-cha">🔍查询</button>
+                    <button type="button" class="layui-btn">🔄重置</button>
+                </div>
+
+                <table id="demo" lay-filter="test">
+                </table>
+                <!--增删改按钮-->
+                <script type="text/html" id="barDemo">
+                    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail">查看</a>
+                    <a class="layui-btn layui-btn-xs" id="btngai" lay-event="edit">修改</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                </script>
+            </div>
+            <!--弹窗添加/修改-->
+            <form class="layui-form" id="formgai" action="" style="display:none;text-align:center">
+                <input type="hidden" id="Cid" name="Cid">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">投诉类别</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" id="Ctype1" name="Ctype" value="1" title="实名" checked="">
+                        <input type="radio" id="Ctype2" name="Ctype" value="0" title="匿名">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">身份信息</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" id="Cinformation1" name="Cinformation" value="员工" title="员工" checked="">
+                        <input type="radio" id="Cinformation2" name="Cinformation" value="供应商" title="供应商">
+                        <input type="radio" id="Cinformation3" name="Cinformation" value="客户" title="客户">
+                        <input type="radio" id="Cinformation4" name="Cinformation" value="其他" title="其他">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="Cbyname" name="Cbyname" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">电话</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="Cphone" name="Cphone" lay-verify="title" autocomplete="off" placeholder="请输入电话" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">微信</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="Cweixin" name="Cweixin" lay-verify="title" autocomplete="off" placeholder="请输入微信" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="Ceamil" name="Ceamil" lay-verify="title" autocomplete="off" placeholder="请输入邮箱" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" id="Cstate" name="Cstate" value="1" title="已处理" checked="">
+                        <input type="radio" id="Cstate" name="Cstate" value="0" title="待处理">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <script src="~/layui/layui.js"></script>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script>
+        //JavaScript代码区域
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload','form', 'element', 'slider'], function () {
+            var laydate = layui.laydate //日期
+                , laypage = layui.laypage //分页
+                , form = layui.form
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+                , slider = layui.slider //滑块
+
+            //执行一个 table 实例
+            table.render({
+                elem: '#demo'
+                , height: 420
+                , url: 'http://localhost:53305/api/Complaint' //数据接口
+                , method: 'get'
+                , cols: [[ //表头
+                    { field: 'cid', title: '序号', width: 80, fixed: 'left' }
+                    , { field: 'cnumber', title: '投诉编号', width: 120 }
+                    , {
+                        field: 'ctype', title: '投诉类别', width: 100,
+                        templet: function (d) {
+                            if (d.ctype==1) {
+                                return '实名'
+                            }
+                            else {
+                                return '匿名'
+                            }
+                        }
+                    }
+                    , { field: 'cinformation', title: '身份信息', width: 100 }
+                    , { field: 'cbyname', title: '姓名', width: 150 }
+                    , { field: 'cphone', title: '电话', width: 80 }
+                    , { field: 'cweixin', title: '微信', width: 100 }
+                    , { field: 'ceamil', title: '邮箱', width: 100 }
+                    , { field: 'cip', title: '投诉人IP', width: 100 }
+                    , {
+                        field: 'cisfujian', title: '是否有附件', width: 100,
+                        templet: function (d) {
+                            if (d.cisfujian==1) {
+                                return '有'
+                            }
+                            else {
+                                return '无'
+                            }
+                        }
+                    }
+                    , {
+                        field: 'cstate', title: '状态', width: 100,
+                        templet: function (d) {
+                            if (d.cstate == 1) {
+                                return '已处理'
+                            }
+                            else {
+                                return '待处理'
+                            }
+                        }
+                    }
+                    , {
+                        field: 'ctime', title: '投诉时间', width: 150,
+                        templet: '<div>{{layui.util.toDateString(d.createDate,"yyyy-MM-dd HH:mm:ss")}}</div>'
+                    }
+                    , { field: 'cpeople', title: '处理人', width: 100}
+                    , { fixed: 'right', title: '操作', width: 165, align: 'left', toolbar: '#barDemo' }
+                ]]
+            });
+
+            //查询
+            $('#btn-cha').on('click', function () {
+                var Cbyname = $('#Cbyname').val();
+                table.reload('demo', {
+                    where: { //设定异步数据接口的额外参数，任意设
+                        Cbyname: Cbyname
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                }); //只重载数据
+            });
+
+            //监听头工具栏事件
+            table.on('toolbar(test)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id)
+                    , data = checkStatus.data; //获取选中的数据
+                switch (obj.event) {
+                    case 'add':
+                        layer.msg('添加');
+                        break;
+                    case 'update':
+                        if (data.length === 0) {
+                            layer.msg('请选择一行');
+                        } else if (data.length > 1) {
+                            layer.msg('只能同时编辑一个');
+                        } else {
+                            layer.alert('编辑 [id]：' + checkStatus.data[0].id);
+                        }
+                        break;
+                    case 'delete':
+                        if (data.length === 0) {
+                            layer.msg('请选择一行');
+                        } else {
+                            layer.msg('删除');
+                        }
+                        break;
+                };
+            });
+
+            //监听行工具事件
+            table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据
+                    , layEvent = obj.event; //获得 lay-event 对应的值
+                if (layEvent === 'detail') {
+                    layer.msg('查看操作');
+                } else if (layEvent === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        $.ajax({
+                            url: 'http://localhost:53305/api/Complaint',
+                            type: 'post',
+                            data: { Cid: data.Cid },
+                            success: function (d) {
+                                if (d > 0) {
+                                    layui.msg('删除成功');
+                                    location.href = '/Complaint/Index';
+                                }
+                                else {
+                                    layui.msg('删除失败');
+                                }
+                            }
+                        });
+                    });
+                } else if (layEvent === 'edit') {
+                    layer.open({
+                        title: '举报投诉'
+                        , content: $('#formgai')
+                        , type: 1
+                        , area: ['500px', '500px']
+                        , shade: 0
+                        , anim: 6
+                        , closeBtn: 1
+                        , btn: ['保存', '关闭']
+                        , btnAlign: 'c'
+                        , success: function () {
+
+                            if (data.ctype==1) {
+                                $('#Ctype1').prop('checked', true);
+                            }
+                            else if (data.ctype==0) {
+                                $('#Ctype2').prop('checked', true);
+                            }
+                           
+                            if (data.cinformation == 1) {
+                                $('#Cinformation1').prop('checked',true);
+                            }
+                            else if (data.cinformation == 2) {
+                                $('#Cinformation2').prop('checked', true);
+                            }
+                            else if (data.cinformation == 3) {
+                                $('#Cinformation3').prop('checked', true);
+                            }
+                            else if (data.cinformation == 4) {
+                                $('#Cinformation4').prop('checked', true);
+                            }
+                            $('#Cid').val(data.cid);
+                            $('#Cbyname').val(data.cbyname);
+                            $('#Cphone').val(data.cphone);
+                            $('#Cweixin').val(data.cweixin);
+                            $('#Ceamil').val(data.ceamil);
+                            $('#Cstate').val(data.cstate);
+                            form.render();
+                        }
+                        //修改提交
+                        , yes: function (index, layero) {
+                            alert(data.ctype)
+                            $.ajax({
+                                url: 'http://localhost:53305/api/Complaint',
+                                type: 'put',
+                                data: JSON.stringify({
+                                    cid: $('#Cid').val(),
+                                    ctype: $('#Ctype').val(),
+                                    cinformation: $('#Cinformation').val(),
+                                    cbyname: $('#Cbyname').val(),
+                                    cphone: $('#Cphone').val(),
+                                    cweixin: $('#Cweixin').val(),
+                                    ceamil: $('#Ceamil').val(),
+                                    cstate: $('#Cstate').val(),
+                                }),
+                                //data: JSON.stringify(data.field),
+                                success: function (d) {
+                                    if (d > 0) {
+                                        layer.closeAll();
+                                        alert('修改成功');
+                                       
+                                    }
+                                    else {
+                                        alert('修改失败');
+                                    }
+                                },
+                                dataType: "json",
+                                contentType: "application/json"
+                            });
+                        }
+                        , btn2: function (index, layero) {
+                            //按钮【按钮二】的回调
+                            layer.closeAll(); //疯狂模式，关闭所有层
+                            //return false 开启该代码可禁止点击该按钮关闭
+                        }
+                    });     
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
