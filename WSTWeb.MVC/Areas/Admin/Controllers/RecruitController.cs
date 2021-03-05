@@ -15,5 +15,12 @@ namespace WSTWeb.MVC.Areas.Admin.Controllers
         {
             return View();
         }
+
+        //查看
+        [Area("Admin")]
+        public IActionResult Indexcha()
+        {
+            return View();
+        }
     }
 }

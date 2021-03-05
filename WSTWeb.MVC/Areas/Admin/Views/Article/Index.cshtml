@@ -1,0 +1,540 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>维生特(上海)有限公司</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">维生特-上海</div>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">首页</a></li>
+                <li class="layui-nav-item"><a href="">黑名单</a></li>
+                <li class="layui-nav-item"><a href="">举报投诉</a></li>
+                <li class="layui-nav-item"><a href="">招聘管理</a></li>
+                <li class="layui-nav-item"><a href="">问卷管理</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">内容管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">栏目管理</a></dd>
+                        <dd><a href="">栏目公告</a></dd>
+                        <dd><a href="">栏目滚动图片</a></dd>
+                        <dd><a href="">文章管理</a></dd>
+                        <dd><a href="">文章审核</a></dd>
+                        <dd><a href="">视频审核</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其他管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">相关链接</a></dd>
+                        <dd><a href="">访问统计量</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">系统管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">用户管理</a></dd>
+                        <dd><a href="">角色管理</a></dd>
+                        <dd><a href="">菜单管理</a></dd>
+                        <dd><a href="">日志管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        贤心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退了</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-body">
+            <div style="padding: 15px;">
+                @*查询表格*@
+                <div class="layui-form">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <select name="Dtitle" id="d1" class="Dtitle">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="text" id="Aname" name="Aname" placeholder="请输入名称" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <select id="Audit_status" name="Audit_status">
+                                <option value="-1">请选择</option>
+                                <option value="1">通过</option>
+                                <option value="0">未通过</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button class="layui-btn" id="cha">查询</button>
+                            <button type="reset" class="layui-btn" id="reset">重置</button>
+                            <button lay-submit id="sub" type="reset" class="layui-btn" lay-filter="*">提交</button>
+                        </div>
+                    </div>
+                </div>
+                @*数据表格*@
+                <table id="demo" lay-filter="test"></table>
+                @*操作按钮*@
+                <script type="text/html" id="barDemo">
+                    <a class="layui-btn layui-btn-checked layui-btn-xs" lay-event="detail">编辑内容</a>
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                </script>
+                @*添加表单*@
+                <form class="layui-form form-inline" hidden="hidden" action="" id="formdata" enctype="multipart/form-data">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">栏目</label>
+                        <input type="hidden" name="aid" id="aid" value="0" />
+                        <div class="layui-input-inline">
+                            <select name="Dtitle" class="Dtitle" id="d2">
+                            </select>
+                        </div>
+                        <label class="layui-form-label">名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="aname" name="Aname" required lay-verify="required" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">发布者</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="promulgator" name="Promulgator" required lay-verify="required" placeholder="超级管理员" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">发布时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="release_time" name="Release_time" required lay-verify="required" placeholder="2018-08-08" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">排序</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="ranks" name="Ranks" required lay-verify="required" placeholder="10" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-inline">
+                            <input type="radio" id="astatus1" name="Astatus" value="0" title="隐藏">
+                            <input type="radio" id="astatus2" name="Astatus" value="1" title="显示" checked="checked">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">是否评论</label>
+                        <div class="layui-input-inline">
+                            <input type="radio" id="comment1" name="Comment" value="0" title="是">
+                            <input type="radio" id="comment2" name="Comment" value="1" title="否" checked="checked">
+                        </div>
+                        <label class="layui-form-label">是否推荐</label>
+                        <div class="layui-input-inline">
+                            <input type="radio" id="recommend1" name="Recommend" value="0" title="是" checked="checked">
+                            <input type="radio" id="recommend2" name="Recommend" value="1" title="否">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">开始时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="begin_time" name="Begin_time" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">结束时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="end_time" name="End_time" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">类型</label>
+                        <div class="layui-input-inline">
+                            <select id="aType" name="AType" lay-verify="required">
+                                <option value="正常">正常</option>
+                                <option value="不正常">不正常</option>
+                            </select>
+                        </div>
+                        <label class="layui-form-label">跳转地址</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="jump_address" name="Jump_address" required lay-verify="required" placeholder="跳转地址、设置直接跳转" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">图片</label>
+                        <div class="layui-input-inline">
+                            @*<button type="button" class="layui-btn">
+                                <i class="layui-icon">&#xe67c;</i>上传图片
+                            </button>*@
+                            <button class="layui-btn test" id="test1">上传文件</button>
+                            <img width="40" height="40" id="demo1" />
+                           
+                            @*<input id="pic" multiple name="Picture" type="file" value="选择文件" placeholder="未选择任何文件" />*@
+                        </div>
+                        <label></label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="picture" name="Picture" required lay-verify="required" placeholder="网络图片url" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">附件</label>
+                        <div class="layui-input-inline">
+                            <input id="adj" multiple name="Accessory" type="file" value="选择文件" placeholder="未选择任何文件" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script src="~/layui/layui.js"></script>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script>
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider', 'form'], function () {
+        var laydate = layui.laydate //日期
+            , laypage = layui.laypage //分页
+            , layer = layui.layer //弹层
+            , table = layui.table //表格
+            , carousel = layui.carousel //轮播
+            , upload = layui.upload //上传
+            , element = layui.element //元素操作
+            , slider = layui.slider //滑块
+            , form = layui.form
+            ,$=layui.$;
+
+        //绑定栏目下拉框
+        $(function () {
+            $.ajax({
+                url: 'http://localhost:53305/api/Article/GetDetialIndex',
+                type: 'get',
+                success: function (result) {
+                    var str = "";
+                    var str1 = "";
+                    str += '<option value="">请选择</option>';
+                    str1 += '<option value="">请选择</option>';
+                    $(result.data).each(function () {
+                        str += '<option value="' + this.dtitle + '">' + this.dtitle + '</option>';
+                    });
+                    $(result.data).each(function () {
+                        str1 += '<option value="' + this.did + '">' + this.dtitle + '</option>';
+                    });
+                    //清空加入select
+                    $("#d1").empty().append(str);
+                    $("#d2").empty().append(str1);
+                    //渲染
+                    form.render('select');
+                }
+            });
+        });
+
+        //重置功能
+        $("#reset").click(function () {
+            $('#d1').val("");
+            $('#Aname').val("");
+            $('#Audit_status').val("-1");
+            form.render()
+        });
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            , height: 400
+            , url: 'http://localhost:53305/api/Article' //数据接口
+            , page: true //开启分页
+            , limit: 5
+            , method: 'get'
+            , cols: [[ //表头
+                { field: 'aid', title: '序号', width: 100, sort: true, fixed: 'left' }
+                , { field: 'dtitle', title: '栏目', width: 150 }
+                , { field: 'aname', title: '名称', width: 150, sort: true }
+                , { field: 'ranks', title: '排序', width: 100 }
+                , {
+                    field: 'astatus', title: '状态', width: 177,
+                    templet: function (d) {
+                        if (d.astatus == 0) {     //显示判断
+                            return "显示"
+                        } else {
+                            return "不显示"
+                        }
+                    }
+               }
+                , { field: 'tops', title: '置顶', width: 100, sort: true }
+                , {
+                    field: 'recommend', title: '推荐', width: 100, sort: true,
+                    templet: function (d) {
+                        if (d.recommend == 0) {    //推荐判断
+                            return "是";
+                        } else {
+                            return "否"
+                        }
+                    }
+                }
+                , {
+                    field: 'audit_status', title: '审核状态', width: 100,
+                    templet: function (d) {
+                        if (d.audit_status == 1) {  //状态判断
+                            return "通过"
+                        } else {
+                            return "未通过"
+                        }
+                    }
+                }
+                , {
+                    field: 'release_time', title: '发布时间', width: 135, sort: true,
+                    templet: '<div>{{ layui.util.toDateString(d.createDate, "yyyy-MM-dd") }}</div>'     //时间拼接
+                }
+                , { field: 'promulgator', title: '发布者', width: 135, sort: true }
+                , { field: 'picture', title: '图片', width: 135, sort: true }
+                , { fixed: 'right', width: 190, align: 'center', toolbar: '#barDemo' }
+            ]]
+        });
+
+        //查询
+        $("#cha").click(function () {
+            //表格重载
+            table.reload('demo', {
+                where: {
+                    Dtitle: $('#d1').val(),
+                    Aname: $('#Aname').val(),
+                    Audit_status: $('#Audit_status').val()
+                } //设定异步数据接口的额外参数
+                //,height: 300
+                , page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        });
+
+
+        //监听行工具事件
+        table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                , layEvent = obj.event; //获得 lay-event 对应的值
+            if (layEvent === 'detail') {
+                layer.open({
+                    type: 1,
+                    title: ['编辑内容', 'background-color:lightgreen;'],
+                    area: ['1000px', '500px'],
+                    shade: 0,
+                    closeBtn: 1,
+                    content: $('#formdata'), //这里content是一个普通的String
+                    success: function () {
+                        $("#aid").val(data.aid);
+                        $("#d2").val(data.aTid);
+                        $("#aname").val(data.aname);
+                        $("#promulgator").val(data.promulgator);
+                        $("#release_time").val(data.release_time);
+                        $("#ranks").val(data.ranks);
+                        if (data.astatus == 1) {
+                            $("#astatus1").prop('checked', true);
+                        }
+                        else {
+                            $("#astatus2").prop('checked', true);
+                        }
+
+                        if (data.comment==1) {
+                            $("#comment1").prop('checked', true);
+                        }
+                        else {
+                            $("#comment2").prop('checked', true);
+                        }
+                        if (data.recommend == 1) {
+                            $("#recommend1").prop('checked', true);
+                        }
+                        else {
+                            $("#recommend2").prop('checked', true);
+                        }
+                        $("#begin_time").val(data.begin_time);
+                        $("#end_time").val(data.end_time);
+                        $("#aType").val(data.aType);
+                        $("#jump_address").val(data.jump_address);
+                        $("#picture").val(data.picture);
+                        form.render('select');
+                        form.render('radio');
+                    },
+                    btn: ['修改', '取消'],
+                    yes: function (index, layero) {
+                        $.ajax({
+                            url: 'http://localhost:53305/api/Article',
+                            type: 'put',
+                            data: JSON.stringify({
+                                aid: $("#aid").val(),
+                                aTid: $("#d2").val(),
+                                aname:$("#aname").val(),
+                                promulgator:$("#promulgator").val(),
+                                release_time:$("#release_time").val(),
+                                ranks: $("#ranks").val(),
+                                astatus: $("#astatus1").prop('checked') == true ? 0 : 1,
+                                comment: $("#comment1").prop('checked') == true?0:1,
+                                recommend: $("#recommend1").prop('checked') == true ? 0 : 1,
+                                begin_time: $("#begin_time").val(),
+                                end_time:$("#end_time").val(),
+                                aType:$("#aType").val(),
+                                jump_address:$("#jump_address").val(),
+                                picture: $("#picture").val()
+                            }),
+                            contentType: "application/json",
+                            dataType:'json',
+                            success: function (data) {
+                                if (data.code > 0) {
+                                    layer.closeAll();
+                                    layer.alert(data.msg);
+
+                                    table.reload('demo', {
+                                        where: {
+
+                                        } //设定异步数据接口的额外参数
+                                        //,height: 300
+                                        , page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    });
+
+                                }
+                                else {
+                                    layer.alert(data.msg);
+                                }
+                            }
+                        })
+                    },
+                    dataType: 'json',
+                    contentType: 'application/json'
+                });
+            }
+            else if (layEvent === 'del') {
+                if (confirm("确定删除吗？")) {
+                    $.ajax({
+                        url: 'http://localhost:53305/api/Article',
+                        type: 'delete',
+                        data: '"' + data.aid + '"',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (result) {
+                            if (result.code > 0) {
+                                layer.alert(result.msg);
+                                //重新加载表格
+                                table.reload('demo', {
+                                    where: {
+                                    }
+                                    , page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                });
+                            }
+                            else {
+                                alert(result.msg);
+                            }
+                        },
+                    });
+                }
+            } else if (layEvent === 'edit') {
+                layer.msg('编辑操作');
+            }
+            return false;
+        });
+
+        //提交
+        $("#sub").on('click', function () {
+            layer.open({
+                type: 1,
+                title: ['添加文章', 'background-color:lightgreen;'],
+                area: ['1000px', '500px'],
+                shade: 0,
+                content: $('#formdata'), //这里content是一个普通的String
+                btn: ['保存', '取消'],
+                success: function (index, layero) {//清空表单元素
+                     $("#formdata")[0].reset();
+                    layui.form.render();
+                },
+                btn1: function (index, layero) {
+                    $.ajax({
+                        url: 'http://localhost:53305/api/Article',
+                        type: 'post',
+                        data: JSON.stringify({
+                            aTid: $("#d2").val(),
+                            aname: $("#aname").val(),
+                            promulgator: $("#promulgator").val(),
+                            release_time: $("#release_time").val(),
+                            ranks: $("#ranks").val(),
+                            astatus: $("#astatus1").prop('checked') == true ? 0 : 1,
+                            comment: $("#comment1").prop('checked') == true ? 0 : 1,
+                            recommend: $("#recommend1").prop('checked') == true ? 0 : 1,
+                            begin_time: $("#begin_time").val(),
+                            end_time: $("#end_time").val(),
+                            aType: $("#aType").val(),
+                            jump_address: $("#jump_address").val(),
+                            picture: $("#picture").val()
+                        }),
+                        contentType: 'application/json',
+                        success: function (result) {
+                            if (result.code > 0) {
+                                layer.closeAll();
+                                layer.alert(result.msg);
+                                //重新加载表格
+                                table.reload('demo', {
+                                    where: {
+                                    }
+                                    , page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                });
+                            }
+                            else {
+                                layer.alert(result.msg);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        //上传图片
+        upload.render({
+            elem: '#test1'
+            , url: 'http://localhost:53305/api/Article/UploadImg'
+            , choose: function (obj) {
+                //将每次选择的文件追加到文件队列
+                var files = obj.pushFile();
+
+                //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                obj.preview(function (index, file, result) {
+                    console.log(index); //得到文件索引
+                    console.log(file); //得到文件对象
+
+                    //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
+
+                    //这里还可以做一些 append 文件列表 DOM 的操作
+
+                    //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+                    //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+                });
+            }
+            , done: function (res, index, upload) {
+                //假设code=0代表上传成功
+                if (res.code > 0) {
+                    $("#pic1").val(res.data);
+                    alert(res.msg);
+                    //$('#demo1').attr('src', res.data);
+                    //do something （比如将res返回的图片链接保存到表单的隐藏域）
+                } else {
+                    alert(res.msg);
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>    

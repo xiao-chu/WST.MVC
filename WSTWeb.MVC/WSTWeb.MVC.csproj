@@ -16,6 +16,14 @@
     <Folder Include="wwwroot\lib\jquery-validation\dist\" />
     <Folder Include="wwwroot\lib\jquery\" />
     <Folder Include="wwwroot\lib\jquery\dist\" />
+    <Folder Include="aa\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\ʾ��ͼ1.png" />
+    <None Include="wwwroot\images\ʾ��ͼ2.png" />
+    <None Include="wwwroot\images\ʾ��ͼ3.png" />
+    <None Include="wwwroot\images\ʾ��ͼ4.png" />
   </ItemGroup>
 
   <ItemGroup>

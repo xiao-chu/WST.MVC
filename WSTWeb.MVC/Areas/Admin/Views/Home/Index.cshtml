@@ -23,9 +23,9 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">内容管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">栏目管理</a></dd>
+                        <dd><a href="@Url.Action("Index","WST_Detial_Pro")">栏目管理</a></dd>
                         <dd><a href="">栏目公告</a></dd>
-                        <dd><a href="">栏目滚动图片</a></dd>
+                        <dd><a href="@Url.Action("Index","WST_Scroll_Picture")">栏目滚动图片</a></dd>
                         <dd><a href="">文章管理</a></dd>
                         <dd><a href="">文章审核</a></dd>
                         <dd><a href="">视频审核</a></dd>
@@ -59,21 +59,117 @@
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">退了</a></li>
+                <li class="layui-nav-item"><a href="@Url.Action("Login","User")">退了</a></li>
             </ul>
         </div>
 
+        @*主内容区*@
         <div class="layui-body">
-            <div style="padding: 15px;">主内容区</div>
+            <div>
+                <div style="padding: 15px;">
+                    <div style="width:800px;height:600px;float:left;background-color:azure;">
+                        <br />
+                        <span style="font-size:15px;margin-left:20px;">文章Top10</span><a>更多</a>
+
+                    </div>
+                    <div style="width:500px;height:300px;float:left;margin-left:20px;background-color:azure;">
+                        <br />
+                        <span style="font-size:15px;margin-left:20px;">个人信息</span><a href="@Url.Action("Edit","User")">编辑</a>
+                        <table class="layui-table" lay-skin="nob">
+                            <tr>
+                                <td>登录名</td>
+                                <td><input type="text" id="User_Name" style="border:none;" readonly/><span id="aa"></span></td>
+                            </tr>
+                            <tr>
+                                <td>昵称</td>
+                                <td><input type="text" id="User_Nickname" style="border:none" readonly/></td>
+                            </tr>
+                            <tr>
+                                <td>emali</td>
+                                <td><input type="text" id="User_Email" style="border:none" readonly/></td>
+                            </tr>
+                            <tr>
+                                <td>手机号</td>
+                                <td><input type="text" id="User_Phone" style="border:none" readonly/></td>
+                            </tr>
+                            <tr>
+                                <td>备注</td>
+                                <td><input type="text" id="User_Remark" style="border:none" readonly/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="width:500px;height:200px;float:left;margin:20px 20px;background-color:azure;">
+                        <br />
+                        <span style="font-size:15px;margin-left:20px;">注册用户Top10</span><a href="@Url.Action("Index","User")">编辑</a>
+                        <table class="layui-table" lay-skin="nob" id="tab">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
-    </div>
+    </div>`
+    <script src="~/js/jquery-3.3.1.js"></script>
     <script src="~/layui/layui.js"></script>
+    <script src="~/js/setCookie.js"></script>
     <script>
         //JavaScript代码区域
-        layui.use('element', function () {
-            var element = layui.element;
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider'], function () {
+            var laydate = layui.laydate //日期
+                , laypage = layui.laypage //分页
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+                , slider = layui.slider //滑块
 
+            //第一个实例
+            table.render({
+                elem: '#demo'
+                , height: 312
+                , url: '/demo/table/user/' //数据接口
+                , page: true //开启分页
+                , cols: [[ //表头
+                    { field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left' }
+                    , { field: 'username', title: '用户名', width: 80 }
+                    , { field: 'sex', title: '性别', width: 80, sort: true }
+                    , { field: 'city', title: '城市', width: 80 }
+                    , { field: 'sign', title: '签名', width: 177 }
+                    , { field: 'experience', title: '积分', width: 80, sort: true }
+                    , { field: 'score', title: '评分', width: 80, sort: true }
+                    , { field: 'classify', title: '职业', width: 80 }
+                    , { field: 'wealth', title: '财富', width: 135, sort: true }
+                ]]
+            });
+            //加载个人信息
+            //var user = getCookie("userName").toString();
+            var userName = getCookie("userName").toString();
+            var userNickname = getCookie("userNickname").toString();
+            var userEmail = getCookie("userEmail").toString();
+            var userPhone = getCookie("userPhone").toString();
+            var userRemarks = getCookie("userRemark").toString();
+            $("#User_Name").val(userName);
+            $("#User_Nickname").val(userNickname);
+            $("#User_Email").val(userEmail);
+            $("#User_Phone").val(userPhone);
+            $("#User_Remark").val(userRemarks);
+            //加载注册用户top10
+            $.ajax({
+                url: 'http://localhost:53305/api/User/gets',
+                type: 'get',
+                success: function (result) {
+                    var str = '';
+                    $(result.data).each(function () {
+                        str += '<tr>'
+                            + '<td>用户：' + this.user_Nickname + '</td>'
+                            + '<td>' + (this.user_CreateTime.substring(0, 10) +' '+ this.user_CreateTime.substring(11, 19)) + '</td>'
+                            + '</tr>';
+                    });
+                    $("#tab").empty().append(str);
+                },
+            });
         });
     </script>
 </body>

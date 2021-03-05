@@ -341,6 +341,7 @@
                         }
                         //修改提交
                         , yes: function (index, layero) {
+                            alert(data.ctype)
                             $.ajax({
                                 url: 'http://localhost:53305/api/Complaint',
                                 type: 'put',
