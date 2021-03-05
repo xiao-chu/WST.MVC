@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<script src="~/layui/layui.js"></script>
+<link href="/layui/css/layui.css" rel="stylesheet" />
+<div style="width:1362px;height:141px;margin:0 auto;">
+    <img src="~/images/房子logo.jpg" style="width:1362px;height:141px;" />
+</div>
+<div class="text-center" style="width:1362px;height:187px;">
+    <span style="margin-top:100px;font-size:40px;position:relative;top:50px;">黑名单</span>
+</div>
+<div style="width:1200px;height:1210px;background-color:lightcyan">
+    <div style="width:336px;height:1200px;margin:0px;background-color:lightcyan">
+        <!--第一个按钮:举报途径-->
+        <div style="width:336px;height:112px;text-align:center;background-color:cornflowerblue">
+            <span style="font-size:25px;position:relative;top:25px">举报途径<br />Report way</span>
+        </div>
+        <!--第二个按钮:在线举报-->
+        <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;position:relative;top:35px" onclick="location.href='//'">
+                在线举报
+                <br />
+                <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe702;</i>
+            </span>
+        </div>
+        <!--第三个按钮:黑名单-->
+        <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;position:relative;top:35px">
+                黑名单<br />
+                <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe770;</i>
+            </span>
+        </div>
+        <!--第四个按钮:电话举报-->
+        <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;color:black;position:relative;top:35px">
+                电话举报<br />
+                <i class="layui-icon" style="font-size: 30px; color:black;">&#xe678;</i>
+                <br />4006561700
+            </span>
+        </div>
+        <!--第五个按钮:微信举报-->
+        <div style="width:256px;height:330px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;position:relative;top:35px">
+                微信举报<br /><br />
+                <i class="layui-icon" style="font-size: 30px; color:black;">&#xe677;</i>
+                <br />
+                <br />
+                <img src="~/images/二维码2.png" />
+            </span>
+        </div>
+        <!--第六个按钮:客服专线-->
+        <div style="width:256px;height:226px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:15px;position:relative;top:35px">
+                非舞弊相关投诉请
+                <br />
+                <br />
+                通过如下方式进行
+                <br />
+                <br />
+                <a>客服专线</a>
+                <br />
+                <br />
+                <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe626;</i>
+                <br />
+                <br />
+            </span>
+        </div>
+    </div>
+
+    <div style="width:858px;height:1200px;margin:-1200px 0px 0px 340px;background-color:lightcyan">
+        <div style="width:498px;height:352px;margin-left:200px;margin-top:80px;">
+            <input id="Btype1" name="Btype" style="margin-left:150px;" type="radio" />单位
+            <input id="Btype2" name="Btype" style="margin-left:80px;" type="radio" />个人
+            <br /><br />
+            <span style="margin-left:130px;">企业名称🌟</span><br />
+            <input id="Bunit" name="Bunit" type="text" style="margin-left:130px;width:296px;height:42px;" placeholder="输入关键词" /><br /><br />
+            <span style="margin-left:130px;">统一社会信用代码🌟</span><br />
+            <input id="Bnumber" name="Bnumber" type="text" style="margin-left:130px;width:296px;height:42px;" placeholder="输入关键词" /><br /><br /><br /><br />
+            <input id="Button1" style="margin-left:130px;" type="button" value="button" class="btn btn-outline-success" />
+        </div>
+        <div style="width:518px;height:293px;">
+            <div style="width:746px;height:36px;margin-top:20px;">
+                <span style="font-size:20px;position:relative;left:100px;"><b>注意事项:</b></span>
+            </div>
+            <div style="width:746px;height:36px;margin-top:10px;margin-left:150px;">
+                <span style="margin-left:80px;font-size:17px;">该查询仅提供人员/单位在中梁集团就职或合作期间是否存在违规、违纪或违法等不诚信行为相关信息。（如需进一步了解详情，请发函至jc@wsttop.com)特别提示</span>
+            </div>
+            <div style="width:746px;height:36px;margin-top:10px;margin-left:150px;">
+                <span style="margin-left:80px;font-size:17px;">不诚信行为信息仅限于供企业人力资源有关的员工背景审查;若违法使用或以任何形式泄露、公开被查询员工的个人信息，所造成的一切法律后果由非法使用者及其所在单位承担。</span>
+            </div>
+        </div>
+    </div>
+</div>

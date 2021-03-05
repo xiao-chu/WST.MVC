@@ -1,0 +1,408 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>维生特(上海)有限公司</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">维生特-上海</div>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">首页</a></li>
+                <li class="layui-nav-item"><a href="@Url.Action("Index","BlackList")">黑名单</a></li>
+                <li class="layui-nav-item"><a href="@Url.Action("Index","Complaint")">举报投诉</a></li>
+                <li class="layui-nav-item"><a href="@Url.Action("Index","Recruit")">招聘管理</a></li>
+                <li class="layui-nav-item"><a href="">问卷管理</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">内容管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">栏目管理</a></dd>
+                        <dd><a href="">栏目公告</a></dd>
+                        <dd><a href="">栏目滚动图片</a></dd>
+                        <dd><a href="">文章管理</a></dd>
+                        <dd><a href="">文章审核</a></dd>
+                        <dd><a href="">视频审核</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其他管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">相关链接</a></dd>
+                        <dd><a href="">访问统计量</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">系统管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">用户管理</a></dd>
+                        <dd><a href="">角色管理</a></dd>
+                        <dd><a href="">菜单管理</a></dd>
+                        <dd><a href="">日志管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        贤心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退了</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-body">
+            <div style="padding: 15px;">
+                <!--查询违纪人-->
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="tel" id="Bunit2" name="Bunit" autocomplete="off" placeholder="请输入违纪单位/人" class="layui-input">
+                        </div>
+                    </div>
+                    <button type="button" class="layui-btn" id="btn-cha">🔍查询</button>
+                    <button type="button" id="chongzhi" class="layui-btn">🔄重置</button>
+                    <button type="button" id="btnadd" class="layui-btn">➕新增</button>
+                </div>
+
+                <table id="demo" lay-filter="test">
+                </table>
+                <!--增删改按钮-->
+                <script type="text/html" id="barDemo">
+                    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail">查看</a>
+                    <a class="layui-btn layui-btn-xs" id="btngai" lay-event="edit">修改</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                </script>
+            </div>
+            <!--弹窗添加-->
+            <form class="layui-form" id="formadd" action="" style="display:none;text-align:center">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">违纪类别</label>
+                    <div class="layui-input-inline">
+                        <input type="hidden" id="Bid" name="Bid" value="0">
+                        <input type="text" id="Btype" name="Btype" lay-verify="title" autocomplete="off" placeholder="请输入违纪类别" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">违纪单位/人</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="Bunit" name="Bunit" lay-verify="title" autocomplete="off" placeholder="请输入违纪单位人" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">证件号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="Bnumber" name="Bnumber" lay-verify="title" autocomplete="off" placeholder="请输入违纪类别" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">违纪事项</label>
+                    <div class="layui-input-inline">
+                        <select id="Bmatter" name="Bmatter" lay-filter="aihao">
+                            <option value="0" selected="">请选择</option>
+                            <option value="偷税漏税">偷税漏税</option>
+                            <option value="办公室大小便">办公室大小便</option>
+                            <option value="随地吐痰">随地吐痰</option>
+                            <option value="打架">打架</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" id="Bstate1" class="Bstate" name="Bstate" value="1" title="启用" checked="">
+                        <input type="radio" id="Bstate2" class="Bstate" name="Bstate" value="0" title="禁用">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <script src="~/layui/layui.js"></script>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script>
+        //JavaScript代码区域
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'form', 'element', 'slider'], function () {
+            var laydate = layui.laydate //日期
+                , laypage = layui.laypage //分页
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+                , slider = layui.slider //滑块
+                , form = layui.form
+
+            //执行一个 table 实例
+            table.render({
+                elem: '#demo'
+                , height: 420
+                , url: 'http://localhost:53305/api/BlackList' //数据接口
+                , page: true //开启分页
+                , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                , limit: 10
+                , limits: [10, 20, 30, 40, 50]
+                , method: 'get'
+                , request: {
+                    pageName: 'page' //页码的参数名称，默认：page
+                    , limitName: 'limit' //每页数据量的参数名，默认：limit
+                }
+                , cols: [[ //表头
+                    { field: 'bid', title: '序号', width: 80, fixed: 'left' }
+                    , { field: 'btype', title: '违纪类别', width: 120, sort: true }
+                    , { field: 'bunit', title: '违纪单位/人', width: 120, sort: true }
+                    , { field: 'bnumber', title: '证件号', width: 250, sort: true }
+                    , { field: 'bmatter', title: '违纪事项', width: 150, sort: true }
+                    , {
+                        field: 'bstate', title: '状态', width: 80, sort: true,
+                        templet: function (d) {
+                            if (d.bstate==1) {
+                                return '启用'
+                            }
+                            else {
+                                return '禁用'
+                            }
+                        }
+                    }
+                    , {
+                        field: 'btime', title: '更新时间', width: 200, sort: true,
+                        templet: function (d) {
+                        return (d.btime.substring(0, 10) + ' ' + d.btime.substring(11, 19));
+                    }
+                    }
+                    , { field: 'bpeople', title: '发布人', width: 100, sort: true }
+                    , { fixed: 'right', title: '操作', width: 165, align: 'left', toolbar: '#barDemo' }
+                ]]
+            });
+
+            //重置Bunit
+            $('#chongzhi').on('click', function () {
+                $('#Bunit2').val('');
+                table.reload('demo', {
+                    where: { //设定异步数据接口的额外参数，任意设
+                        Bunit: ""
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                }); //只重载数据
+            });
+
+            //查询
+            $('#btn-cha').on('click', function () {
+                var Bunit =$('#Bunit2').val();
+                table.reload('demo', {
+                    where: { //设定异步数据接口的额外参数，任意设
+                        Bunit: Bunit
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                }); //只重载数据
+            });
+
+            //弹出框添加/修改
+            $('#btnadd').on('click', function () {
+                layer.open({
+                    title: '举报投诉'
+                    , content: $('#formadd')
+                    , type: 1
+                    , area: ['500px', '500px']
+                    , shade: 0
+                    , anim: 6
+                    , closeBtn: 1
+                    , btn: ['保存', '关闭']
+                    , btnAlign: 'c'
+                    , success: function (index, layero) {//清空表单元素
+                        $("#formadd")[0].reset();
+                        layui.form.render();
+                    }
+                    , yes: function (index, layero) {
+                        $.ajax({
+                            url: 'http://localhost:53305/api/BlackList',
+                            type: 'post',
+                            data: JSON.stringify({
+                                btype: $('#Btype').val(),
+                                bunit: $('#Bunit').val(),
+                                bnumber: $('#Bnumber').val(),
+                                bmatter: $('#Bmatter').val(),
+                                bstate: $('.Bstate:checked').val()
+                                
+                            }),
+                            //data: JSON.stringify(data.field),
+                            success: function (d) {
+                                if (d > 0) {
+                                    layer.closeAll();
+                                    table.reload('demo', {
+                                        where: { //设定异步数据接口的额外参数，任意设
+                                        }
+                                        , page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    }); //只重载数据
+                                    alert('添加成功');
+                                }
+                                else {
+                                    alert('添加失败');
+                                }
+                            },
+                            dataType: "json",
+                            contentType: "application/json"
+                        });
+                    }
+                    , btn2: function (index, layero) {
+                        //按钮【按钮二】的回调
+                        layer.closeAll(); //疯狂模式，关闭所有层
+                        //return false 开启该代码可禁止点击该按钮关闭
+                    }
+                });
+            });
+            
+
+            //监听头工具栏事件
+            table.on('toolbar(test)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id)
+                    , data = checkStatus.data; //获取选中的数据
+                switch (obj.event) {
+                    case 'add':
+                        layer.msg('添加');
+                        break;
+                    case 'update':
+                        if (data.length === 0) {
+                            layer.msg('请选择一行');
+                        } else if (data.length > 1) {
+                            layer.msg('只能同时编辑一个');
+                        } else {
+                            layer.alert('编辑 [id]：' + checkStatus.data[0].id);
+                        }
+                        break;
+                    case 'delete':
+                        if (data.length === 0) {
+                            layer.msg('请选择一行');
+                        } else {
+                            layer.msg('删除');
+                        }
+                        break;
+                };
+            });
+
+            //监听行工具事件
+            table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据
+                    , layEvent = obj.event; //获得 lay-event 对应的值
+                if (layEvent === 'detail') {
+                    location.href = '@Url.Action("lookBlack","BlackList")';
+                } else if (layEvent === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        $.ajax({
+                            url: 'http://localhost:53305/api/BlackList',
+                            type: 'delete',
+                            data: '"'+data.bid+'"',
+                            success: function (d) {
+                                if (d > 0) {
+                                    layer.closeAll();
+                                    alert('删除成功');
+                                    table.reload('demo', {
+                                        where: { //设定异步数据接口的额外参数，任意设
+                                        }
+                                        , page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    }); //只重载数据
+                                }
+                                else {
+                                    alert('删除失败');
+                                }
+                            },
+                            //dataType: "json",
+                            contentType: "application/json"
+                        });
+                    });
+                } else if (layEvent === 'edit') {
+                    //修改提交
+                    layer.open({
+                        title: '举报投诉'
+                        , content: $('#formadd')
+                        , type: 1
+                        , area: ['500px', '500px']
+                        , shade: 0
+                        , anim: 6
+                        , closeBtn: 1
+                        , success: function () {
+                            $('#Bid').val(data.bid);
+                            $('#Btype').val(data.btype);
+                            $('#Bunit').val(data.bunit);
+                            $('#Bnumber').val(data.bnumber);
+                            $('#Bmatter').val(data.bmatter);
+                            $('#Bstate').val(data.bstate);
+                            if (data.bstate == 1) {
+                                $('#Bstate1').prop('checked', true);
+                            }
+                            else if (data.bstate == 0) {
+                                $('#Bstate2').prop('checked', true);
+                            }
+                            form.render();
+                        }
+                        , btn: ['保存', '关闭']
+                        , btnAlign: 'c'
+                        , yes: function (index, layero) {
+                            $.ajax({
+                                url: 'http://localhost:53305/api/BlackList',
+                                type: 'put',
+                                data: JSON.stringify({
+                                    Bid: $('#Bid').val(),
+                                    Btype: $('#Btype').val(),
+                                    Bunit: $('#Bunit').val(),
+                                    Bnumber: $('#Bnumber').val(),
+                                    Bmatter: $('#Bmatter').val(),
+                                    Bstate: $('.Bstate:checked').val()
+                                }),
+                                //data: JSON.stringify(data.field),
+                                success: function (d) {
+                                    if (d > 0) {
+                                        layer.closeAll();
+                                        //修改成功刷新数据网格
+                                        table.reload('demo', {
+                                            where: { //设定异步数据接口的额外参数，任意设
+                                            }
+                                            , page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        }); //只重载数据
+                                        alert('修改成功');
+                                    }
+                                    else {
+                                        alert('修改失败');
+                                    }
+                                },
+                                dataType: "json",
+                                contentType: "application/json"
+                            });
+                        }
+                        , btn2: function (index, layero) {
+                            //按钮【按钮二】的回调
+                            layer.closeAll(); //疯狂模式，关闭所有层
+                            //return false 开启该代码可禁止点击该按钮关闭
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
