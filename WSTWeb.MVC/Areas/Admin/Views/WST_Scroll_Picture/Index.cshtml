@@ -13,7 +13,7 @@
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo">栏目滚动图片</div>
+            <div class="layui-logo">维生特-上海</div>
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item"><a href="@Url.Action("Index","Home")">首页</a></li>
                 <li class="layui-nav-item"><a href="">黑名单</a></li>
@@ -63,8 +63,90 @@
             </ul>
         </div>
 
+        <!--弹框添加-->
+        <form class="layui-form" id="formadd" action="" style="display:none">
+            <br />
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        <input type="hidden" id="Sid" name="Sid" class="layui-input">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">栏目</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="Sprograma" name="Sprograma" required lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">图片标题</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="Stitle" name="Stitle" required lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="Hidden1" type="hidden" name="pro_picture" />
+                        <label class="layui-form-label">上传图片</label>
+
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn" id="test1">上传图片</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="demo1" style="width:85px;height:80px;position:relative;left:215px;top:-50px">
+                                <p id="demoText"></p>
+                            </div>
+                            <input id="Simg" type="hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">状态</label>
+                            <div class="layui-input-inline">
+                                <input type="radio" id="Sstate1" name="Sstate" value="0" title="显示" checked="">
+                                <input type="radio" id="Sstate2" name="Sstate" value="1" title="隐藏">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">更新时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" class="layui-input" id="Stime" placeholder="yyyy-MM-dd HH:mm:ss">
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">链接地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="Slink" name="Slink" required lay-verify="title" placeholder="请输入" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">内容</label>
+                            <div class="layui-input-block">
+                                <textarea id="Scontent" name="Scontent" style="width:462px" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <!--查询-->
         <div class="layui-body">
-            <!--查询-->
             <div class="layui-form" style="margin-left:15px;margin-top:15px">
                 <div class="layui-inline">
                     <div class="layui-inline">
@@ -74,12 +156,14 @@
                 </div>
                 <button class="layui-btn layui-btn-primary" id="Search"><i class="layui-icon">&#xe615;</i>查询</button>
                 <button class="layui-btn layui-btn-primary" id="Reset"><i class="layui-icon">&#xe9aa;</i>重置</button>
-                <button class="layui-btn layui-btn-primary" id="btnzeng"><i class="layui-icon">&#xe654;</i>新增</button>
+                <button class="layui-btn layui-btn-primary" id="NewAdd"><i class="layui-icon">&#xe654;</i>新增</button>
             </div>
             <div style="padding: 15px;">
                 <table class="layui-hide" lay-filter="test" id="test"></table>
             </div>
         </div>
+
+        <!--行操作-->
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -114,7 +198,7 @@
                     , { field: 'scontent', width: 180, title: '内容', sort: true }
                     , {
                         field: 'sstate', width: 180, title: '状态', sort: true, templet: function (d) {
-                            if (d.dstate == 0) {
+                            if (d.sstate == 1) {
                                 return "显示";
                             }
                             else {
@@ -130,7 +214,7 @@
                         }
                     }
                     , { field: 'slink', width: 180, title: '链接地址', sort: true }
-                    , { field: 'stime', width: 180, title: '更新地址', sort: true }
+                    , { field: 'stime', width: 180, title: '更新时间', sort: true }
                     , { fixed: 'right', width: 165, align: 'center', toolbar: '#barDemo' }
                 ]]
 
@@ -145,7 +229,7 @@
                         $.ajax({
                             url: 'http://localhost:53305/api/WST_Scroll_Picture',
                             type: 'delete',
-                            data: '"' + data.sid+'"',
+                            data: '"' + data.sid + '"',
                             success: function (result) {
                                 if (result > 0) {
                                     alert("删除成功！");
@@ -163,7 +247,66 @@
                         })
                     });
                 } else if (layEvent === 'edit') {
-                    layer.msg('编辑操作');
+                    layer.open({
+                        title: '修改栏目图片'
+                        , content: $('#formadd')
+                        , area: ['650px', '600px']
+                        , closeBtn: 2
+                        , shade: 0
+                        , anim: 6
+                        , resize: true
+                        , type: 1
+                        , success: function () {
+                            //隐藏域id反填
+                            $('#Sid').val(data.sid);
+                            $('#Sprograma').val(data.sprograma);
+                            $('#Stitle').val(data.stitle);
+                            $('#Scontent').val(data.scontent);
+                            if (data.sstate == 1) {
+                                $('#Sstate1').prop("checked",true);
+                            }
+                            else {
+                                $('#Sstate2').prop("checked", true);
+                            }
+                            $('#Simg').val(data.simg);
+                            $('#Slink').val(data.slink);
+                            $('#Stime').val(data.stime.substring(0,10));
+                            $('#demo1').attr('src', data.simg);
+                            form.render();
+                        }
+                        , btn: ['修改', '关闭'] //可以无限个按钮
+                        , btnAlign: 'c'
+                        , yes: function (index, layero) {
+                            $.ajax({
+                                url: 'http://localhost:53305/api/WST_Scroll_Picture',
+                                type: 'put',
+                                data: JSON.stringify({
+                                    //id
+                                    Sid: $('#Sid').val(),
+                                    Sprograma: $('#Sprograma').val(),
+                                    Stitle: $('#Stitle').val(),
+                                    Scontent: $('#Scontent').val(),
+                                    Sstate: $('#Sstate1').prop("checked") == true ? 0 : 1,
+                                    Simg: $('#Simg').val(),
+                                    Slink: $('#Slink').val(),
+                                    Stime: $('#Stime').val(),
+                                }),
+                                success: function (data) {
+                                    if (data > 0) {
+                                        layer.closeAll(); //疯狂模式，关闭所有层
+                                        alert("修改成功！");
+                                        location.reload();
+                                    }
+                                    else {
+                                        alert("修改失败！");
+                                    }
+                                },
+                                dataType: "json",
+                                contentType: "application/json"
+                            })
+                        }
+                    });
+
                 }
             });
 
@@ -188,21 +331,105 @@
 
             //绑定查询下拉框
             $(function () {
-                    $.ajax({
-                        url: 'http://localhost:53305/api/WST_Scroll_Picture',
-                        type: 'get',
-                        success: function (result) {
-                            var str = '';
-                            str += '<option value="">--请选择--</option>';
-                            $(result.data).each(function () {
-                                str += '<option value="' + this.stitle + '">' + this.stitle + '</option>';
-                            });
-                            $('#iname').empty().append(str);
-                            //渲染下拉框
-                            form.render('select');
-                        }
-                    })
+                $.ajax({
+                    url: 'http://localhost:53305/api/WST_Scroll_Picture',
+                    type: 'get',
+                    success: function (result) {
+                        var str = '';
+                        str += '<option value="">--请选择--</option>';
+                        $(result.data).each(function () {
+                            str += '<option value="' + this.stitle + '">' + this.stitle + '</option>';
+                        });
+                        $('#iname').empty().append(str);
+                        //渲染下拉框
+                        form.render('select');
+                    }
+                })
+            });
+
+            //添加按钮事件
+            $('#NewAdd').click(function (event) {
+                //阻止第一次加载
+                event.preventDefault();
+                layer.open({
+                    title: '栏目图片管理'
+                    , content: $('#formadd')
+                    , area: ['650px', '600px']
+                    , closeBtn: 2
+                    , shade: 0
+                    , anim: 6
+                    , resize: true
+                    , type: 1
+                    , success: function (index, layero) {
+                        $('#formadd')[0].reset();
+                        layui.form.render();
+                    }
+                    , btn: ['新增', '关闭'] //可以无限个按钮
+                    , btnAlign: 'c'
+                    , yes: function (index, layero) {
+                        //按钮【按钮一】的回调
+                        $.ajax({
+                            url: 'http://localhost:53305/api/WST_Scroll_Picture',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Sprograma: $('#Sprograma').val(),
+                                Stitle: $('#Stitle').val(),
+                                Scontent: $('#Scontent').val(),
+                                Sstate: $('#Sstate1').prop("checked")==true?0:1,
+                                Simg: $('#Simg').val(),
+                                Slink: $('#Slink').val(),
+                                Stime: $('#Stime').val(),
+                            }),
+                            success: function (data) {
+                                if (data > 0) {
+                                    layer.closeAll(); //疯狂模式，关闭所有层
+                                    alert("添加成功！");
+                                    location.reload();
+                                    //渲染
+                                    table.reload('demo1', {
+                                        where: { //设定异步数据接口的额外参数，任意设
+                                            Bunit: ""
+                                        }
+                                        , page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    });
+                                }
+                                else {
+                                    alert("添加失败！");
+                                }
+                            },
+                            dataType: "json",
+                            contentType: "application/json"
+                        })
+                    }
+
                 });
+            });
+
+            //普通图片上传
+            upload.render({
+                elem: '#test1'
+                , url: '@Url.Action("Upload", "WST_Scroll_Picture")' //改成自己的上传接口
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo1').attr('src', result); //图片链接（base64）
+                    });
+                }
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code > 0) {
+                        return layer.msg('上传失败');
+                    }
+                    else {
+                        $('#Simg').val(res.path)
+                        layer.msg('上传成功');
+                    }
+                    //上传成功
+                }
+            });
+
         });
 
 
