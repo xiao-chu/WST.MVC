@@ -12,7 +12,7 @@
     <link href="~/layui/css/layui.css" rel="stylesheet" />
 </head>
 <body class="layui-layout-body">
-    <div class="layui-layout layui-layout-admin">
+    <div class="layui  -layout layui-layout-admin">
         @*导航区域*@
         <div class="layui-header">
             <div class="layui-logo">维生特-上海</div>
@@ -65,369 +65,505 @@
             </ul>
         </div>
         @*主内容区域*@
-    <div class="layui-body">
-        @*查询，时间操作*@
-        <div style="padding: 15px;">
-            @*查询模块*@
-            <div class="layui-inline">
-                <label class="layui-form-label">编号查询</label>
-                <div class="layui-input-inline">
-                    <input id="val" type="tel" name="Qnumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
+        <div class="layui-body">
+            @*查询，时间操作*@
+            <div style="padding: 15px;">
+                @*查询模块*@
+                <div class="layui-inline">
+                    <label class="layui-form-label">编号查询</label>
+                    <div class="layui-input-inline">
+                        <input id="val" type="tel" name="Qnumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                    </div>
+                    <button id="chkQnumber" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe615;</i>查询</button>
+                    <button id="Resetcondition" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe9aa;</i>重置</button>
+                    <button id="Addquestionnaire" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe608;</i> 添加</button>
                 </div>
-                <button id="chkQnumber" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe615;</i>查询</button>
-                <button id="Resetcondition" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe9aa;</i>重置</button>
-                <button id="Addquestionnaire" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe608;</i> 添加</button>
-            </div>
-            @*数据网格*@
-            <table class="layui-hide" id="demo" lay-filter="test"></table>
-            @*题目添加*@
-            <script type="text/html" id="AddDemo">
-                <a class="layui-btn layui-btn-xs" lay-event="create">新增题目</a>
-            </script>
-            @*表格后面的操作*@
-            <script type="text/html" id="barDemo">
-                <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                <a class="layui-btn layui-btn-xs" lay-event="Pushthenail">推钉钉</a>
-                <a class="layui-btn layui-btn-xs" lay-event="Pushemail">推邮箱</a>
-            </script>
+                @*数据网格*@
+                @*文件数据网格*@
+                <table class="layui-hide" id="demo1" lay-filter="test"></table>
+                @*题目数据网格*@
+                <div id="showtimu" style="display:none">
+                    <table class="layui-hide" id="demo2" lay-filter="test" lay-data="{id: 'idTest'}"></table>
+                </div>
+                @*题目添加*@
+                <script type="text/html" id="AddDemo">
+                    <a class="layui-btn layui-btn-xs" lay-event="create">新增题目</a>
+                    <a class="layui-btn layui-btn-xs" lay-event="Seethetitle">查看题目</a>
+                </script>
+                @*表格后面的操作*@
+                <script type="text/html" id="barDemo">
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                    <a class="layui-btn layui-btn-xs" lay-event="Pushthenail">推钉钉</a>
+                    <a class="layui-btn layui-btn-xs" lay-event="Pushemail">推邮箱</a>
+                </script>
+                @*题目后面操作*@
+                <script type="text/html" id="telDemo">
+                    <a class="layui-btn layui-btn-xs" lay-event="Newtopic">新增题目</a>                    
+                </script>
 
+            </div>
+            <!--添加表单-->
+            <form class="layui-form" action="" id="AddQuest" style="display:none">
+                <div class="layui-form-item" style="width:350px">
+                    <label class="layui-form-label">问卷标题</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="qid" value="0" />
+                        <input type="text" name="qtitle" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item" style="width:350px">
+                    <label class="layui-form-label">开始描述</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="qstratdesc" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item" style="width:350px">
+                    <label class="layui-form-label">结束描述</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="qenddesc" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item" style="width:350px">
+                    <label class="layui-form-label">问卷状态</label>
+                    <div class="layui-input-block">
+                        <input id="ch1" type="radio" name="qstate" value="1" title="启用">
+                        <input id="ch2" type="radio" name="qstate" value="0" title="禁用">
+                    </div>
+                </div>
+
+            </form>
+            <!--新增题目表单-->
+            <form class="layui-form" action="" id="Newtopic" style="display:none">
+
+                <div class="layui-form-item" style="width:350px">
+                    <label class="layui-form-label">1.请编辑问题？</label>
+                </div>
+
+                <div class="layui-form-item" style="width:350px">
+                    <div class="layui-input-block">
+                        <input type="hidden" name="qid" value="0" />
+                        <input type="text" name="etitle" lay-verify="title" autocomplete="off" placeholder="请编辑问题" class="layui-input">
+                    </div>
+                </div>
+
+                @*<div class="layui-form-item" style="width:350px">
+                        <div class="layui-input-block">
+                            <input type="text" name="ememo" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                        </div>
+                    </div>*@
+
+                @*<div class="layui-form-item" style="width:350px">
+
+                        <div class="layui-input-block">
+                            <button type="button" id="Addaoption" class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-add-circle-fine"></i>添加选项</button>
+                        </div>
+                    </div>*@
+
+                <div class="layui-form-item" style="width:350px">
+                    <div class="layui-input-block" style="width:100px;height:3px">
+                        <select name="questiontypes" lay-verify>
+                            <option value="">添加问题</option>
+                            <option value="1">单选</option>
+                            <option value="2">多选</option>
+                        </select>
+                    </div>
+                </div>
+
+            </form>
+            <!--增加题目选项-->
+            <form class="layui-form" action="" id="Subjectoptions" style="display:none">
+
+                <div class="layui-form-item" style="width:350px">
+                    <label class="layui-form-label">题目选项编辑</label>
+                </div>
+
+                <input type="hidden" name="qid" value="0" />
+                <div class="layui-form-item" style="width:350px">
+                    <div class="layui-input-block">
+                        <input type="text" name="titem" lay-verify="title" autocomplete="off" placeholder="请编辑题目" class="layui-input">
+                    </div>
+                </div>
+
+            </form>
         </div>
-        <!--添加表单-->
-        <form class="layui-form" action="" id="AddQuest" style="display:none">
-            <div class="layui-form-item" style="width:350px">
-                <label class="layui-form-label">问卷标题</label>
-                <div class="layui-input-block">
-                    <input type="hidden" name="qid" value="0" />
-                    <input type="text" name="qtitle" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item" style="width:350px">
-                <label class="layui-form-label">开始描述</label>
-                <div class="layui-input-block">
-                    <input type="text" name="qstratdesc" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item" style="width:350px">
-                <label class="layui-form-label">结束描述</label>
-                <div class="layui-input-block">
-                    <input type="text" name="qenddesc" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item" style="width:350px">
-                <label class="layui-form-label">问卷状态</label>
-                <div class="layui-input-block">
-                    <input id="ch1" type="radio" name="qstate" value="1" title="启用">
-                    <input id="ch2" type="radio" name="qstate" value="0" title="禁用">
-                </div>
-            </div>
-
-        </form>
-        <!--新增题目表单-->      
-        <form class="layui-form" action="" id="Newtopic" style="display:none">
-
-            <div class="layui-form-item" style="width:350px">
-                <label class="layui-form-label">1.请编辑问题？</label>              
-            </div>
-
-            <div class="layui-form-item" style="width:350px">
-                <label class="layui-form-label">问题：</label>
-                <div class="layui-input-block">
-                    <input type="hidden" name="qid" value="0" />
-                    <input type="text" name="qtitle" lay-verify="title" autocomplete="off" placeholder="请编辑问题" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item" style="width:350px">
-                <label class="layui-form-label">类型：</label>
-                <div class="layui-input-block">
-                    <input type="text" name="qstratdesc" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
-                    <input id="" type="radio" name="qstate" value="1" title="不可填空">
-                    <input id="" type="radio" name="qstate" value="0" title="可填空">
-                </div>
-            </div>
-
-            <div class="layui-form-item" style="width:350px">
-                <label class="layui-form-label">结束描述</label>
-                <div class="layui-input-block">
-                    <input type="text" name="qenddesc" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item" style="width:350px">
-                <div class="layui-input-block">
-                    <select name="city" lay-verify="required">
-                        <option value="">添加问题</option>
-                        <option value="1">单选</option>
-                        <option value="2">多选</option>
-                    </select>
-                    <button type="button" class="layui-btn layui-btn-xs">提交问题</button>
-                </div>                
-            </div>
-
-        </form>
-    </div>
 
     </div>
     <script src="~/layui/layui.js"></script>
     <script src="~/js/jquery-3.3.1.js"></script>
     <script>
         //JavaScript代码区域
-    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider','form'], function () {
-        var laydate = layui.laydate //日期
-            , laypage = layui.laypage //分页
-            , layer = layui.layer //弹层
-            , table = layui.table //表格
-            , carousel = layui.carousel //轮播
-            , upload = layui.upload //上传
-            , element = layui.element //元素操作
-            , slider = layui.slider //滑块
-            , form = layui.form
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider', 'form','util'], function () {
+            var laydate = layui.laydate //日期
+                , laypage = layui.laypage //分页
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+                , slider = layui.slider //滑块
+                , form = layui.form
+                , util = layui.util
 
-        //执行一个 table 实例
-        table.render({
-        elem: '#demo'
-            , height: 420
-            , url: 'http://localhost:53305/api/Qusetionnaire' //数据接口
-            , title: '用户表'
-            , page: true //开启分页
-            , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
-            , totalRow: true //开启合计行
-            , limit: 6
-            , limits:[6,12,18,24]
-            , cols: [[ //表头
-            {type: 'checkbox', fixed: 'left' }
-            , {field: 'qid', title: 'ID', width: 80, sort: true, fixed: 'left', totalRowText: '合计：' }
-            , { field: 'qnumber', title: '编号', width: 80, templet:'<div>{{layui.util.toDateString(d.createDate,"yyyyMMddHHmmss")}}</div>'}
-                , { field: 'qtitle', title: '标题', width: 90, sort: true, totalRow: true }
-                , {
-                    field: 'qstate', title: '状态', width: 80, sort: true, templet: function (d) {
-                        if (d.qstate == 1) {
-                            return "已发布"
+            //执行一个 问卷数据table 实例
+            table.render({
+                elem: '#demo1'
+                , height: 420
+                , url: 'http://localhost:5000/api/Qusetionnaire' //数据接口
+                , title: '用户表'
+                , page: true //开启分页
+                , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                , totalRow: true //开启合计行
+                , limit: 6
+                , limits: [6, 12, 18, 24]
+                , cols: [[ //表头
+                    { type: 'checkbox', fixed: 'left' }
+                    , { field: 'qid', title: 'ID', width: 80, sort: true, fixed: 'left', totalRowText: '合计：' }
+                    , {
+                        field: 'qnumber', title: '编号', width: 100      
+                    }
+                    , { field: 'qtitle', title: '标题', width: 150, sort: true, totalRow: true }
+                    , {
+                        field: 'qstate', title: '状态', width: 80, sort: true, templet: function (d) {
+                            if (d.qstate == 1) {
+                                return "已发布"
+                            }
+                            else if (d.qstate == 0) {
+                                return "未发布"
+                            }
                         }
-                        else if (d.qstate == 0) {
-                            return "未发布"
+                    }
+                    , { field: 'qnum', title: '回收数量', width: 80, sort: true, totalRow: true }
+                    , {
+                        field: 'qtime', title: '创建时间', width: 150, templet: function (d) {
+                            return (d.qtime.substring(0, 10) + ' ' + d.qtime.substring(11, 19));
                         }
                     }
-                }
-            , {field: 'qnum', title: '回收数量', width: 80, sort: true, totalRow: true }
-            , { field: 'qtime', title: '创建时间', width: 150, templet: '<div>{{layui.util.toDateString(d.createDate,"yyyy-MM-dd HH:mm:ss")}}</div>'}
-            , { field: 'qpeople', title: '创建人', width: 200 }
-            , { fixed: 'right', title: '题目明细', width: 165, align: 'center', toolbar: '#AddDemo' }
-            , { fixed: 'right', title: '操作', width: 165, align: 'center', toolbar: '#barDemo' }
-            ]]
-        });
-        //监听头工具栏事件
-        table.on('toolbar(test)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id)
-                , data = checkStatus.data; //获取选中的数据
-            switch (obj.event) {
-                case 'add':
-                    layer.msg('添加');
-                    break;
-                case 'update':
-                    if (data.length === 0) {
-                layer.msg('请选择一行');
-                    } else if (data.length > 1) {
-                layer.msg('只能同时编辑一个');
-                    } else {
-                layer.alert('编辑 [id]：' + checkStatus.data[0].id);
-                    }
-                     break;
-                  case 'delete':
-                    if (data.length === 0) {
-                layer.msg('请选择一行');
-                    } else {
-                layer.msg('删除');
-                    }
-                    break;
-            };
-        });
-        //监听行工具事件
-        table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-            var data = obj.data //获得当前行数据
-                , layEvent = obj.event; //获得 lay-event 对应的值  
-            if (layEvent =='create') {
-                layer.open({
-                    title: '新增题目'               //弹框标题 
-                    , type: 1                       //类型
-                    , content: $("#Newtopic")       //需要弹出的表单//需要弹出的表单
-                    , area: ['500px', '600px']      //弹框宽高//弹框宽高
-                    , closeBtn: 1                   //右上关闭按钮//右上关闭按钮
-                    , shade: 0                      //遮罩//遮罩
-                    , anim: 1                       //动画//动画
-                    , resize: true                  //是否允许拉伸//是否允许拉伸
-                    , btn: ['取消编辑', '完成编辑'] //可以无限个按钮
-                    , btnAlign: 'c'//按钮排序                    
-                    , yes: function (index, layero) {
-                        //按钮【按钮一】的回调  
-                        layer.closeAll(); //疯狂模式，关闭所有层
-                        //return false 开启该代码可禁止点击该按钮关闭
-                    }
-                    , btn2: function (index, layero) {
-                        //按钮【按钮二】的回调
-                        $.ajax({
-                            url: '',
-                            type: 'post',
-                            data: JSON.stringify({
-                                qid: data.qid,
-                                qtitle: $("[name=qtitle]").val(),
-                                qstratdesc: $("[name=qstratdesc]").val(),
-                                qenddesc: $("[name=qenddesc]").val(),
-                                qstate: $("#ch1").prop('checked') == true ? 1 : 0,
-                            }),
-                            success: function (data) {
-                                if (data > 0) {
-                                    layer.msg("新增题目成功");
-                                    layer.closeAll(); //疯狂模式，关闭所有层
-                                    table.reload('demo', {
-                                        where: { //设定异步数据接口的额外参数，任意设
-                                        }
-                                        , page: {
-                                            curr: 1 //重新从第 1 页开始
-                                        }
-                                    });
-                                } else {
-                                    layer.msg("新增题目失败");
-                                }
-                            },
-                            //dataType: "json",
-                            contentType: "application/json"
-                        })                      
-                    }
-                })
-            }
-            else if (layEvent === 'del') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del(); //删除对应行（tr）的DOM结构
-                    layer.close(index);
-                    //向服务端发送删除指令
-                });
-            } else if (layEvent === 'edit') {
-                layer.open({
-                    title: '编辑问卷'               //弹框标题 
-                    , type: 1                       //类型
-                    , content: $("#AddQuest")       //需要弹出的表单//需要弹出的表单
-                    , area: ['400px', '500px']      //弹框宽高//弹框宽高
-                    , closeBtn: 1                   //右上关闭按钮//右上关闭按钮
-                    , shade: 0                      //遮罩//遮罩
-                    , anim: 1                       //动画//动画
-                    , resize: true                  //是否允许拉伸//是否允许拉伸
-                    , btn: ['修改', '关闭'] //可以无限个按钮
-                    , btnAlign: 'c'//按钮排序
-                    , success: function () {//反填数据
-                        $("[name=qid]").val(data.qid);
-                        $("[name=qtitle]").val(data.qtitle);
-                        $("[name=qstratdesc]").val(data.qstratdesc);
-                        $("[name=qenddesc]").val(data.qenddesc);
-                        if (data.qstate == 1) {
-                            $("#ch1").prop('checked', true);
+                    , { field: 'qpeople', title: '创建人', width: 200 }
+                    , { fixed: 'right', title: '题目明细', width: 165, align: 'center', toolbar: '#AddDemo' }
+                    , { fixed: 'right', title: '操作', width: 250, align: 'center', toolbar: '#barDemo' }
+                ]]
+            });
+            //执行一个 题目数据table 实例         
+            //监听头工具栏事件
+            table.on('toolbar(test)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id)
+                    , data = checkStatus.data; //获取选中的数据
+                switch (obj.event) {
+                    case 'add':
+                        layer.msg('添加');
+                        break;
+                    case 'update':
+                        if (data.length === 0) {
+                            layer.msg('请选择一行');
+                        } else if (data.length > 1) {
+                            layer.msg('只能同时编辑一个');
+                        } else {
+                            layer.alert('编辑 [id]：' + checkStatus.data[0].id);
                         }
-                        else if (data.qstate == 0) {
-                            $("#ch2").prop('checked', true);
+                        break;
+                    case 'delete':
+                        if (data.length === 0) {
+                            layer.msg('请选择一行');
+                        } else {
+                            layer.msg('删除');
                         }
-                        form.render();
-                    }
-                    , yes: function (index, layero) {
-                        //按钮【按钮一】的回调  
-                        $.ajax({
-                            url: 'http://localhost:53305/api/Qusetionnaire',
-                            type: 'put',
-                            data: JSON.stringify({
-                                qid: data.qid,
-                                qtitle: $("[name=qtitle]").val(),
-                                qstratdesc: $("[name=qstratdesc]").val(),
-                                qenddesc: $("[name=qenddesc]").val(),
-                                qstate: $("#ch1").prop('checked') == true ? 1 : 0,
-                            }),
-                            success: function (data) {
-                                if (data > 0) {
-                                    layer.msg("修改成功");
-                                    layer.closeAll(); //疯狂模式，关闭所有层
-                                    table.reload('demo', {
-                                        where: { //设定异步数据接口的额外参数，任意设
+                        break;
+                };
+            });
+            //监听行工具事件
+            table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据
+                    , layEvent = obj.event; //获得 lay-event 对应的值
+                if (layEvent == 'create') {
+                    layer.open({
+                        title: '新增题目'               //弹框标题
+                        , type: 1                       //类型
+                        , content: $("#Newtopic")       //需要弹出的表单//需要弹出的表单
+                        , area: ['400px', '400px']      //弹框宽高//弹框宽高
+                        , closeBtn: 1                   //右上关闭按钮//右上关闭按钮
+                        , shade: 0                      //遮罩//遮罩
+                        , anim: 1                       //动画//动画
+                        , resize: true                  //是否允许拉伸//是否允许拉伸
+                        , btn: ['关闭', '完成'] //可以无限个按钮
+                        , btnAlign: 'c'//按钮排序
+                        , yes: function (index, layero) {
+                            //按钮【按钮一】的回调
+                            layer.closeAll(); //疯狂模式，关闭所有层
+                            //return false 开启该代码可禁止点击该按钮关闭
+                        }
+                        , btn2: function (index, layero) {
+                            //按钮【按钮二】的回调
+                            $.ajax({
+                                url: 'http://localhost:5000/api/Qusetionnaire/api/Qusetionnaire/Addthetitle',
+                                type: 'post',
+                                data: JSON.stringify({
+                                    qid: data.qid,
+                                    etitle: $("[name=etitle]").val(),
+                                    questiontypes: $("[name=questiontypes]").val()
+                                }),
+                                success: function (data) {
+                                    if (data > 0) {
+                                        layer.msg("新增题目成功");
+                                        layer.closeAll(); //疯狂模式，关闭所有层
+                                        table.reload('demo', {
+                                            where: { //设定异步数据接口的额外参数，任意设
+                                            }
+                                            , page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        });
+                                    } else {
+                                        layer.msg("新增题目失败");
+                                    }
+                                },
+                                //dataType: "json",
+                                contentType: "application/json"
+                            })
+                        }
+                    })
+                }//新增题目
+                else if (layEvent == 'Seethetitle') {
+                    layer.open({
+                        title: '新增题目'               //弹框标题
+                        , type: 1                       //类型
+                        , content: $("#showtimu")       //需要弹出的表单//需要弹出的表单
+                        , area: ['1200px', '400px']      //弹框宽高//弹框宽高
+                        , closeBtn: 1                   //右上关闭按钮//右上关闭按钮
+                        , shade: 0                      //遮罩//遮罩
+                        , anim: 1                       //动画//动画
+                        , resize: true                  //是否允许拉伸//是否允许拉伸  
+                        , btnAlign: 'c'//按钮排序
+                        , success: function () {
+                            table.render({
+                                elem: '#demo2'
+                                , height: 420
+                                , url: 'http://localhost:5000/api/Qusetionnaire/GetWST_Exams?qid=' + data.qid //数据接口
+                                , title: '题目表'
+                                , page: true //开启分页
+                                , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                                , totalRow: true //开启合计行
+                                , limit: 6
+                                , limits: [6, 12, 18, 24]
+                                , cols: [[ //表头
+                                    , { type: 'checkbox', fixed: 'left' }
+                                    , { field: 'eid', title: 'ID', width: 80, sort: true, fixed: 'left', totalRowText: '合计：' }
+                                    , { field: 'qid', title: '问卷ID', width: 80 }
+                                    , {
+                                        field: 'questiontypes', title: '类型', width: 80, sort: true, templet: function (d) {
+                                            if (d.questiontypes == 1) {
+                                                return "单选"
+                                            }
+                                            else if (d.questiontypes == 2) {
+                                                return "多选"
+                                            }
                                         }
-                                        , page: {
-                                            curr: 1 //重新从第 1 页开始
+                                    }
+                                    , {
+                                        field: 'ecreatetime', title: '创建时间', width: 150, templet: function (d) {
+                                            return (d.ecreatetime.substring(0, 10) + ' ' + d.ecreatetime.substring(11, 19));
                                         }
-                                    });
-                                } else {
-                                    layer.msg("修改失败");
-                                }
-                            },
-                            //dataType: "json",
-                            contentType: "application/json"
-                        })
-                    }
-                    , btn2: function (index, layero) {
-                        //按钮【按钮二】的回调
-                        layer.closeAll(); //疯狂模式，关闭所有层
-                        //return false 开启该代码可禁止点击该按钮关闭
-                    }
-                });
-            } else if (layEvent == 'Pushthenail') {
-                layer.msg("推钉钉");
-            } else if (layEvent == 'Pushemail') {
-                layer.msg("推邮箱");
-            } 
-        });
-        //查询
-        $("#chkQnumber").click(function () {
-            var Qnumber = $("#val").val();
-            //上述方法等价于
-            table.reload('demo', {
-                where: { //设定异步数据接口的额外参数，任意设
-                    Qnumber: Qnumber
+                                    }
+                                    , { field: 'etitle', title: '题目', width: 80, sort: true, totalRow: true }
+                                    , { field: 'ememo', title: '备注', width: 200 }
+                                    , { fixed: 'right', title: '操作', width: 165, align: 'center', toolbar: '#telDemo' }
+                                ]]
+                            });
+                        }
+                    })
+
+                }//查看题目
+                else if (layEvent == 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del(); //删除对应行（tr）的DOM结构
+                        layer.close(index);
+                        //向服务端发送删除指令
+                    });
+                }//删除
+                else if (layEvent == 'edit') {
+                    layer.open({
+                        title: '编辑问卷'               //弹框标题
+                        , type: 1                       //类型
+                        , content: $("#AddQuest")       //需要弹出的表单//需要弹出的表单
+                        , area: ['400px', '500px']      //弹框宽高//弹框宽高
+                        , closeBtn: 1                   //右上关闭按钮//右上关闭按钮
+                        , shade: 0                      //遮罩//遮罩
+                        , anim: 1                       //动画//动画
+                        , resize: true                  //是否允许拉伸//是否允许拉伸
+                        , btn: ['修改', '关闭'] //可以无限个按钮
+                        , btnAlign: 'c'//按钮排序
+                        , success: function () {//反填数据
+                            $("[name=qid]").val(data.qid);
+                            $("[name=qtitle]").val(data.qtitle);
+                            $("[name=qstratdesc]").val(data.qstratdesc);
+                            $("[name=qenddesc]").val(data.qenddesc);
+                            if (data.qstate == 1) {
+                                $("#ch1").prop('checked', true);
+                            }
+                            else if (data.qstate == 0) {
+                                $("#ch2").prop('checked', true);
+                            }
+                            form.render();
+                        }
+                        , yes: function (index, layero) {
+                            //按钮【按钮一】的回调
+                            $.ajax({
+                                url: 'http://localhost:5000/api/Qusetionnaire',
+                                type: 'put',
+                                data: JSON.stringify({
+                                    qid: data.qid,
+                                    qtitle: $("[name=qtitle]").val(),
+                                    qstratdesc: $("[name=qstratdesc]").val(),
+                                    qenddesc: $("[name=qenddesc]").val(),
+                                    qstate: $("#ch1").prop('checked') == true ? 1 : 0,
+                                }),
+                                success: function (data) {
+                                    if (data > 0) {
+                                        layer.msg("修改成功");
+                                        layer.closeAll(); //疯狂模式，关闭所有层
+                                        table.reload('demo', {
+                                            where: { //设定异步数据接口的额外参数，任意设
+                                            }
+                                            , page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        });
+                                    } else {
+                                        layer.msg("修改失败");
+                                    }
+                                },
+                                //dataType: "json",
+                                contentType: "application/json"
+                            })
+                        }
+                        , btn2: function (index, layero) {
+                            //按钮【按钮二】的回调
+                            layer.closeAll(); //疯狂模式，关闭所有层
+                            //return false 开启该代码可禁止点击该按钮关闭
+                        }
+                    });
+                }//编辑
+                else if (layEvent == 'Pushthenail') {
+                    layer.msg("推钉钉");
                 }
-                , page: {
-                    curr: 1 //重新从第 1 页开始
+                else if (layEvent == 'Pushemail') {
+                    $.ajax({
+                        url: 'http://localhost:5000/api/Qusetionnaire/SendEmail?qid=' + data.qid,
+                        type: 'get',
+                        success: function (data) {
+                            if (data == true) {
+                                layer.msg("推送成功");
+                            } else {
+                                layer.msg("推送失败");
+                            }
+                        }
+                    })
                 }
-            }); //只重载数据
-        });
-        //重置
-        $("#Resetcondition").click(function () {
-            $("#val").val(null);
-            table.reload('demo', {
-                where: { //设定异步数据接口的额外参数，任意设
-                    Qnumber: ""
-                }
-                , page: {
-                    curr: 1 //重新从第 1 页开始
+                else if (layEvent == 'Newtopic') {
+                    layer.open({
+                        title: '新增选项'               //弹框标题
+                        , type: 1                       //类型
+                        , content: $("#Subjectoptions")       //需要弹出的表单//需要弹出的表单
+                        , area: ['500px', '300px']      //弹框宽高//弹框宽高
+                        , closeBtn: 1                   //右上关闭按钮//右上关闭按钮
+                        , shade: 0                      //遮罩//遮罩
+                        , anim: 1                       //动画//动画
+                        , resize: true                  //是否允许拉伸//是否允许拉伸  
+                        , btnAlign: 'c'//按钮排序 
+                        , btn: ['取消', '添加'] //可以无限个按钮
+                        , yes: function (index, layero) {
+                            //按钮【按钮一】的回调
+                            layer.closeAll(); //疯狂模式，关闭所有层
+                            //return false 开启该代码可禁止点击该按钮关闭
+                        }
+                        , btn2: function (index, layero) {
+                            //按钮【按钮二】的回调
+                            $.ajax({
+                                url: 'http://localhost:5000/api/Qusetionnaire/Addaoption',
+                                type: 'post',
+                                data: JSON.stringify({
+                                    eid:data.eid,
+                                    titem: $("[name=titem]").val(),
+                                }),
+                                success: function (data) {
+                                    if (data > 0) {
+                                        layer.msg("新增选项成功");
+                                        layer.closeAll(); //疯狂模式，关闭所有层
+                                        table.reload('demo', {
+                                            where: { //设定异步数据接口的额外参数，任意设
+                                            }
+                                            , page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        });
+                                    } else {
+                                        layer.msg("新增选项失败");
+                                    }
+                                },
+                                //dataType: "json",
+                                contentType: "application/json"
+                            })
+                        }
+                    })
                 }
             });
-        })
-        //添加文件弹框
-        $("#Addquestionnaire").click(function (data) { 
-            
-            layer.open({
-                title: '新增问卷'
-                , type: 1  //类型
-                , content: $("#AddQuest")  //需要弹出的表单
-                , area: ['400px', '350px'] //弹框宽高
-                , closeBtn: 1              //右上关闭按钮
-                , shade: 0                 //遮罩
-                , anim: 1                  //动画
-                , resize: true             //是否允许拉伸
-                , btn: ['保存', '关闭'] //可以无限个按钮
-                , btnAlign: 'c'//按钮排序
-                , success: function (index, layero) {//清空表单元素
-                    $("#AddQuest")[0].reset();
-                    layui.form.render();
-                }
-                , yes: function (index, layero) {
-                    //按钮【按钮一】的回调                  
+            //查询
+            $("#chkQnumber").click(function () {
+                var Qnumber = $("#val").val();
+                //上述方法等价于
+                table.reload('demo', {
+                    where: { //设定异步数据接口的额外参数，任意设
+                        Qnumber: Qnumber
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                }); //只重载数据
+            });
+            //重置
+            $("#Resetcondition").click(function () {
+                $("#val").val(null);
+                table.reload('demo', {
+                    where: { //设定异步数据接口的额外参数，任意设
+                        Qnumber: ""
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                });
+            })
+            //添加文件弹框
+            $("#Addquestionnaire").click(function (data) {
+
+                layer.open({
+                    title: '新增问卷'
+                    , type: 1  //类型
+                    , content: $("#AddQuest")  //需要弹出的表单
+                    , area: ['400px', '350px'] //弹框宽高
+                    , closeBtn: 1              //右上关闭按钮
+                    , shade: 0                 //遮罩
+                    , anim: 1                  //动画
+                    , resize: true             //是否允许拉伸
+                    , btn: ['保存', '关闭'] //可以无限个按钮
+                    , btnAlign: 'c'//按钮排序
+                    , success: function (index, layero) {//清空表单元素
+                        $("#AddQuest")[0].reset();
+                        layui.form.render();
+                    }
+                    , yes: function (index, layero) {
+                        //按钮【按钮一】的回调
                         $.ajax({
-                            url: 'http://localhost:53305/api/Qusetionnaire',
+                            url: 'http://localhost:5000/api/Qusetionnaire',
                             type: 'post',
                             data: JSON.stringify({
                                 qtitle: $("[name=qtitle]").val(),
                                 qstratdesc: $("[name=qstratdesc]").val(),
                                 qenddesc: $("[name=qenddesc]").val(),
                                 qstate: $("#ch1").prop('checked') == true ? 1 : 0,
-                            }),                           
+                            }),
                             success: function (data) {
                                 if (data > 0) {
                                     layer.msg("添加成功");
@@ -445,17 +581,17 @@
                             },
                             //dataType: "json",
                             contentType: "application/json"
-                        })                    
-                }
-                , btn2: function (index, layero) {
-                    //按钮【按钮二】的回调
-                    layer.closeAll(); //疯狂模式，关闭所有层
-                    //return false 开启该代码可禁止点击该按钮关闭
-                }                           
-            });
-        })    
+                        })
+                    }
+                    , btn2: function (index, layero) {
+                        //按钮【按钮二】的回调
+                        layer.closeAll(); //疯狂模式，关闭所有层
+                        //return false 开启该代码可禁止点击该按钮关闭
+                    }
+                });
+            })
 
-    });
+        });
 
     </script>
 </body>
