@@ -177,13 +177,16 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">图片</label>
                         <div class="layui-input-inline">
-
-                            <button type="button" class="layui-btn" id="test1">
+                            @*<button type="button" class="layui-btn">
                                 <i class="layui-icon">&#xe67c;</i>上传图片
-                            </button>
+                            </button>*@
+                            <button class="layui-btn test" id="test1">上传文件</button>
                             <img width="40" height="40" id="demo1" />
-                            <input id="pic1" name="Picture" type="text" value="" placeholder="" />
-                            <input id="pic" multiple name="Picture" type="file" value="选择文件" placeholder="未选择任何文件" />
+                           
+                            @*<input id="pic" multiple name="Picture" type="file" value="选择文件" placeholder="未选择任何文件" />*@
+                        </div>
+                        <label></label>
+                        <div class="layui-input-inline">
                             <input type="text" id="picture" name="Picture" required lay-verify="required" placeholder="网络图片url" autocomplete="off" class="layui-input">
                         </div>
                     </div>
@@ -213,7 +216,7 @@
             , form = layui.form
             ,$=layui.$;
 
-                                        //绑定栏目下拉框
+        //绑定栏目下拉框
         $(function () {
             $.ajax({
                 url: 'http://localhost:53305/api/Article/GetDetialIndex',
@@ -249,7 +252,7 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            , height: 312
+            , height: 400
             , url: 'http://localhost:53305/api/Article' //数据接口
             , page: true //开启分页
             , limit: 5
@@ -295,6 +298,7 @@
                     templet: '<div>{{ layui.util.toDateString(d.createDate, "yyyy-MM-dd") }}</div>'     //时间拼接
                 }
                 , { field: 'promulgator', title: '发布者', width: 135, sort: true }
+                , { field: 'picture', title: '图片', width: 135, sort: true }
                 , { fixed: 'right', width: 190, align: 'center', toolbar: '#barDemo' }
             ]]
         });
@@ -500,11 +504,22 @@
         //上传图片
         upload.render({
             elem: '#test1'
-            , url: '@Url.Action("Upload", "Article")'
-            , before: function (obj) {
-                //预读本地文件示例，不支持ie8
+            , url: 'http://localhost:53305/api/Article/UploadImg'
+            , choose: function (obj) {
+                //将每次选择的文件追加到文件队列
+                var files = obj.pushFile();
+
+                //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
                 obj.preview(function (index, file, result) {
-                    $('#demo1').attr('src', result); //图片链接（base64）
+                    console.log(index); //得到文件索引
+                    console.log(file); //得到文件对象
+
+                    //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
+
+                    //这里还可以做一些 append 文件列表 DOM 的操作
+
+                    //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+                    //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
                 });
             }
             , done: function (res, index, upload) {
@@ -517,14 +532,6 @@
                 } else {
                     alert(res.msg);
                 }
-            }
-            , error: function () {
-                //演示失败状态，并实现重传
-                var demoText = $('#demoText');
-                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-                demoText.find('.demo-reload').on('click', function () {
-                    uploadInst.upload();
-                });
             }
         });
     });

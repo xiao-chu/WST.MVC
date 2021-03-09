@@ -22,7 +22,7 @@
 
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo">栏目管理</div>
+            <div class="layui-logo">维生特-上海</div>
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item"><a href="@Url.Action("Index","Home")">首页</a></li>
                 <li class="layui-nav-item"><a href="">黑名单</a></li>
@@ -95,6 +95,7 @@
             </div>
         </div>
 
+        <!--行操作-->
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -269,7 +270,7 @@
                             $('#Did').val(data.did);
                             $('#Dtitle').val(data.dtitle);
                             $('#Dptitle').val(data.dptitle);
-                            $('#UrlKey').val(data.urlKey);
+                            $('#Urlkey').val(data.urlKey);
                             $('#Dsort').val(data.dsort);
 
                             if (data.dstate == 1) {
