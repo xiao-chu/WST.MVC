@@ -37,11 +37,8 @@
     <div style="width:890px;height:666px;margin:0 auto; background-color:#ff0000">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed" id="fu">
-                    <dl class="layui-nav-child" id="zi">
-                    </dl>
-                </li>        
+            <ul class="layui-nav layui-nav-tree" lay-filter="test" id="fu">
+        
             </ul>
         </div>
     </div>
@@ -49,21 +46,15 @@
     <script>
         $(function () {
             $.ajax({
-                url: 'http://localhost:53305/api/WST_Detial_Pro',
+                url: 'http://localhost:53305/api/WST_Detial_Pro/GetTree?dptitle='+'服务类型',
                 type: 'get',
                 success: function (result) {
                     var str = '';
                     $(result.data).each(function () {
-                        str += '<a>' + this.dptitle + '</a>';
+                        str += '<li class="layui-nav-item layui-nav-itemed" >' +'<a>'+ this.dtitle +'</a>'+ '</li>';
                     });
-                    var str2 = '';
-                    $(result.data).each(function () {
-                        str2 += '<a>' + this.dtitle + '</a>';
-                    })
                     $('#fu').append(str);
-                    $('#zi').append(str2);
                 }
-
             })
         });
     </script>
