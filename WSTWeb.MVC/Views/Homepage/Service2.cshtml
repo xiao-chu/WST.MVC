@@ -14,10 +14,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <style>
+        .content {
+            padding: 10px 12px 48px;
+            font-size: 18px;
+            color: #2b2b2b;
+            line-height: 1.7em;
+            height: 300px; /*初始要显示的高度*/
+            overflow: hidden; /*关键样式：内容会被修剪，并且其余内容是不可见的。*/
+            position: relative
+        }
+
+            .content div { /*获取更多内容图标div*/
+                clear: both;
+                min-height: 1em;
+                white-space: pre-wrap; /*如何处理元素内的空白*/
+            }
+
+        .get_ct_more {
+            height: 78px;
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            background: linear-gradient(to top,#fff,rgba(255,255,255,0) 70%);
+            margin: 0px;
+            margin-right: 10px
+        }
+
+        .more_bt {
+            width: 260px;
+            height: 36px;
+            margin-left: 36%;
+            margin-bottom: -10px
+        }
+    </style>
 </head>
 <body>
     <!--图片-->
-    <div style="width:1920px;height:198px;background-color:bisque">
+    <div style="width:1920px;height:198px;">
         <img src="~/images/服务与行业类型.png" />
     </div>
     <!--文字-->
@@ -32,31 +66,175 @@
             </div>
         </div>
     </div>
-    <!--左侧导航栏-->
-
-    <div style="width:890px;height:666px;margin:0 auto; background-color:#ff0000">
-        <div class="layui-side-scroll">
+    <!--内容-->
+    <div style="width:890px;height:666px;margin:0 auto;">
+        <div class="layui-side-scroll" onclick="xianshi()">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test" id="fu">
-        
+            <ul class="layui-nav layui-nav-tree" lay-filter="demo" id="fu">
             </ul>
         </div>
+        <div style="width:692px;height:412px;float:right;position:relative;top:-666px;" id="diyi">
+
+            <div id="content" class="content">
+                <p>
+                    9月8日，吴小姐一家和朋友去西溪印象城吃饭，找了个吃火锅的餐馆坐下桌子靠着木制隔断墙，
+                    吴小姐将11个月大的孩子放在最里面的位置，心想靠着隔断墙，这样安全点
+                </p>
+                <p>吴小姐先把孩子喂饱，然后随他自己在位子上玩快吃完时，吴小姐突然发现孩子嘴边有淡黄色粉末状物体，还在砸吧着嘴巴</p>
+                <p>
+                    品尝味道
+                    我没给他喂过这东西啊吴小姐大脑立马一阵搜索，看孩子手上也有类似粉状，再放眼一看，餐桌侧边的隔断墙缝里，
+                    有一小堆淡黄色粉末，像佐料像木屑
+                    我一开始以为是木屑，后来才发现不是就算是那个时候，吴小姐也没想到这黄色粉末是杀蟑螂的药粉
+                </p>
+                <p>
+                    吴小姐叫来了服务员问：这是什么东西，我想知道我孩子吃了什么？
+                    服务员警觉地啊了一声，接着让吴小姐稍等一下，他说要去问店长，他也不知道是什么东西
+                    服务员的这一声啊，让吴小姐及朋友非常紧张
+                </p>
+                <div id="get_ct_more" class="get_ct_more">
+                    <img src="~/images/查看更多.png" class="more_bt" id="more_bt" />
+                </div>
+            </div>
+
+        </div>
+        <div style="width:692px;height:412px;float:right;position:relative;top:-666px;display:none" id="dier">
+
+            <div id="content" class="content">
+                <p>
+                    设备和材料采购审计是指对项目建设过程中设备和材料采购环节各项管理工作质量及绩效进行的审查和评价。
+                    设备和材料采购审计的目标主要包括：审查和评价采购环节的内部控制及风险管理的适当
+                </p>
+                <p>性、合法性和有效性；采购资料依据的充分性与可靠性；采购环节各项经营管理活动的真实性、合法性和有效性等。</p>
+                <p>
+                    设备和材料采购审计应依据以下主要资料：
+
+                    ㈠采购计划；
+
+                    ㈡采购计划批准书；
+
+                    ㈢采购招投标文件；
+                </p>
+                <p>
+                    ㈣中标通知书；
+
+                    ㈤专项合同书；
+
+                    ㈥采购、收发和保管等的内部控制制度；
+
+                    ㈦相关会计凭证和会计帐薄等。
+
+                    设备和材料采购审计主要包括以下内容：
+
+                    ㈠设备和材料采购环节的审计
+                </p>
+                <div id="get_ct_more" class="get_ct_more">
+                    <img src="~/images/查看更多.png" class="more_bt" id="more_bt" />
+                </div>
+            </div>
+
+        </div>
+
     </div>
-    <script src="~/js/jquery-3.3.1.js"></script>
+    <!--图片-->
+    <div style="width:692px;height:358px;border:3px solid #b7b7b7;position:relative;top:-300px;left:716px">
+
+        <img src="~/images/gao5.jpg" style="width:331px;height:348px;margin-left:10px"/> <img src="~/images/gao1.png" style="width:331px;height:348px;float:right;margin-right:10px;" />
+    </div>
+    <!--右侧-->
     <script>
+        var btn = document.getElementById('get_ct_more');
+        var obj = document.getElementById('content');
+        var total_height = obj.scrollHeight;//文章总高度
+        var show_height = 300;//定义原始显示高度
+        if (total_height > show_height) {
+            btn.style.display = 'block';
+            btn.onclick = function () {
+                obj.style.height = total_height + 'px';
+                btn.style.display = 'none';
+            }
+        }
+        var t1 = window.setInterval(refreshCount, 500);		//动态按钮
+        var more_img = document.getElementsByClassName("more_bt");
+        var first_one = 0;
+        function refreshCount() {
+            if (first_one == 0) {
+                //  more_img.style.marginBottom = '-5px';
+                first_one = 1;
+            } else {
+                //   more_img.style.marginBottom = '-10px';
+                first_one = 0;
+            }
+        }
+    </script>
+    <script>
+        function xianshi() {
+            var showBatchName = document.getElementById("dier");
+
+            showBatchName.style.display = 'block';
+
+            var disName = document.getElementById("diyi");
+            disName.style.display = 'none';
+        }
+    </script>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script src="~/layui/layui.js"></script>
+    <script>
+        layui.use('element', function () {
+            var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+            //监听导航点击
+            element.on('nav(demo)', function (elem) {
+                //console.log(elem)
+                layer.msg(elem.text());
+            });
+        });
         $(function () {
             $.ajax({
-                url: 'http://localhost:53305/api/WST_Detial_Pro/GetTree?dptitle='+'服务类型',
+                url: 'http://localhost:53305/api/WST_Detial_Pro/GetTree?dptitle=' + '服务类型',
+                type: 'get',
+                success: function (result) {
+                    var str = '';
+
+                    $(result.data).each(function () {
+                        str += '<li class="layui-nav-item layui-nav-itemed" style="border-bottom:1px solid;"  >'
+                            + '<a href="javascript:;">' + this.dtitle
+                            + '<span class="layui-nav-more"></span>'
+                            + '</a > '
+                            + ' <dl class="layui-nav-child" id=' + this.dtitle + '></dl>'
+                            + '</li>';
+                    });
+                    $('#fu').append(str);
+                    var li = $('#fu').children().children("dl");
+                    var id = [];
+                    $(li).each(function () {
+                        id.push(this.id);
+                    })
+                    $(id).each(function () {
+                        abc(this.toString());
+                    });
+                }
+            });
+
+        });
+        function abc(id) {
+            $.ajax({
+                url: 'http://localhost:53305/api/WST_Detial_Pro/GetTree?dptitle=' + id.toString(),
                 type: 'get',
                 success: function (result) {
                     var str = '';
                     $(result.data).each(function () {
-                        str += '<li class="layui-nav-item layui-nav-itemed" >' +'<a>'+ this.dtitle +'</a>'+ '</li>';
+                        str += '<dd style="font-size:20px;" id="' + this.dtitle + '">'
+                            + '<a href = "javascript:;" > ' + this.dtitle + '</a >'
+                            + '</dd > ';
                     });
-                    $('#fu').append(str);
+                    $('#' + id + '').append(str);
+
                 }
-            })
-        });
+            });
+
+        }
+
     </script>
 </body>
 </html>
