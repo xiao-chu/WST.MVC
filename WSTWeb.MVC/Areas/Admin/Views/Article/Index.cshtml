@@ -178,12 +178,10 @@
                         <label class="layui-form-label">图片</label>
                         <div class="layui-input-inline">
                             @*<button type="button" class="layui-btn">
-                                <i class="layui-icon">&#xe67c;</i>上传图片
-                            </button>*@
-                            <button class="layui-btn test" id="test1">上传文件</button>
+            <i class="layui-icon">&#xe67c;</i>上传图片
+        </button>*@
+                            <button class="layui-btn test" id="test1">上传图片</button>
                             <img width="40" height="40" id="demo1" />
-                           
-                            @*<input id="pic" multiple name="Picture" type="file" value="选择文件" placeholder="未选择任何文件" />*@
                         </div>
                         <label></label>
                         <div class="layui-input-inline">
@@ -192,9 +190,8 @@
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">附件</label>
-                        <div class="layui-input-inline">
-                            <input id="adj" multiple name="Accessory" type="file" value="选择文件" placeholder="未选择任何文件" />
-                        </div>
+                        <button class="layui-btn test" id="test20">上传文件</button>
+                            <input id="Hidden1" type="hidden" />
                     </div>
                 </form>
             </div>
@@ -263,7 +260,7 @@
                 , { field: 'aname', title: '名称', width: 150, sort: true }
                 , { field: 'ranks', title: '排序', width: 100 }
                 , {
-                    field: 'astatus', title: '状态', width: 177,
+                    field: 'astatus', title: 'Url', width: 177,
                     templet: function (d) {
                         if (d.astatus == 0) {     //显示判断
                             return "显示"
@@ -298,12 +295,17 @@
                     templet: '<div>{{ layui.util.toDateString(d.createDate, "yyyy-MM-dd") }}</div>'     //时间拼接
                 }
                 , { field: 'promulgator', title: '发布者', width: 135, sort: true }
-                , { field: 'picture', title: '图片', width: 135, sort: true }
+                , {
+                    field: 'picture', title: '图片', width: 135, sort: true,
+                    templet: function (d) {
+                        return '<img width="40" height="40" src="' + d.picture + '" />';
+                    }
+                }
                 , { fixed: 'right', width: 190, align: 'center', toolbar: '#barDemo' }
             ]]
         });
 
-        //查询
+        //查询se
         $("#cha").click(function () {
             //表格重载
             table.reload('demo', {
@@ -477,7 +479,8 @@
                             end_time: $("#end_time").val(),
                             aType: $("#aType").val(),
                             jump_address: $("#jump_address").val(),
-                            picture: $("#picture").val()
+                            picture: $("#picture").val(),
+                            accessory: $("#Hidden1").val()
                         }),
                         contentType: 'application/json',
                         success: function (result) {
@@ -501,31 +504,37 @@
                 }
             });
         });
+
+        //上传附件
+             upload.render({
+            elem: '#test20'
+            , url: '@Url.Action("Upload", "Article")' //必填项
+            , accept: 'file'
+            , exts: 'docx|doc'
+            , done: function (res) {
+                if (res.code > 0) {
+                    alert('上传成功');
+                    $('#Hidden1').val(res.result);
+                } else {
+                    alert(res.msg);
+                }
+            }
+
+        });
+
         //上传图片
         upload.render({
             elem: '#test1'
-            , url: 'http://localhost:53305/api/Article/UploadImg'
-            , choose: function (obj) {
-                //将每次选择的文件追加到文件队列
-                var files = obj.pushFile();
-
-                //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+            , url: '@Url.Action("Upload", "Article")'
+            , before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                 obj.preview(function (index, file, result) {
-                    console.log(index); //得到文件索引
-                    console.log(file); //得到文件对象
-
-                    //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
-
-                    //这里还可以做一些 append 文件列表 DOM 的操作
-
-                    //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
-                    //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+                    $("#demo1").attr("src", result);
                 });
             }
             , done: function (res, index, upload) {
                 //假设code=0代表上传成功
                 if (res.code > 0) {
-                    $("#pic1").val(res.data);
+                    $("#picture").val(res.result);
                     alert(res.msg);
                     //$('#demo1').attr('src', res.data);
                     //do something （比如将res返回的图片链接保存到表单的隐藏域）
