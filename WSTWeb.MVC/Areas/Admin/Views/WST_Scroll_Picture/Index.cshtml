@@ -198,7 +198,7 @@
                     , { field: 'scontent', width: 180, title: '内容', sort: true }
                     , {
                         field: 'sstate', width: 180, title: '状态', sort: true, templet: function (d) {
-                            if (d.sstate == 1) {
+                            if (d.sstate == 0) {
                                 return "显示";
                             }
                             else {
@@ -262,7 +262,7 @@
                             $('#Sprograma').val(data.sprograma);
                             $('#Stitle').val(data.stitle);
                             $('#Scontent').val(data.scontent);
-                            if (data.sstate == 1) {
+                            if (data.sstate == 0) {
                                 $('#Sstate1').prop("checked",true);
                             }
                             else {
