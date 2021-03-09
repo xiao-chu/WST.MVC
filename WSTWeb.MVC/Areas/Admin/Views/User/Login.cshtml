@@ -61,6 +61,7 @@
                         var userRemark = result.user_Remark;
                         var userPassword = result.user_Password;
                         var userId = result.user_Id;
+                        sessionStorage["User"] = userName;
                         Setcookie("userName", userName);
                         Setcookie("userNickname", userNickname);
                         Setcookie("userEmail", userEmail);

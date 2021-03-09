@@ -50,18 +50,13 @@
                 </li>
             </ul>
             <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">
+               <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                        贤心
+                        
+                        <span id="name"></span>
                     </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">安全设置</a></dd>
-                    </dl>
                 </li>
-                <li class="layui-nav-item"><a href="@Url.Action("Login","User")">退了</a></li>
-            </ul>
+                <li class="layui-nav-item"><a href="@Url.Action("Login","User")">退出</a></li>
         </div>
 
         @*主内容区*@
@@ -72,12 +67,12 @@
                     <div style="width:800px;height:200px;float:left;margin:20px 20px;background-color:azure;">
                         <br />
                         <h4>个人信息</h4>
-                        <table class="layui-table" lay-skin="nob">
+                        <table class="layui-table layui-form" lay-skin="nob">
 
                             <tr>
                                 <td>主题设置</td>
                                 <td>
-                                    <select name="user_Color">
+                                    <select id="user_Color" name="user_Color">
                                         <option value="default">default</option>
                                         <option value="red">red</option>
                                         <option value="blue">blue</option>
@@ -94,15 +89,17 @@
                             </tr>
                             <tr>
                                 <td>原始密码</td>
-                                <td><input type="text" name="pass" id="pass" /></td>
+                                <td>
+                                    <input type="password" name="pass" id="pass" />
+                                </td>
                             </tr>
                             <tr>
                                 <td>新密码</td>
-                                <td><input type="text" name="user_Password" id="user_Password" /></td>
+                                <td><input type="password" name="user_Password" id="user_Password" /></td>
                             </tr>
                             <tr>
                                 <td>重复密码</td>
-                                <td><input type="text" name="isPass" id="isPass" /></td>
+                                <td><input type="password" name="isPass" id="isPass" /></td>
                             </tr>
                             <tr>
                                 <td>email</td>
@@ -130,9 +127,9 @@
             </div>
         </div>
 
-    </div>`
-    <script src="~/js/jquery-3.3.1.js"></script>
+    </div>
     <script src="~/layui/layui.js"></script>
+    <script src="~/js/jquery-3.3.1.js"></script>
     <script src="~/js/setCookie.js"></script>
     <script>
         //JavaScript代码区域
@@ -146,6 +143,9 @@
                 , element = layui.element //元素操作
                 , slider = layui.slider //滑块
 
+            //加载用户
+            var userNickname = getCookie("userNickname").toString();
+            $("#name").text(userNickname + "您好");
             //反填
             var userId = getCookie("userId").toString();
             var userName = getCookie("userName").toString();
@@ -173,6 +173,30 @@
                         type: 'put',
                         data: JSON.stringify({
                             user_Id: userId,
+                            user_Color: $("#user_Color").val(),
+                            user_Name: $("#user_Name").val(),
+                            user_Nickname: $("#user_Nickname").val(),
+                            user_Email: $("#user_Email").val(),
+                            user_Phone: $("#user_Phone").val(),
+                            user_Remark: $("#user_Remark").val(),
+                            user_Password: $("#user_Password").val(),
+                        }),
+                        success: function (result) {
+                            if (result > 0) {
+                                alert('修改成功,请重新登录！');
+                                location.href = '@Url.Action("Login","User")';
+                            }
+                            else {
+                                alert('修改失败！');
+                            }
+                        }
+                    });
+                    @*$.ajax({
+                        url: 'http://localhost:53305/api/User',
+                        type: 'put',
+                        data: JSON.stringify({
+                            user_Id: userId,
+                            user_Color: $("#user_Color").val(),
                             user_Name: $("#user_Name").val(),
                             user_Nickname: $("#user_Nickname").val(),
                             user_Email: $("#user_Email").val(),
@@ -190,9 +214,15 @@
                             }
                         },
                         contentType: 'application/json',
-                        dataType: 'json'
-                    });
+                        dataType: 'json',
+                        //xhrFields: {
+                        //    withCredentials: true
+                        //},
+                        //crossDomain: true,
+                    });*@
                 }
+
+
             });
         });
     </script>
