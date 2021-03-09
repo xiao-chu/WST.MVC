@@ -1,0 +1,166 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>问卷调查</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <style>
+        #subtitle {
+            padding: 50px 0;
+            font-weight: bold;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body style="background: url('../images//问卷调查背景图片.png') no-repeat; width:100%;height:100%">
+    <div style="width:50%;height:1900px;background-color:white;margin:0 auto;position:relative;top:200px;">
+        <div style="width:90%;height:1900px;background-color:white;margin:0 auto;position:relative;">
+            <div id="div1" style="height:100px;">
+                <h1 style="text-align:center;top:0 auto">监察小调研</h1>
+            </div><input type="hidden" id="data" />
+            <h2 align="left" id="subtitle" style="display:block;">
+                "各位伙伴，您好！
+                2020年，集团取得了跨越式的发展。累累硕果的背后，离不开您的不懈奋斗！本次调研意在了解各级组织成就共享分配是否公平、公正，坚决捍卫文化价值观。
+                本次问卷调查采用匿名问卷形式不会获取任何ID信息，敬请畅所欲言。"
+            </h2>
+            <div id="div2">    
+                
+            </div>
+            <div style="height:200px;">
+                <button id="present" type="button"  style="position:relative;left:43%;top:90px;width:120px;height:60px;" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $(function () {
+            $.ajax({
+                url: 'http://localhost:5000/api/Qusetionnaire/Get_Exams',
+                type: 'get',
+                success: function (result) {
+                    var str = '';
+                    var i = 0;
+                    $(result).each(function () {
+                        i++;
+                        str += '<h2 id="' + this.eid + '">' + (i + '.' + this.etitle) + '&nbsp<span style="color:aqua">' + (this.questiontypes == 1 ? "[单选题]" : "[多选题]") + '</span></h2>';
+                    });
+                    $("#div2").append(str);
+                    $.ajax({
+                        url: 'http://localhost:5000/api/Qusetionnaire/GetQuestionnaires',
+                        type: 'get',
+                        success: function (result) {
+                            var str = '';
+                            $(result).each(function () {
+                                $("#data").val(this.qid);
+                                str = '</br><span style="color:#6f6b6b"><input name="' + this.etitle + '" type="' + (this.questiontypes == 1 ? "radio" : "checkbox") + '" value="' + this.tid + '"/>' + this.titem + '</span>';
+                                $('#' + this.eid + '').append(str);
+                            });
+                        }
+                    });
+                }
+            });
+            
+
+        });
+
+        $("#present").click(function () {
+            var h = $("#div2").children();
+            //所有题的id
+            var topic = [];
+            for (var i = 0; i < h.length; i++) {
+                topic.push(h[i].id);
+            }
+            ////获取所有的选项
+            var option = [];
+            for (var i = 0; i < topic.length; i++) {
+                option.push($("#" + topic[i] + "").children().find("input"));
+            }
+
+            
+            ////选中的选项id
+            var pitch = [];
+            for (var i = 0; i < option.length; i++) {
+                pitch.push(getChecked(option[i]));
+            }
+
+            //var a1 = $("#div2").children().eq(0).attr("id");
+            //var a2 = $("#div2").children().eq(1).attr("id");
+            //var a3 = $("#div2").children().eq(2).attr("id");
+            //var a4 = $("#div2").children().eq(3).attr("id");
+            //var a5 = $("#div2").children().eq(4).attr("id");
+
+            //var b1 = $("#" + a1 + "").children().find("input");
+            //var b2 = $("#" + a2 + "").children().find("input");
+            //var b3 = $("#" + a3 + "").children().find("input");
+            //var b4 = $("#" + a4 + "").children().find("input");
+            //var b5 = $("#" + a5 + "").children().find("input");
+
+            //var t1 = getChecked(b1);
+            //var t2 = getChecked(b2);
+            //var t3 = getChecked(b3);
+            //var t4 = getChecked(b4);
+            //var t5 = getChecked(b5);
+
+            console.log(h);
+            console.log(topic);
+            console.log(option);
+            console.log(pitch);
+
+            for (var i = 0; i < topic.length; i++)
+            {
+                    $.ajax({
+                        url: 'http://localhost:5000/api/Qusetionnaire/Addanswer',
+                        type: 'post',
+                        data: JSON.stringify({
+                            qid: $("#data").val(),
+                            eid: topic[i],
+                            tid: pitch[i].toString(),
+                        }),
+                        success: function (data) {
+                            if (data > 0){
+                                console.log("添加成功");
+                            } else {
+                                console.log("添加失败");
+                            }
+                        },
+                       contentType: "application/json"
+                    })
+            }  
+            //提交成功后，修改一次回收的数量
+            $.ajax({
+                url: 'http://localhost:5000/api/Qusetionnaire/UpdateNum',
+                type: 'put',
+                data: JSON.stringify( {
+                    qid:$("#data").val(),
+                }),
+                success: function (data) {
+                    if (data > 0) {
+                        console.log("回收成功");
+                    } else {
+                        console.log("回收失败");
+                    }
+                },
+                contentType:"application/json"
+            })
+
+
+        })
+
+        //封装的方法
+        function getChecked(id) {
+            var t1 = [];
+            $(id).each(function () {
+                if (this.checked)
+                    t1.push(this.value);
+            });
+            return t1;
+        }
+    </script>
+</body>
+</html>

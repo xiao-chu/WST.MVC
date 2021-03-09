@@ -94,7 +94,6 @@
                 <script type="text/html" id="barDemo">
                     <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="Pushthenail">推钉钉</a>
                     <a class="layui-btn layui-btn-xs" lay-event="Pushemail">推邮箱</a>
                 </script>
                 @*题目后面操作*@
@@ -445,10 +444,7 @@
                             //return false 开启该代码可禁止点击该按钮关闭
                         }
                     });
-                }//编辑
-                else if (layEvent == 'Pushthenail') {
-                    layer.msg("推钉钉");
-                }
+                }//编辑              
                 else if (layEvent == 'Pushemail') {
                     $.ajax({
                         url: 'http://localhost:5000/api/Qusetionnaire/SendEmail?qid=' + data.qid,
@@ -491,7 +487,7 @@
                                 success: function (data) {
                                     if (data > 0) {
                                         layer.msg("新增选项成功");
-                                        layer.closeAll(); //疯狂模式，关闭所有层
+                                        layer.close(index); //疯狂模式，关闭所有层
                                         table.reload('demo', {
                                             where: { //设定异步数据接口的额外参数，任意设
                                             }
