@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<script src="~/layui/layui.js"></script>
+<link href="/layui/css/layui.css" rel="stylesheet" />
+<div style="width:1362px;height:141px;margin:0 auto;">
+    <img src="~/images/房子logo.jpg" style="width:1362px;height:141px;" />
+</div>
+<div class="text-center" style="width:1362px;height:187px;">
+    <span style="margin-top:100px;font-size:40px;position:relative;top:50px;">匿名举报</span>
+</div>
+<div style="width:1200px;height:1210px;background-color:lightcyan">
+    <div style="width:336px;height:1200px;margin:0px;background-color:lightcyan">
+        <!--第一个按钮:举报途径-->
+        <div style="width:336px;height:112px;text-align:center;background-color:cornflowerblue">
+            <span style="font-size:25px;position:relative;top:25px">举报途径<br />Report way</span>
+        </div>
+        <!--第二个按钮:在线举报-->
+        <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;position:relative;top:35px">
+                <a href="@Url.Action("Index","Complain")">在线举报</a>
+                <br />
+                <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe702;</i>
+            </span>
+        </div>
+        <!--第三个按钮:黑名单-->
+        <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;position:relative;top:35px" onclick="return location.href=' @Url.Action("Index","BlackList")'">
+                黑名单<br />
+                <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe770;</i>
+            </span>
+        </div>
+        <!--第四个按钮:电话举报-->
+        <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;color:black;position:relative;top:35px">
+                电话举报<br />
+                <i class="layui-icon" style="font-size: 30px; color:black;">&#xe678;</i>
+                <br />4006561700
+            </span>
+        </div>
+        <!--第五个按钮:微信举报-->
+        <div style="width:256px;height:330px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;position:relative;top:35px">
+                微信举报<br /><br />
+                <i class="layui-icon" style="font-size: 30px; color:black;">&#xe677;</i>
+                <br />
+                <br />
+                <img src="~/images/二维码2.png" />
+            </span>
+        </div>
+        <!--第六个按钮:客服专线-->
+        <div style="width:256px;height:226px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:15px;position:relative;top:35px">
+                非舞弊相关投诉请
+                <br />
+                <br />
+                通过如下方式进行
+                <br />
+                <br />
+                <a>客服专线</a>
+                <br />
+                <br />
+                <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe626;</i>
+                <br />
+                <br />
+            </span>
+        </div>
+    </div>
+    <div style="width:858px;height:1200px;margin:-1200px 0px 0px 340px;background-color:lightcyan">
+        <div style="width:520px;height:824px;margin-left:200px;margin-top:80px;">
+            <span style="margin-left:130px;">您的姓名(选填)</span>
+            <input id="Cbyname" name="Cbyname" type="text" style="margin-left:130px;width:296px;height:42px;" placeholder="输入关键词" /><br /><br />
+            <span style="margin-left:130px;">您的身份(选填)</span>
+            <input id="Radio1" type="radio" class="Cinformation" name="Cinformation" value="员工" />员工
+            <input id="Radio1" type="radio" class="Cinformation" name="Cinformation" value="供应商" />供应商
+            <input id="Radio1" type="radio" class="Cinformation" name="Cinformation" value="客户" />客户
+            <input id="Radio1" type="radio" class="Cinformation" name="Cinformation" value="其他" />其他
+            <br /><br />
+            <span style="margin-left:130px;">您的联系方式(选填)</span><br />
+            <input id="Cphone" name="Cphone" type="text" style="margin-left:130px;width:296px;height:42px;" placeholder="请输入您的电话" /><br /><br />
+            <input id="Ceamil" name="Ceamil" type="text" style="margin-left:130px;width:296px;height:42px;" placeholder="请输入您的邮箱" /><br /><br />
+            <input id="Cweixin" name="Cweixin" type="text" style="margin-left:130px;width:296px;height:42px;" placeholder="请输入您的微信" /><br /><br />
+            <span style="margin-left:130px;">举报内容🌟</span><br />
+            <textarea id="TextArea1" rows="2" style="margin-left:130px;" cols="20"></textarea><br />
+
+            <input id="Hidden1" type="hidden" />
+            <div class="layui-upload">
+                <button style="margin-left:130px;" type="button" class="layui-btn layui-btn-normal" id="test8">选择文件</button>
+                <button type="button" class="layui-btn" id="test9">开始上传</button>
+            </div>
+
+            <span style="margin-left:130px;">(上传的附件总大小不能超过50M，总数量不能超过1个)</span><br /><br /><br />
+            <input id="btn-add" style="margin-left:130px;" type="button" value="提交" class="btn btn-outline-success" />
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+
+            //JavaScript代码区域
+            layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'form', 'element', 'slider'], function () {
+                var laydate = layui.laydate //日期
+                    , laypage = layui.laypage //分页
+                    , layer = layui.layer //弹层
+                    , table = layui.table //表格
+                    , carousel = layui.carousel //轮播
+                    , upload = layui.upload //上传
+                    , element = layui.element //元素操作
+                    , slider = layui.slider //滑块
+                    , form = layui.form
+
+                //执行实例
+                var uploadInst = upload.render({
+                    elem: '#test8' //绑定元素
+                    , url: '/Anonymity/InsertWord' //上传接口
+                    , auto: false
+                    , accept: 'file'
+                    , exts: 'docx|doc'
+                    , bindAction: '#test9'
+                    , done: function (res) {
+                        //上传完毕回调
+                        layer.msg('上传完毕');
+                        console.log(res)
+                        $("#Hidden1").val(res.path);
+                    }
+                });
+            });
+            $('#btn-add').on('click', function () {
+                alert(123);
+                $.ajax({
+                    url: 'http://localhost:53305/api/Complaint',
+                    type: 'post',
+                    data: JSON.stringify({
+                        Cbyname: $('#Cbyname').val(),
+                        Cinformation: $('.Cinformation:checked').val(),
+                        Cphone: $('#Cphone').val(),
+                        Ceamil: $('#Ceamil').val(),
+                        Cweixin: $('#Cweixin').val(),
+                        Cfujian: $('#Hidden1').val()
+                    }),
+                    success: function (d) {
+                        if (d > 0) {
+                            alert('举报成功!');
+                        }
+                        else {
+                            alert('举报失败!');
+                        }
+                    },
+                    contentType: 'application/json'
+                });
+            });
+        });
+    </script>
+}

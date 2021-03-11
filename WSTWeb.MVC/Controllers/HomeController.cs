@@ -17,7 +17,8 @@ namespace WSTWeb.MVC.Controllers
             //我是123
             _logger = logger;
         }
-        //吸烟的大鹏哟
+
+        //首页
         public IActionResult Index()
         {
             return View();

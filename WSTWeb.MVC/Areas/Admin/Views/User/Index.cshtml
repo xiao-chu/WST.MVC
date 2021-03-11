@@ -52,53 +52,120 @@
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                        贤心
+
+                        <span id="name"></span>
                     </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">安全设置</a></dd>
-                    </dl>
                 </li>
-                <li class="layui-nav-item"><a href="@Url.Action("Login","User")">退了</a></li>
+                <li class="layui-nav-item"><a href="@Url.Action("Login","User")">退出</a></li>
             </ul>
         </div>
 
         @*主内容区*@
         <div class="layui-body">
-            <div>
-                <script type="text/html" id="barDemo">
-                    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail">查看</a>
-                    <a class="layui-btn layui-btn-xs" id="btngai" lay-event="edit">修改</a>
-                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="quan">授权</a>
-                </script>
-                <div class="layui-form">
-                    <br />
-                    <div class="layui-inline">
-                        <div class="layui-input-inline">
-                            <input type="tel" id="User_Name" name="User_Name" autocomplete="off" placeholder="请输入登录名" class="layui-input">
-                        </div>
-                        <div class="layui-input-inline">
-                            <input type="tel" id="User_Realname" name="User_Realname" autocomplete="off" placeholder="请输入真实姓名" class="layui-input">
-                        </div>
-                        <div class="layui-input-inline">
-                            <select name="Department_Id" id="department_Id" lay-verify="">
-                            </select>
-                        </div>
-                        <div class="layui-input-inline">
-                            <select name="role_Name" id="role_Name" lay-verify="">
-                            </select>
-                        </div>
+            <script type="text/html" id="barDemo">
+                <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail">查看</a>
+                <a class="layui-btn layui-btn-xs" id="btngai" lay-event="edit">修改</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                <a class="layui-btn layui-btn-xs" lay-event="quan">授权</a>
+            </script>
+            <div class="layui-form">
+                <br />
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="tel" id="User_Name" name="User_Name" autocomplete="off" placeholder="请输入登录名" class="layui-input">
                     </div>
-                    <button type="button" class="layui-btn" id="btn-cha">🔍查询</button>
-                    <button type="button" id="chongzhi" class="layui-btn">⚪重置</button>
-                    <button type="button" id="btnadd" class="layui-btn">＋添加</button>
+                    <div class="layui-input-inline">
+                        <input type="tel" id="User_Realname" name="User_Realname" autocomplete="off" placeholder="请输入真实姓名" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="Department_Id" id="department_Id" lay-verify="">
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="role_Name" id="role_Name" lay-verify="">
+                        </select>
+                    </div>
                 </div>
-                <div style="padding: 15px;">
-                    <table id="demo" lay-filter="test"></table>
-                </div>
+                <button type="button" class="layui-btn" id="btn-cha">🔍查询</button>
+                <button type="reset" id="chongzhi" class="layui-btn">⚪重置</button>
+                <button type="button" id="btnadd" class="layui-btn">＋新增</button>
             </div>
+            <div style="padding: 15px;">
+                <table id="demo" lay-filter="test"></table>
+            </div>
+            @* 添加（修改）表单 *@
+            <form class="layui-form" id="formData" action="" style="display:none">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">主题颜色</label>
+                    <div class="layui-input-inline">
+                        <input type="hidden" value="0" id="User_Id" />
+                        <select id="User_Color" lay-verify="">
+                            <option value="default">default</option>
+                            <option value="red">red</option>
+                            <option value="blue">blue</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" id="User_Name1" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">昵称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="User_Nickname1" required lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户密码</label>
+                    <div class="layui-input-inline">
+                        <input type="password" id="User_Password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="User_Email" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="User_Phone" required lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-input-inline">
+                        <textarea id="User_Remark" required lay-verify="required" placeholder="请输入备注" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">真实姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="User_Realname1" required lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">部门</label>
+                    <div class="layui-input-inline">
+                        <select id="department_Id1" lay-verify="">
+                        </select>
+                    </div>
+                </div>
+            </form>
+            @* 授权表单 *@
+            <form class="layui-form" id="quanData" action="" style="display:none;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色</label>
+                    <div class="layui-input-inline">
+                        <select id="Role_Id" lay-verify="">
+                        </select>
+                    </div>
+                </div>
+            </form>
         </div>
 
     </div>`
@@ -117,6 +184,9 @@
                 , element = layui.element //元素操作
                 , slider = layui.slider //滑块
                 , form = layui.form
+            //加载用户
+            var userNickname = getCookie("userNickname").toString();
+            $("#name").text(userNickname + "您好");
             //第一个实例
             table.render({
                 elem: '#demo'
@@ -137,9 +207,243 @@
                             return (d.user_CreateTime.substring(0, 10) + ' ' + d.user_CreateTime.substring(11, 19));
                         }
                     }
-                    , { fixed: 'right', width: 190, align: 'center', toolbar: '#barDemo' }
+                    , { fixed: 'right', width: 210, align: 'center', toolbar: '#barDemo' }
 
                 ]]
+            });
+            //重置
+            $("#chongzhi").click(function () {
+                $('#User_Name').val("");
+                $('#User_Realname').val("");
+                $('#department_Id').val(0);
+                $('#role_Name').val("");
+                form.render();
+                table.reload('demo', {
+                    where: { //设定异步数据接口的额外参数，任意设
+                        User_Name: ""
+                        , User_Realname: ""
+                        , department_Id: 0
+                        , role_Name: ""
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                }); //只重载数据
+            });
+            //添加
+            $("#btnadd").click(function () {
+                layer.open({
+                    title: '添加用户',
+                    content: $('#formData'),
+                    type: 1,
+                    shade: 0,
+                    area: ['500px', '700px'],
+                    btn: ['提交', '关闭'],
+                    success: function () {
+                        $("#formData")[0].reset();
+                        layui.form.render();
+                    },
+                    yes: function (index, layero) {
+                        //添加
+                        $.ajax({
+                            url: 'http://localhost:53305/api/User',
+                            type: 'post',
+                            data: JSON.stringify({
+                                user_Color: $("#User_Color").val(),
+                                user_Name: $("#User_Name1").val(),
+                                user_Nickname: $("#User_Nickname1").val(),
+                                user_Realname: $("#User_Realname1").val(),
+                                user_Email: $("#User_Email").val(),
+                                user_Phone: $("#User_Phone").val(),
+                                user_Remark: $("#User_Remark").val(),
+                                user_Password: $("#User_Password").val(),
+                                department_Id: $("#department_Id1").val(),
+                            }),
+                            success: function (result) {
+                                if (result > 0) {
+                                    layer.closeAll();
+                                    alert('添加成功！');
+                                    //重载
+                                    table.reload('demo', {
+                                        where: { //设定异步数据接口的额外参数，任意设
+                                        }
+                                        , page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    }); //只重载数据
+                                }
+                                else if (result == -1) {
+                                    alert('该用户已存在！');
+                                }
+                                else {
+                                    alert('添加失败！');
+                                }
+                            },
+                            contentType: 'application/json',
+                            dataType: 'json'
+                        });
+                    },
+                    btn2: function (index, layero) {
+                        layer.closeAll();
+                        return false;
+                    },
+                    cancel: function (index, layero) {
+                        layer.closeAll();
+                        return false;
+                    }
+                });
+            });
+            //监听行工具事件
+            table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据
+                    , layEvent = obj.event; //获得 lay-event 对应的值
+                if (layEvent === 'detail') {
+                    layer.msg('查看操作');
+                } else if (layEvent === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        $.ajax({
+                            url: 'http://localhost:53305/api/User',
+                            type: 'delete',
+                            data: '"' + data.user_Id + '"',
+                            success: function (result) {
+                                if (result > 0) {
+                                    layer.closeAll();
+                                    alert('删除成功!');
+                                    //重载
+                                    table.reload('demo', {
+                                        where: { //设定异步数据接口的额外参数，任意设
+                                        }
+                                        , page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    }); //只重载数据
+                                }
+                                else {
+                                    layer.closeAll();
+                                    alert('删除失败!')
+                                }
+                            },
+                            contentType: 'application/json'
+                        });
+                        //向服务端发送删除指令
+                    });
+                } else if (layEvent === 'edit') {
+                    layer.open({
+                        title: '编辑用户',
+                        content: $('#formData'),
+                        type: 1,
+                        shade: 0,
+                        area: ['500px', '700px'],
+                        btn: ['提交', '关闭'],
+                        success: function (index, layero) {
+                            $("#User_Id").val(data.user_Id);
+                            $("#User_Color").val(data.user_Color);
+                            $("#User_Name1").val(data.user_Name);
+                            $("#User_Nickname1").val(data.user_Nickname);
+                            $("#User_Realname1").val(data.user_Realname);
+                            $("#User_Email").val(data.user_Email);
+                            $("#User_Phone").val(data.user_Phone);
+                            $("#User_Remark").val(data.user_Remark);
+                            $("#User_Password").val(data.user_Password);
+                            $("#department_Id1").val(data.department_Id);
+                            form.render();
+                        },
+                        yes: function (index, layero) {
+                            //修改
+                            $.ajax({
+                                url: 'http://localhost:53305/api/User',
+                                type: 'put',
+                                data: JSON.stringify({
+                                    user_Id: $("#User_Id").val(),
+                                    user_Color: $("#User_Color").val(),
+                                    user_Name: $("#User_Name1").val(),
+                                    user_Nickname: $("#User_Nickname1").val(),
+                                    user_Realname: $("#User_Realname1").val(),
+                                    user_Email: $("#User_Email").val(),
+                                    user_Phone: $("#User_Phone").val(),
+                                    user_Remark: $("#User_Remark").val(),
+                                    user_Password: $("#User_Password").val(),
+                                    department_Id: $("#department_Id1").val(),
+                                }),
+                                success: function (result) {
+                                    if (result > 0) {
+                                        layer.closeAll();
+                                        alert('修改成功！');
+                                        //重载
+                                        table.reload('demo', {
+                                            where: { //设定异步数据接口的额外参数，任意设
+                                            }
+                                            , page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        }); //只重载数据
+                                    }
+                                    else {
+                                        alert('修改失败！');
+                                    }
+                                },
+                                contentType: 'application/json',
+                                dataType: 'json'
+                            });
+                        },
+                        btn2: function (index, layero) {
+                            layer.closeAll();
+                            return false;
+                        },
+                        cancel: function (index, layero) {
+                            layer.closeAll();
+                            return false;
+                        }
+                    });
+                }
+                else if (layEvent === 'quan') {
+                    layer.open({
+                        title: '授权',
+                        content: $('#quanData'),
+                        type: 1,
+                        shade: 0,
+                        area: ['400px', '400px'],
+                        btn: ['提交', '关闭'],
+                        yes: function (index, layero) {
+                            //授权
+                            $.ajax({
+                                url: 'http://localhost:53305/api/User/AddRole',
+                                type: 'put',
+                                data: JSON.stringify({
+                                    User_Id: data.user_Id,
+                                    Role_Id: $("#Role_Id").val()
+                                }),
+                                success: function (result) {
+                                    if (result > 0) {
+                                        layer.closeAll();
+                                        alert('授权成功！');
+                                        //重载
+                                        table.reload('demo', {
+                                            where: { //设定异步数据接口的额外参数，任意设
+                                            }
+                                            , page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        }); //只重载数据
+                                    }
+                                    else {
+                                        alert('授权失败！');
+                                    }
+                                },
+                                contentType: 'application/json',
+                                dataType: 'json'
+                            });
+                        },
+                        btn2: function (index, layero) {
+                            layer.closeAll();
+                            return false;
+                        },
+                        cancel: function (index, layero) {
+                            layer.closeAll();
+                            return false;
+                        }
+                    });
+                }
             });
 
             //查询
@@ -167,6 +471,7 @@
                         str += '<option value="' + this.department_Id + '">' + this.department_Name + '</option>';
                     });
                     $("#department_Id").empty().append(str);
+                    $("#department_Id1").empty().append(str);
                     form.render();
                 }
             });
@@ -176,11 +481,15 @@
                 type: 'get',
                 success: function (result) {
                     var str = '';
+                    var str1 = '';
                     str += '<option value="">--请选择--</option>';
+                    str1 += '<option value="">--请选择--</option>';
                     $(result).each(function () {
                         str += '<option value="' + this.role_Name + '">' + this.role_Name + '</option>';
+                        str1 += '<option value="' + this.role_Id + '">' + this.role_Name + '</option>';
                     });
                     $("#role_Name").empty().append(str);
+                    $("#Role_Id").empty().append(str1);
                     form.render();
                 }
             });
