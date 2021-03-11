@@ -41,7 +41,7 @@
     <script>
         $(function () {
             $.ajax({
-                url: 'http://localhost:5000/api/Qusetionnaire/Get_Exams',
+                url: 'http://localhost:53305/api/Qusetionnaire/Get_Exams',
                 type: 'get',
                 success: function (result) {
                     var str = '';
@@ -52,7 +52,7 @@
                     });
                     $("#div2").append(str);
                     $.ajax({
-                        url: 'http://localhost:5000/api/Qusetionnaire/GetQuestionnaires',
+                        url: 'http://localhost:53305/api/Qusetionnaire/GetQuestionnaires',
                         type: 'get',
                         success: function (result) {
                             var str = '';
@@ -115,7 +115,7 @@
             for (var i = 0; i < topic.length; i++)
             {
                     $.ajax({
-                        url: 'http://localhost:5000/api/Qusetionnaire/Addanswer',
+                        url: 'http://localhost:53305/api/Qusetionnaire/Addanswer',
                         type: 'post',
                         data: JSON.stringify({
                             qid: $("#data").val(),
@@ -134,7 +134,7 @@
             }  
             //提交成功后，修改一次回收的数量
             $.ajax({
-                url: 'http://localhost:5000/api/Qusetionnaire/UpdateNum',
+                url: 'http://localhost:53305/api/Qusetionnaire/UpdateNum',
                 type: 'put',
                 data: JSON.stringify( {
                     qid:$("#data").val(),

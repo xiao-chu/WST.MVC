@@ -205,13 +205,13 @@
                 , element = layui.element //元素操作
                 , slider = layui.slider //滑块
                 , form = layui.form
-                , util = layui.util
+                , util = layui.util-
 
             //执行一个 问卷数据table 实例
             table.render({
                 elem: '#demo1'
                 , height: 420
-                , url: 'http://localhost:5000/api/Qusetionnaire' //数据接口
+                , url: 'http://localhost:53305/api/Qusetionnaire' //数据接口
                 , title: '用户表'
                 , page: true //开启分页
                 , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
@@ -297,7 +297,7 @@
                         , btn2: function (index, layero) {
                             //按钮【按钮二】的回调
                             $.ajax({
-                                url: 'http://localhost:5000/api/Qusetionnaire/api/Qusetionnaire/Addthetitle',
+                                url: 'http://localhost:53305/api/Qusetionnaire/api/Qusetionnaire/Addthetitle',
                                 type: 'post',
                                 data: JSON.stringify({
                                     qid: data.qid,
@@ -340,7 +340,7 @@
                             table.render({
                                 elem: '#demo2'
                                 , height: 420
-                                , url: 'http://localhost:5000/api/Qusetionnaire/GetWST_Exams?qid=' + data.qid //数据接口
+                                , url: 'http://localhost:53305/api/Qusetionnaire/GetWST_Exams?qid=' + data.qid //数据接口
                                 , title: '题目表'
                                 , page: true //开启分页
                                 , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
@@ -410,7 +410,7 @@
                         , yes: function (index, layero) {
                             //按钮【按钮一】的回调
                             $.ajax({
-                                url: 'http://localhost:5000/api/Qusetionnaire',
+                                url: 'http://localhost:53305/api/Qusetionnaire',
                                 type: 'put',
                                 data: JSON.stringify({
                                     qid: data.qid,
@@ -447,7 +447,7 @@
                 }//编辑              
                 else if (layEvent == 'Pushemail') {
                     $.ajax({
-                        url: 'http://localhost:5000/api/Qusetionnaire/SendEmail?qid=' + data.qid,
+                        url: 'http://localhost:53305/api/Qusetionnaire/SendEmail?qid=' + data.qid,
                         type: 'get',
                         success: function (data) {
                             if (data == true) {
@@ -478,7 +478,7 @@
                         , btn2: function (index, layero) {
                             //按钮【按钮二】的回调
                             $.ajax({
-                                url: 'http://localhost:5000/api/Qusetionnaire/Addaoption',
+                                url: 'http://localhost:53305/api/Qusetionnaire/Addaoption',
                                 type: 'post',
                                 data: JSON.stringify({
                                     eid:data.eid,
@@ -552,7 +552,7 @@
                     , yes: function (index, layero) {
                         //按钮【按钮一】的回调
                         $.ajax({
-                            url: 'http://localhost:5000/api/Qusetionnaire',
+                            url: 'http://localhost:53305/api/Qusetionnaire',
                             type: 'post',
                             data: JSON.stringify({
                                 qtitle: $("[name=qtitle]").val(),
