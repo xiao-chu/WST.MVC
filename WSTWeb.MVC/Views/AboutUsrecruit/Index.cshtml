@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<script src="~/layui/layui.js"></script>
+<link href="/layui/css/layui.css" rel="stylesheet" />
+<div style="margin:0 auto;margin-top:-50px;">
+    <img src="~/images/招聘管理-星球.png" style="width:1500px;height:92px;" />
+</div>
+<div class="text-center" style="width:1200px;height:88px;margin-left:300px;">
+    <span style="font-size:25px;position:relative;left:-500px;top:20px;border-left:5px solid;border-color:darkblue">&nbsp;招聘信息</span><br />
+    <div style="position:relative;left:-400px;top:25px;font-size:18px;">
+        <span>当前位置:</span>
+        <span class="layui-breadcrumb" style="visibility: visible;">
+            <a href="/Index/AboutUsrecruit">首页</a><span lay-separator="">>></span>
+            <a href="/Index/AboutUsrecruit">关于我们</a><span lay-separator="">>></span>
+            <a><cite>招聘信息</cite></a>
+        </span>
+    </div>
+
+</div>
+<div>
+    <img src="~/images/白色横线.png" />
+</div>
+
+<div style="width:868px;height:1200px;margin-left:300px;border:1px solid;margin-top:30px;">
+    <div style="width:586px;height:58px;margin-left:20px;margin-top:20px;">
+        <img src="~/images/Logo白.png" style="width:195px;height:47px;" />
+        <span style="font-size:18px;margin-left:30px;">
+            <b>维生特企业管理服务（上海）有限责任公司</b>
+        </span>
+    </div>
+    <div style="margin-left:30px;margin-top:30px;"><p><strong>公司介绍</strong></p><p><br></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp;维生特企业管理服务（上海）有限责任公司（以下简称“维生特”）成立于2018年5月，为中梁控股集团全资子公司，</span><span style="font-size: 14px;">是</span></p><p><span style="font-size: 14px;"><br></span></p><p><span style="font-size: 14px;">一家</span><span style="font-size: 14px;">专</span><span style="font-size: 14px;">业从事企业内部监察审计业务的咨询服务企业。</span></p><p><span style="font-size: 14px;"><br></span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp;维生特目前服务项目覆盖中梁控股集团进驻的近140个城市，近400个项目在建及在管项目，</span><span style="font-size: 14px;">并先后加入中国企业反舞弊联</span></p><p><span style="font-size: 14px;"><br></span></p><p><span style="font-size: 14px;">盟、阳</span><span style="font-size: 14px;">光诚信联盟，利用社会资源，为中梁构建全社会全行业反腐败统一战线。</span></p><p><span style="font-size: 14px;"><br></span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; 价值引领，维生特秉持中梁文化价值观，“以霹雳手段，显菩萨心肠”，努力打造阳光透明、廉洁自律的生态经营环境，</span><span style="font-size: 14px;">维</span></p><p><span style="font-size: 14px;"><br></span></p><p><span style="font-size: 14px;">护</span><span style="font-size: 14px;">中梁人“开放、开拓、开创、共识、共担、共享”的创业平台。</span></p><p><span style="font-size: 14px;"><br></span></p><p><span style="font-size: 14px;">展望未来，本着“维护中梁生态，磨砺先锋人才”的初心，维生特将致力于打造监审行业金字招牌，</span><span style="font-size: 14px;">推进行业生态，造福社会</span></p><p><span style="font-size: 14px;"><br></span></p><p><span style="font-size: 14px;">文明。&nbsp;</span></p><p><span style="font-size: 14px;"><br></span></p><p><span style="font-size: 14px;">&nbsp; &nbsp;维生特欢迎你的加入，如有意向请投递简历至 yaokangkang@zldcgroup.com ,谢谢!<br></span></p><p><br></p></div>
+    <div style="width:456px;height:60px;margin-left:30px;">
+        <input id="Button1" type="button" class="btn btn-default"  style="border:1px solid;" value="社会招聘" />
+        <input id="Button2" type="button" class="btn btn-default" style="border:1px solid"  value="毕业生招聘" />
+        <input id="Button3" type="button" class="btn btn-default"  style="border:1px solid" value="实习生招聘" />
+    </div>
+    <span style="margin-left:30px;font-size:20px">共有<span id="num"></span>个在找职位</span>
+    <!--招聘信息-->
+    <div style="width:500px;height:600px;margin-left:25px;margin-top:20px;" id="tab">
+        
+    </div>
+
+    <div style="margin-top:-1176px;margin-left:890px;width:300px;background-color:darkgray;height:52px;">
+        <span style="font-size:20px;position:relative;top:13px;margin-left:10px;">热门推荐</span>
+    </div>
+    <div style="margin-top:15px;margin-left:890px;width:300px;height:294px;">
+        <span style="font-size:20px;border-bottom:1px dashed">·一笺说|有信用，走大道 住建部...</span><br /><br />
+        <span style="font-size:20px;border-bottom:1px dashed">·一笺说|成功=思维方式×热情×...</span><br /><br />
+        <span style="font-size:20px;border-bottom:1px dashed">·一笺说|为什么要跟懂规矩的人...</span><br /><br />
+        <span style="font-size:20px;border-bottom:1px dashed">·共建康洁共同体,打造合规生态...</span><br /><br />
+        <span style="font-size:20px;border-bottom:1px dashed">·稳健前行!中梁首入中国名企50...</span><br /><br />
+        <span style="font-size:20px;border-bottom:1px dashed">·做企业:吾有菩萨心肠，亦能霹...</span><br /><br />
+    </div>
+    <div style="margin-top:-20px;margin-left:890px;width:300px;background-color:darkgray;height:52px;">
+        <span style="font-size:20px;position:relative;top:13px;margin-left:10px;">联系我们</span>
+    </div>
+    <div style="margin-top:15px;margin-left:890px;width:300px;height:104px;">
+        <span style="font-size:15px;margin-left:10px;">📞业务咨询电话：     02152682699</span><br /><br />
+        <span style="font-size:15px;margin-left:10px;">📞投诉举报电话：     4006561700</span><br /><br />
+    </div>
+    <div style="margin-left:890px;width:300px;background-color:darkgray;height:101px;">
+        <a href="@Url.Action("Index","Complain")"><img src="~/images/招聘1.png" /></a>
+    </div>
+    <div style="margin-top:26px;margin-left: 890px; width: 300px; background-color: darkgray; height: 101px;">
+        <a href="@Url.Action("Index","Complain")"><img src="~/images/招聘2.png" /></a>
+    </div>
+    <div style="margin-top: 26px;margin-left: 890px; width: 300px; background-color: darkgray; height: 101px;">
+        <a href="@Url.Action("Index","AboutUsrecruit")"></a><img src="~/images/招聘3.png" />
+    </div>
+</div>
+<script src="~/js/jquery-3.3.1.js"></script>
+@section scripts{
+    <script>
+        $('#Button1').mouseover(function () {
+            jiazai("社会招聘");
+            $(this).css('background-color','darkgray');
+            $('#Button2').css('background-color', '');
+            $('#Button3').css('background-color', '');
+        });
+        $('#Button2').mouseover(function () {
+            jiazai("毕业生招聘");
+            $(this).css('background-color', 'darkgray');
+            $('#Button1').css('background-color', '');
+            $('#Button3').css('background-color', '');
+        });
+        $('#Button3').mouseover(function () {
+            jiazai("实习生招聘");
+            $(this).css('background-color', 'darkgray');
+            $('#Button2').css('background-color', '');
+            $('#Button1').css('background-color', '');
+        });
+        function jiazai(name) {
+            $.ajax({
+                url: 'http://localhost:53305/api/Recruit/getOne',
+                type: 'get',
+                data: {Rkind:name},
+                success: function (data) {
+                    var strHtml = "";
+                    var i = 0;
+                    $(data.data).each(function () {
+                        i++;
+                        strHtml += '<div style="width:475px;height:52px;background-color:gainsboro;font-size:15px;border:1px solid">'
+                            + '<span style="margin-left:10px;">' + this.rposition + '</span><br />'
+                            + '<span style="margin-left:10px;">地址:</span>'
+                            + '<span style="margin-left:10px;color:darkorange">' + this.raddress + '</span>'
+                            + '<span style="margin-left:150px;position:relative;top:-5px;float:right;">发布时间:' + this.rtime.substring(0, 10) + ' ' + this.rtime.substring(11, 19) + '</span>'
+                            + '</div><br />';
+                    });
+                    $('#num').text(i);
+                    $('#tab').empty().append(strHtml);
+                }
+            });
+        }
+
+    </script>
+}

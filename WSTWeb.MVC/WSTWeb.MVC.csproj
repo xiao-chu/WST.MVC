@@ -5,7 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Compile Remove="aa\**" />
+    <Compile Remove="Data\**" />
+    <Content Remove="aa\**" />
+    <Content Remove="Data\**" />
+    <EmbeddedResource Remove="aa\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="aa\**" />
+    <None Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\js\" />
@@ -16,17 +26,11 @@
     <Folder Include="wwwroot\lib\jquery-validation\dist\" />
     <Folder Include="wwwroot\lib\jquery\" />
     <Folder Include="wwwroot\lib\jquery\dist\" />
-    <Folder Include="aa\" />
+    <Folder Include="wwwroot\word\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\images\ʾ��ͼ1.png" />
-    <None Include="wwwroot\images\ʾ��ͼ2.png" />
-    <None Include="wwwroot\images\ʾ��ͼ3.png" />
-    <None Include="wwwroot\images\ʾ��ͼ4.png" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 

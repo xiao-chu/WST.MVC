@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <button type="button" class="layui-btn" id="btn-cha">🔍查询</button>
-                    <button type="button" class="layui-btn">🔄重置</button>
+                    <button type="button" class="layui-btn" id="chongzhi">🔄重置</button>
                 </div>
 
                 <table id="demo" lay-filter="test">
@@ -243,6 +243,18 @@
                     }
                 }); //只重载数据
             });
+            //重置
+            $('#chongzhi').on('click', function () {
+                $('#Cbyname2').val('');
+                table.reload('demo', {
+                    where: { //设定异步数据接口的额外参数，任意设
+                        Cbyname: ""
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                }); //只重载数据
+            });
 
             //监听头工具栏事件
             table.on('toolbar(test)', function (obj) {
@@ -341,7 +353,6 @@
                         }
                         //修改提交
                         , yes: function (index, layero) {
-                            alert(data.ctype)
                             $.ajax({
                                 url: 'http://localhost:53305/api/Complaint',
                                 type: 'put',

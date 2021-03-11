@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="~/layui/layui.js"></script>
+<link href="/layui/css/layui.css" rel="stylesheet" />
+<div style="width:1362px;height:141px;margin:0 auto;">
+    <img src="~/images/房子logo.jpg" style="width:1362px;height:141px;" />
+</div>
+<div class="text-center" style="width:1362px;height:187px;">
+    <span style="margin-top:100px;font-size:40px;position:relative;top:50px;">投诉举报</span>
+</div>
+<div style="width:1200px;height:1210px;background-color:lightcyan">
+    <div style="width:336px;height:1200px;margin:0px;background-color:lightcyan">
+        <!--第一个按钮:举报途径-->
+        <div style="width:336px;height:112px;text-align:center;background-color:cornflowerblue">
+            <span style="font-size:25px;position:relative;top:25px">举报途径<br />Report way</span>
+        </div>
+        <!--第二个按钮:在线举报-->
+        <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;position:relative;top:35px;" onclick="return location.href='@Url.Action("Index","Complain")'">
+                在线举报
+                <br />
+                <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe702;</i>
+            </span>
+        </div>
+        <!--第三个按钮:黑名单-->
+        <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;position:relative;top:35px" onclick="return location.href='@Url.Action("Index","BlackList")'">
+                黑名单
+                <br />
+                <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe770;</i>
+            </span>
+        </div>
+        <!--第四个按钮:电话举报-->
+        <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;color:black;position:relative;top:35px">
+                电话举报<br />
+                <i class="layui-icon" style="font-size: 30px; color:black;">&#xe678;</i>
+                <br />4006561700
+            </span>
+        </div>
+        <!--第五个按钮:微信举报-->
+        <div style="width:256px;height:330px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:20px;position:relative;top:35px">
+                微信举报<br /><br />
+                <i class="layui-icon" style="font-size: 30px; color:black;">&#xe677;</i>
+                <br />
+                <br />
+                <img src="~/images/二维码2.png" />
+            </span>
+        </div>
+        <!--第六个按钮:客服专线-->
+        <div style="width:256px;height:226px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
+            <span style="font-size:15px;position:relative;top:35px">
+                非舞弊相关投诉请
+                <br />
+                <br />
+                通过如下方式进行
+                <br />
+                <br />
+                <a>客服专线</a>
+                <br />
+                <br />
+                <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe626;</i>
+                <br />
+                <br />
+            </span>
+        </div>
+    </div>
+    <div style="width:858px;height:1200px;margin:-1200px 0px 0px 340px;background-color:lightcyan">
+        <div style="width:826px;height:69px;margin-top:75px;margin-left:15px;">
+            <div style="width:243px;height:68px;float:left;">
+                <span style="margin-left:100px;">
+                    <i class="layui-icon" style="font-size: 50px; color:blue;">&#xe673;</i>
+                    <br />
+                </span>
+                <p style="font-size:20px;margin-left:85px;">举报保密</p>
+            </div>
+            <div style="width:243px;height:68px;float:left;">
+                <span style="margin-left:100px;">
+                    <i class="layui-icon" style="font-size: 50px; color:blue;">&#xe612;</i>
+                    <br />
+                </span>
+                <p style="font-size:20px;margin-left:85px;">鼓励实名</p>
+            </div>
+            <div style="width:243px;height:68px;float:left;">
+                <span style="margin-left:100px;">
+                    <i class="layui-icon" style="font-size: 50px; color:blue;">&#xe627;</i>
+                    <br />
+                </span>
+                <p style="font-size:20px;margin-left:85px;">查实有奖</p>
+            </div>
+        </div>
+        <div style="width:746px;height:92px;margin-top:100px;margin-left:50px;border-bottom:2px solid;border-color:azure">
+            <span style="font-size:25px;position:relative;top:27px;">举报须知</span>
+        </div>
+        <div style="width:746px;height:36px;margin-top:50px;">
+            <span style="margin-left:200px;font-size:22px;">《中梁控股集团火炉法则（2020版）》</span>
+        </div>
+        <div style="width:746px;height:72px;margin-top:10px;margin-left:44px;">
+            <span style="margin-left:80px;font-size:17px;">为捍卫中梁文化价值观，规范员工职业行为，预防及惩处各类违规违纪行为，强化各级组织及人员底线、红线意识，维护企业的生产、经营、管理秩序及利益，营造清廉自律、阳光健康的生态环境。</span>
+        </div>
+        <div style="width:746px;height:36px;margin-top:20px;">
+            <span style="font-size:20px;position:relative;left:50px;"><b>举报范围</b></span>
+        </div>
+        <div style="width:746px;height:72px;margin-top:10px;margin-left:44px;">
+            <span style="margin-left:80px;font-size:17px;">监察中心受理中梁集团范围内任何违反中梁文化价值观、违反公司各项规章制度、损害公司利益、不良风气、违纪、舞弊、廉洁等问题的举报。</span>
+        </div>
+        <div style="width:746px;height:36px;margin-top:20px;">
+            <span style="font-size:20px;position:relative;left:50px;"><b>举报责任</b></span>
+        </div>
+        <div style="width:746px;height:36px;margin-top:10px;margin-left:44px;">
+            <span style="margin-left:80px;font-size:17px;">1、举报人提出的举报事项应当客观真实，不得捏造、歪曲事实，不得诬告、陷害他人。</span>
+        </div>
+        <div style="width:746px;height:36px;margin-top:10px;margin-left:44px;">
+            <span style="margin-left:80px;font-size:17px;">2、举报人应对提供的证据资料负责，不得仅凭道听途说，冤枉他人。</span>
+        </div>
+        <div style="width:746px;height:36px;margin-top:10px;margin-left:44px;">
+            <span style="margin-left:80px;font-size:17px;">3、举报人应遵守国家法律法规，不得损害他人合法权益。</span>
+        </div>
+        <div style="width:746px;height:36px;margin-top:20px;">
+            <span style="font-size:20px;position:relative;left:50px;"><b>举报奖励</b></span>
+        </div>
+        <div style="width:746px;height:36px;margin-top:10px;margin-left:44px;">
+            <span style="margin-left:80px;font-size:17px;">我们鼓励实名举报，对实名举报的个人信息及举报内容严格保密。举报内容一经查实，</span>
+        </div>
+        <div style="width:746px;height:36px;margin-top:10px;margin-left:44px;">
+            <span style="margin-left:80px;font-size:17px;">予以发放现金奖励。根据贡献，实名实证最高奖励可达300万元奖励。</span>
+        </div>
+        <div style="width:858px;height:34px;margin-top:120px;">
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-disabled" style="margin-left:250px;" id="shim" onclick="zuo()">实名举报</button>
+            <span style="margin-left:50px;">倒计时<span id="s" style="color:red">5</span>秒可选择</span>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-disabled" style="margin-left:75px;" id="nim" onclick="you()">匿名举报</button>
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery-3.3.1.js"></script>
+<script>
+    $(function () {
+        setTimeout(function () {
+            $('#shim').removeClass("layui-btn-disabled");
+            $('#nim').removeClass("layui-btn-disabled");
+        }, 5000);
+        //倒计时
+        dao();
+    });
+
+    function zuo() {
+        return location.href = '@Url.Action("Index", "Autonym")';
+    }
+    function you() {
+        return location.href = '@Url.Action("Index", "Anonymity")';
+    }
+
+    function dao() {
+        var t = 5;
+        function fun() {
+            t--;
+            $("#s").text(t);
+            if (t <= 0) {
+                // location.href = "https://www.baidu.com";
+                //clearInterval取消定时器
+                clearInterval(inter);
+            }
+        }
+        var inter = setInterval(fun, 1000);
+    }
+</script>

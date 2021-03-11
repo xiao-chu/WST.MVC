@@ -75,6 +75,7 @@
                     <button type="button" class="layui-btn" id="btn-cha">🔍查询</button>
                     <button type="button" id="chongzhi" class="layui-btn">🔄重置</button>
                     <button type="button" id="btnadd" class="layui-btn">➕新增</button>
+                    <button type="button" id="btndaoru" class="layui-btn">➕导入</button>
                 </div>
 
                 <table id="demo" lay-filter="test">
@@ -121,10 +122,11 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="layui-form-item">
                     <label class="layui-form-label">状态</label>
                     <div class="layui-input-inline">
+                        <input type="radio" id="Bstate1" class="Bstate" name="Bstate" value="1" title="启用">
+                        <input type="radio" id="Bstate2" class="Bstate" name="Bstate" value="0" title="禁用">
                     </div>
                 </div>
             </form>
@@ -179,10 +181,29 @@
                     }
                     , {
                         field: 'btime', title: '更新时间', width: 200, sort: true,
+                        templet: function (d) {
+                            return (d.btime.substring(0, 10) + ' ' + d.btime.substring(11, 19));
+                        }
                     }
                     , { field: 'bpeople', title: '发布人', width: 100, sort: true }
                     , { fixed: 'right', title: '操作', width: 165, align: 'left', toolbar: '#barDemo' }
                 ]]
+            });
+
+            //导出
+            $('#btndaoru').on('click', function () {
+                $.ajax({
+                    url: '/BlackList/Index',
+                    type: 'get',
+                    success: function (d) {
+                        if (d>0) {
+                            layer.msg("下载成功");
+                        }
+                        else {
+                            layer.msg("下载失败");
+                        }
+                    }
+                });
             });
 
             //重置Bunit
@@ -236,6 +257,7 @@
                                 bunit: $('#Bunit').val(),
                                 bnumber: $('#Bnumber').val(),
                                 bmatter: $('#Bmatter').val(),
+                                bstate: $('.Bstate:checked').val(),
                             }),
                             //data: JSON.stringify(data.field),
                             success: function (d) {
@@ -342,7 +364,6 @@
                             $('#Bunit').val(data.bunit);
                             $('#Bnumber').val(data.bnumber);
                             $('#Bmatter').val(data.bmatter);
-                            $('#Bstate').val(data.bstate);
                             if (data.bstate == 1) {
                                 $('#Bstate1').prop('checked', true);
                             }
@@ -363,6 +384,7 @@
                                     Bunit: $('#Bunit').val(),
                                     Bnumber: $('#Bnumber').val(),
                                     Bmatter: $('#Bmatter').val(),
+                                    Bstate: $('.Bstate:checked').val()
                                 }),
                                 //data: JSON.stringify(data.field),
                                 success: function (d) {

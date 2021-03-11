@@ -18,8 +18,8 @@
         </div>
         <!--第二个按钮:在线举报-->
         <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
-            <span style="font-size:20px;position:relative;top:35px" onclick="location.href='//'">
-                在线举报
+            <span style="font-size:20px;position:relative;top:35px">
+                <a href="@Url.Action("Index","Complain")">在线举报</a>
                 <br />
                 <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe702;</i>
             </span>
@@ -27,7 +27,7 @@
         <!--第三个按钮:黑名单-->
         <div style="width:256px;height:142px;text-align:center;margin:0 auto;border-bottom:3px solid;border-color:chartreuse">
             <span style="font-size:20px;position:relative;top:35px">
-                黑名单<br />
+                <a href="@Url.Action("Index","BlackList")">黑名单</a><br />
                 <i class="layui-icon" style="font-size: 30px; color:blue;">&#xe770;</i>
             </span>
         </div>
@@ -68,16 +68,16 @@
         </div>
     </div>
 
-    <div style="width:858px;height:1200px;margin:-1200px 0px 0px 340px;background-color:lightcyan">
+    <div style="width:900px;height:1200px;margin:-1200px 0px 0px 340px;background-color:lightcyan">
         <div style="width:498px;height:352px;margin-left:200px;margin-top:80px;">
-            <input id="Btype1" name="Btype" style="margin-left:150px;" type="radio" />单位
+            <input id="Btype1" name="Btype" style="margin-left:150px;" type="radio" checked="checked" />单位
             <input id="Btype2" name="Btype" style="margin-left:80px;" type="radio" />个人
             <br /><br />
-            <span style="margin-left:130px;">企业名称🌟</span><br />
+            <span style="margin-left:130px;" id="xm">企业名称🌟</span><br />
             <input id="Bunit" name="Bunit" type="text" style="margin-left:130px;width:296px;height:42px;" placeholder="输入关键词" /><br /><br />
-            <span style="margin-left:130px;">统一社会信用代码🌟</span><br />
+            <span style="margin-left:130px;" id="sf">统一社会信用代码🌟</span><br />
             <input id="Bnumber" name="Bnumber" type="text" style="margin-left:130px;width:296px;height:42px;" placeholder="输入关键词" /><br /><br /><br /><br />
-            <input id="Button1" style="margin-left:130px;" type="button" value="button" class="btn btn-outline-success" />
+            <input id="btn-cha" style="margin-left:130px;" type="button" value="搜索" class="btn btn-outline-success" />
         </div>
         <div style="width:518px;height:293px;">
             <div style="width:746px;height:36px;margin-top:20px;">
@@ -92,3 +92,38 @@
         </div>
     </div>
 </div>
+@section scripts{ 
+    <script>
+        $(function () {
+
+            $('#Btype1').on('click', function () {
+                $('#xm').text("企业名称🌟");
+                $('#sf').text("统一社会信用代码🌟");
+            }); 
+            $('#Btype2').on('click', function () {
+                $('#xm').text("姓名🌟");
+                $('#sf').text("身份证🌟");
+            }); 
+
+            //查询
+            $('#btn-cha').on('click', function () {
+                $.ajax({
+                    url: 'http://localhost:53305/api/BlackList/getCha',
+                    type: 'get',
+                    data: {
+                        Bunit: $('#Bunit').val(),
+                        Bnumber: $('#Bnumber').val(),
+                    },
+                    success: function (d) {
+                        if (d > 0) {
+                            alert("此人存在违纪现象,如需进一步了解详情，请发函至jc@wsttop.com");
+                        }
+                        else {
+                            alert("此人不存在违纪现象，请重新查询!");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

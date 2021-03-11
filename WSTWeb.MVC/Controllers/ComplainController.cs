@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace WSTWeb.MVC.Controllers
 {
-    public class BlackListController : Controller
+    public class ComplainController : Controller
     {
-        //黑名单
+        //举报投诉
         public IActionResult Index()
         {
             return View();

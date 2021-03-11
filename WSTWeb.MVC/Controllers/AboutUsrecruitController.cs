@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WSTWeb.MVC.Controllers
 {
-    public class BlackListController : Controller
+    public class AboutUsrecruitController : Controller
     {
-        //黑名单
+        //关于我们
         public IActionResult Index()
         {
             return View();
