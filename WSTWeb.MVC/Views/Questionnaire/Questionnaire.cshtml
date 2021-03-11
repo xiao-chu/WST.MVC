@@ -58,8 +58,8 @@
                             var str = '';
                             $(result).each(function () {
                                 $("#data").val(this.qid);
-                                str = '</br><span style="color:#6f6b6b"><input name="' + this.etitle + '" type="' + (this.questiontypes == 1 ? "radio" : "checkbox") + '" value="' + this.tid + '"/>' + this.titem + '</span>';
-                                $('#' + this.eid + '').append(str);
+                                str = '<span style="height:20px;"><input name="' + this.etitle + '" type="' + (this.questiontypes == 1 ? "radio" : "checkbox") + '" value="' + this.tid + '"/>' + this.titem + '</span></br></br>';
+                                $('#' + this.eid + '').after(str);
                             });
                         }
                     });
