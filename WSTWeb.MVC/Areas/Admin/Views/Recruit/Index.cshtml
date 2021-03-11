@@ -157,6 +157,13 @@
                 , height: 420
                 , url: 'http://localhost:53305/api/Recruit' //数据接口
                 , method: 'get'
+                , page: true //开启分页
+                , limit: 10
+                , limits: [10, 20, 30, 40, 50]
+                , request: {
+                    pageName: 'page' //页码的参数名称，默认：page
+                    , limitName: 'limit' //每页数据量的参数名，默认：limit
+                }
                 , cols: [[ //表头
                     { field: 'rid', title: '序号', width: 80, fixed: 'left' }
                     , { field: 'rkind', title: '种类', width: 120 }
