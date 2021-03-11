@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 <!DOCTYPE html>
@@ -19,14 +18,14 @@
                 <li class="layui-nav-item"><a href="@Url.Action("Index","BlackList")">黑名单</a></li>
                 <li class="layui-nav-item"><a href="@Url.Action("Index","Complaint")">举报投诉</a></li>
                 <li class="layui-nav-item"><a href="@Url.Action("Index","Recruit")">招聘管理</a></li>
-                <li class="layui-nav-item"><a href="">问卷管理</a></li>
+                <li class="layui-nav-item"><a href="@Url.Action("QuestionnaireShow","Questionnaire")">问卷管理</a></li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">内容管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="@Url.Action("Index","WST_Detial_Pro")">栏目管理</a></dd>
                         <dd><a href="">栏目公告</a></dd>
                         <dd><a href="@Url.Action("Index","WST_Scroll_Picture")">栏目滚动图片</a></dd>
-                        <dd><a href="">文章管理</a></dd>
+                        <dd><a href="@Url.Action("Index","Article")">文章管理</a></dd>
                         <dd><a href="">文章审核</a></dd>
                         <dd><a href="">视频审核</a></dd>
                     </dl>
@@ -34,14 +33,14 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">其他管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">相关链接</a></dd>
+                        <dd><a href="@Url.Action("Index","Link")">相关链接</a></dd>
                         <dd><a href="">访问统计量</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">系统管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">用户管理</a></dd>
+                        <dd><a href="@Url.Action("Index","User")">用户管理</a></dd>
                         <dd><a href="">角色管理</a></dd>
                         <dd><a href="">菜单管理</a></dd>
                         <dd><a href="">日志管理</a></dd>
@@ -51,15 +50,11 @@
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                        贤心
+                        
+                        <span id="name"></span>
                     </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">安全设置</a></dd>
-                    </dl>
                 </li>
-                <li class="layui-nav-item"><a href="@Url.Action("Login","User")">退了</a></li>
+                <li class="layui-nav-item"><a href="@Url.Action("Login","User")">退出</a></li>
             </ul>
         </div>
 
@@ -67,42 +62,41 @@
         <div class="layui-body">
             <div>
                 <div style="padding: 15px;">
-                    <div style="width:800px;height:600px;float:left;background-color:azure;">
+                    <div style="width:1000px;height:600px;float:left;background-color:azure;">
                         <br />
-                        <span style="font-size:15px;margin-left:20px;">文章Top10</span><a>更多</a>
-
+                        <span style="font-size:15px;margin-left:20px;">文章Top10</span><a href="@Url.Action("Index","Article")" style="">更多</a>
+                        <table id="demo" lay-filter="test"></table>
                     </div>
-                    <div style="width:500px;height:300px;float:left;margin-left:20px;background-color:azure;">
+                    <div style="width:400px;height:300px;float:left;margin-left:20px;background-color:azure;">
                         <br />
                         <span style="font-size:15px;margin-left:20px;">个人信息</span><a href="@Url.Action("Edit","User")">编辑</a>
                         <table class="layui-table" lay-skin="nob">
                             <tr>
                                 <td>登录名</td>
-                                <td><input type="text" id="User_Name" style="border:none;" readonly/><span id="aa"></span></td>
+                                <td><input type="text" id="User_Name" style="border:none;" readonly /><span id="aa"></span></td>
                             </tr>
                             <tr>
                                 <td>昵称</td>
-                                <td><input type="text" id="User_Nickname" style="border:none" readonly/></td>
+                                <td><input type="text" id="User_Nickname" style="border:none" readonly /></td>
                             </tr>
                             <tr>
                                 <td>emali</td>
-                                <td><input type="text" id="User_Email" style="border:none" readonly/></td>
+                                <td><input type="text" id="User_Email" style="border:none" readonly /></td>
                             </tr>
                             <tr>
                                 <td>手机号</td>
-                                <td><input type="text" id="User_Phone" style="border:none" readonly/></td>
+                                <td><input type="text" id="User_Phone" style="border:none" readonly /></td>
                             </tr>
                             <tr>
                                 <td>备注</td>
-                                <td><input type="text" id="User_Remark" style="border:none" readonly/></td>
+                                <td><input type="text" id="User_Remark" style="border:none" readonly /></td>
                             </tr>
                         </table>
                     </div>
-                    <div style="width:500px;height:200px;float:left;margin:20px 20px;background-color:azure;">
+                    <div style="width:400px;height:200px;float:left;margin:20px 20px;background-color:azure;">
                         <br />
                         <span style="font-size:15px;margin-left:20px;">注册用户Top10</span><a href="@Url.Action("Index","User")">编辑</a>
                         <table class="layui-table" lay-skin="nob" id="tab">
-
                         </table>
                     </div>
                 </div>
@@ -129,24 +123,58 @@
             table.render({
                 elem: '#demo'
                 , height: 312
-                , url: '/demo/table/user/' //数据接口
-                , page: true //开启分页
+                , url: 'http://localhost:53305/api/Article' //数据接口
+                , page: false //开启分页
+                , method: 'get'
+                , limit: 10
+                , height:500
                 , cols: [[ //表头
-                    { field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left' }
-                    , { field: 'username', title: '用户名', width: 80 }
-                    , { field: 'sex', title: '性别', width: 80, sort: true }
-                    , { field: 'city', title: '城市', width: 80 }
-                    , { field: 'sign', title: '签名', width: 177 }
-                    , { field: 'experience', title: '积分', width: 80, sort: true }
-                    , { field: 'score', title: '评分', width: 80, sort: true }
-                    , { field: 'classify', title: '职业', width: 80 }
-                    , { field: 'wealth', title: '财富', width: 135, sort: true }
+                    { field: 'aid', title: '序号', width: 100, sort: true, fixed: 'left' }
+                    , { field: 'dtitle', title: '栏目', width: 150 }
+                    , { field: 'aname', title: '名称', width: 150, sort: true }
+                    , { field: 'ranks', title: '排序', width: 80 }
+                    , {
+                        field: 'astatus', title: '状态', width: 80,
+                        templet: function (d) {
+                            if (d.astatus == 0) {     //显示判断
+                                return "显示"
+                            } else {
+                                return "隐藏"
+                            }
+                        }
+                    }
+                    , {
+                        field: 'comment', title: '评论', width: 80, sort: true,
+                        templet: function (d) {
+                            if (d.comment == 0) {    //推荐判断
+                                return "是";
+                            } else {
+                                return "否"
+                            }
+                        }}
+                    , {
+                        field: 'recommend', title: '推荐', width: 80, sort: true,
+                        templet: function (d) {
+                            if (d.recommend == 0) {    //推荐判断
+                                return "是";
+                            } else {
+                                return "否"
+                            }
+                        }
+                    }
+                    , {
+                        field: 'release_time', title: '发布时间', width: 135, sort: true,
+                        templet: '<div>{{ layui.util.toDateString(d.createDate, "yyyy-MM-dd") }}</div>'     //时间拼接
+                    }
+                    , { field: 'promulgator', title: '发布者', width: 135, sort: true }
                 ]]
             });
             //加载个人信息
             //var user = getCookie("userName").toString();
+            
             var userName = getCookie("userName").toString();
             var userNickname = getCookie("userNickname").toString();
+            $("#name").text(userNickname + "您好");
             var userEmail = getCookie("userEmail").toString();
             var userPhone = getCookie("userPhone").toString();
             var userRemarks = getCookie("userRemark").toString();

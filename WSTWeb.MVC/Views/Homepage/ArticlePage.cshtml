@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewData["Title"] = "ArticlePage";
+}
+<link href="~/layui/css/layui.css" rel="stylesheet" />
+
+<div style="width:1427.25px;height:251px;margin:0 auto">
+    <div style="width:570.89px;height:251px;float:left;margin-left:20px">
+
+        <div style="width:217px;height:55px">
+            <img src="~/images/2.png" />
+        </div>
+        <br />
+        <br />
+        <div style="width:536.63px;height:117px">
+            <div class="layui-carousel" id="test1" lay-filter="test1">
+                <div carousel-item id="title1">
+                    <div>条目1</div>
+                    <div>条目2</div>
+                    <div>条目3</div>
+                    <div>条目4</div>
+                    <div>条目5</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width:561.33px;height:250px;float:left;">
+        <div style="width:561.33px;height:250px">
+            <div class="layui-carousel" id="test2" lay-filter="test2">
+                <div carousel-item id="title2">
+                    <div>条目1</div>
+                    <div>条目2</div>
+                    <div>条目3</div>
+                    <div>条目4</div>
+                    <div>条目5</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width:235.92px;height:250px;background-color:#181E6B;float:left;color:#551A8B;margin-left:20px">
+        <a href="/Homepage/Succeed">
+            <div id="" style="margin-top:190px">
+                <p style="color:#2B3073;margin:0px 0px 0px 20px;font:20px;width:124.97px;height:26px">MORE NEWS</p>
+                <p style="color:#FFFFFF;margin:0px 0px 0px 20px;width:56px;height:19px">更多新闻</p>
+            </div>
+        </a>
+    </div>
+</div>
+<br />
+<br />
+@*热门推荐*@
+<div style="width:1427.25px;height:483px;margin:0 auto">
+    <div style="width:193px;height:55px">
+        <img src="~/images/1.png" />
+    </div>
+    <br />
+    <div style="width:1427.25px;height:384px;">
+        <div style="width:670.8px;height:380px;float:left">
+            <a style="opacity: 1;" href="/Homepage/ImpNews">
+                <img src="~/images/热1.png" />
+                <p style="color:#FFFFFF;background-color:rgba(0,0,0,0.5);font:16px" >一笺说丨有信用，走大道</p>
+            </a>
+        </div>
+        <div style="width:713.63px;height:380px;float:left;margin-left:30px">
+            <div style="width:335.39px;height:175px;float:left">
+                <a style="opacity: 1;" href="/Homepage/Succeed">
+                    <img src="~/images/热2.png" />
+                    <p style="color:#FFFFFF;background-color:rgba(0,0,0,0.5);font:16px">一笺说丨成功=思维方式×热情×能力</p>
+                </a>
+            </div>
+            <div style="width:335.39px;height:175px;float:left;margin-left:10px">
+                <a style="opacity: 1;" href="/Homepage/Rule">
+                    <img src="~/images/热3.png" />
+                    <p style="color:#FFFFFF;background-color:rgba(0,0,0,0.5);font:16px">一笺说丨为什么要跟懂规矩的人一起“玩”</p>
+                </a>
+            </div>
+            <div style="width:335.39px;height:175px;burlywood;float:left">
+                <a style="opacity: 1;" href="/Homepage/Honest">
+                    <img src="~/images/热4.png" /> <p style="color:#FFFFFF;background-color:rgba(0,0,0,0.5);font:16px">共建廉洁共同体，打造合规生态圈——阳光诚信联...</p>
+                </a>
+            </div>
+            <div style="width:335.39px;height:175px;float:left;margin-left:10px">
+                <a style="opacity: 1;" href="/Homepage/Steady">
+                    <img src="~/images/热5.png" />
+                    <p style="color:#FFFFFF;background-color:rgba(0,0,0,0.5);font:16px">稳健前行！中梁首入中国民企500强，并获上海...</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+
+<script src="~/layui/layui.js"></script>
+<script src="~/js/jquery-3.3.1.js"></script>
+<script>
+    layui.use(['carousel', 'form'], function () {
+        var carousel = layui.carousel
+            , form = layui.form;
+        $.ajax({
+            url: 'http://localhost:53305/api/Article',
+            type: 'get',
+            success: function (result) {
+                var str = '';
+                var str1 = '';
+                $(result.data).each(function () {
+                    str += '<a href="/Homepage/Steady"><div>' + this.aname + '</div></a>';
+                    str1 += '<div>'
+                        + '<a href="/Homepage/Steady"><img width="560" height="250" src="' + this.picture + '" /></a>'
+                        + '<span style="position: relative; top: 0; left: 0;">' + this.aname + '</span>'
+                        + '</div>';
+                });
+                $("#title1").empty().append(str);
+                $("#title2").empty().append(str1);
+                form.render();
+                //图片轮播
+                carousel.render({
+                    elem: '#test1'
+                    , width: '536.63px'
+                    , height: '117px'
+                    , interval: 5000
+                    , anim: 'updown'
+                    , autoplay: 'true'
+                    , arrow: 'none'
+                });
+                //图片轮播
+                carousel.render({
+                    elem: '#test2'
+                    , width: '561.33px'
+                    , height: '250px'
+                    , interval: 5000
+                    , anim: 'updown'
+                    , autoplay: 'true'
+                    , arrow: 'none'
+                    , indicator: 'none'
+                });
+            }
+        });
+
+
+
+    });
+</script>

@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewData["Title"] = "AboutBehavior";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <style>
+
+        ul, li {
+            list-style: none;
+        }
+
+        .box {
+            position: relative;
+            top: 20px;
+            right: 405px;
+            background: #ccc;
+            width: 600px;
+            height: 32px;
+            line-height: 32px;
+            overflow: hidden;
+        }
+
+            .box li {
+                float: left;
+                width: 200px;
+                text-align: center;
+                position: relative;
+                z-index: 2;
+            }
+
+                .box li em {
+                    width: 0;
+                    height: 0;
+                    border-color: transparent transparent transparent #fff;
+                    border-style: dashed dashed dashed solid;
+                    border-width: 24px 0 24px 24px;
+                    position: absolute;
+                    right: -24px;
+                    top: -8px;
+                    line-height: 0;
+                    font-size: 0;
+                }
+
+                .box li i {
+                    width: 0;
+                    height: 0;
+                    border-color: transparent transparent transparent #ccc;
+                    border-style: dashed dashed dashed solid;
+                    border-width: 16px 0 16px 16px;
+                    position: absolute;
+                    right: -16px;
+                    top: 0;
+                    line-height: 0;
+                    font-size: 0;
+                }
+
+                .box li.current {
+                    background: #933;
+                    z-index: 1;
+                }
+
+                    .box li.current i {
+                        border-color: transparent transparent transparent #933;
+                    }
+    </style>
+</head>
+<body>
+    <script src="~/layui/layui.js"></script>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script>
+        layui.use(['util', 'laydate', 'layer'], function () {
+            var util = layui.util
+                , laydate = layui.laydate
+                , $ = layui.$
+                , layer = layui.layer;
+            //固定块
+            util.fixbar({
+                bar1: false
+                , bar2: false
+                , css: { right: 50, bottom: 100 }
+                , bgcolor: '#393D49'
+                , click: function (type) {
+                    if (type === 'bar1') {
+                        layer.msg('www.xdpsg.com')
+                    } else if (type === 'bar2') {
+                        layer.msg('www.xdpsg.com')
+                    }
+                }
+            });
+        });
+    </script>
+    <div style="margin:0 auto">
+        <img src="~/images/行为准则.png" />
+    </div>
+    <div style="margin:0 auto;width:1200px;height:88px;margin-top:75px; ">
+        <div style="float:left;height:34px;width:505px;border-left:8px solid">
+            <h3 style="margin-left:10px">行为准则</h3>
+        </div>
+        <span style="position:relative;right:505px;top:50px;font-size:20px">当前位置：</span>
+        <div class="box">
+            <ul>
+                <li><a href="/Homepage/Index">首页</a><em></em><i></i></li>
+                <li><a href="/Homepage/AboutUS">关于我们</a><em></em><i></i></li>
+                <li class="current">行为准则<em></em><i></i></li>
+            </ul>
+        </div>
+        <img src="~/images/斜线2.png" style="width:1200px;height:8px;margin:0 auto;margin-top:50px" />
+    </div>
+    <div style="width:1200px;height:488px;margin:0 auto;margin-top:60px;border:8px solid #ccc">
+        <div style="width:607px;height:371px;margin:0 auto;margin-top:26px">
+            <img src="~/images/xw1.png" />
+        </div>
+    </div>
+</body>
+</html>
+

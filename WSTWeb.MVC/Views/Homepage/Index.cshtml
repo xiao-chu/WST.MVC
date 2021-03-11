@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Home Page</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <style>
+        .shade {
+            position: absolute;
+            width: 100%;
+            left:200px;
+            height: 118px;
+            background: rgba(0,0,0,0.3);
+            bottom: 4px;
+            z-index: 11;
+        }
+
+            .shade > ul {
+                width: 75%;
+                margin: 0px auto;
+            }
+
+                .shade > ul li {
+                    float: right;
+                    width: 18.75%;
+                    margin-right: 15px;
+                    margin-top: 16px;
+                    padding-left: 20px;
+                    padding-top: 11px;
+                    padding-bottom: 10px;
+                    position: relative;
+                }
+
+                    .shade > ul li > a {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    .shade > ul li > a {
+                        text-decoration: none;
+                    }
+
+                    .shade > ul li:nth-child(4) {
+                        background: #005ed7;
+                    }
+
+                        .shade > ul li:nth-child(4) p {
+                            color: #6e95e3;
+                        }
+
+                    .shade > ul li:nth-child(3) {
+                        background: #38418c;
+                    }
+
+                        .shade > ul li:nth-child(3) p {
+                            color: #575e9a;
+                        }
+
+                    .shade > ul li:nth-child(2) {
+                        background: #f97d47;
+                    }
+
+                        .shade > ul li:nth-child(2) p {
+                            color: #fa9974;
+                        }
+
+                    .shade > ul li:nth-child(1) {
+                        background: #f9c647;
+                    }
+
+                        .shade > ul li:nth-child(1) p {
+                            color: #fad279;
+                        }
+
+                    .shade > ul li:first-child {
+                        margin-right: 0px;
+                    }
+                    .shade > ul li:hover {
+                        transform: rotateY(130deg);
+                        -webkit-transform: rotateY(130deg); /* Safari 与 Chrome */
+                    }
+                    .shade > ul li p {
+                        font-size: 18px;
+                    }
+
+                        .shade > ul li p:last-child {
+                            color: #fff;
+                            margin-top: 9px;
+                            font-size: 18px;
+                        }
+    </style>
+</head>
+<body>
+    <!--轮播图-->
+    <div style="width:1920px;height:788px;background-color:deepskyblue;margin:0px auto;position:relative">
+        <div class="layui-carousel" id="test1" lay-filter="test1">
+            <div carousel-item="" id="preview">
+
+            </div>
+        </div>
+    </div>
+    <!--滑块-->
+    <div style="width:1500px;height:130px;position:relative;top:-130px;">
+        <div class="shade">
+            <ul>
+                <li style="top: 0px;">
+                    <a href="getLatestExam.html" target="_blank" style="bottom: 1px; padding-bottom: 0px;">
+
+                        <p style="height: 48px; opacity: 1;">QUESTIONNAIRE</p>
+                        <p style="font-size: 18px;">调查问卷</p>
+                    </a>
+                </li>
+                <li style="top: 0px;">
+                    <a href="complain.html" style="bottom: 1px; padding-bottom: 0px;">
+                        <p style="height: 48px; opacity: 1;">MAKE A COMPLAINT</p>
+                        <p style="font-size: 18px;">投诉举报</p>
+                    </a>
+                </li>
+                <li style="top: 0px;">
+                    <a href="getRecruitmentByType" style="bottom: 1px; padding-bottom: 0px;">
+                        <p style="height: 48px; opacity: 1;">JOIN US</p>
+                        <p style="font-size: 18px;">加入我们</p>
+                    </a>
+                </li>
+                <li style="top: 0px;">
+                    <a href="touchUS.html" style="bottom: 1px; padding-bottom: 0px;">
+                        <p style="height: 48px; opacity: 1;">CONTACT US</p>
+                        <p style="font-size: 18px;">联系我们</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+ 
+    <script src="~/layui/layui.js"></script>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script>
+        //轮播
+        function initCarousel() {
+            layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider', 'form'], function () {
+                var laydate = layui.laydate //日期
+                    , laypage = layui.laypage //分页
+                    , layer = layui.layer //弹层
+                    , table = layui.table //表格
+                    , carousel = layui.carousel //轮播
+                    , upload = layui.upload //上传
+                    , element = layui.element //元素操作
+                    , slider = layui.slider //滑块
+                    , form = layui.form   //表单
+
+                //常规轮播
+                $.ajax({
+                    url: 'http://localhost:53305/api/WST_Scroll_Picture',
+                    type: 'get',
+                    data: {
+                        isDisplay: 1
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        var str = '';
+                        $(result.data).each(function () {
+                            str += '<div><img src="' + this.simg + '"  alt="" style="width: 1920px;height: 788px;"></div>';
+                        });
+                        $('#preview').append(str);
+
+                        //改变下时间间隔、动画类型、高度
+                        var ins = carousel.render({
+                            elem: '#test1'
+                            , interval: 2000
+                            , arrow: 'hover'
+                            , anim: 'default'
+                            , width: '1920px'
+                            , height: '788px'
+                        });
+                        ins.reload({
+                            elem: '#test1'
+                            , interval: 2000
+                            , arrow: 'hover'
+                            , anim: 'default'
+                            , width: '1920px'
+                            , height: '788px'
+                        });
+                    },
+                    error: function () {
+                        alert("数据库查询失败，请联系管理员！")
+                    }
+                });
+            });
+        }
+        initCarousel();
+
+        layui.use(['util', 'laydate', 'layer'], function () {
+            var util = layui.util
+                , laydate = layui.laydate
+                , $ = layui.$
+                , layer = layui.layer;
+            //固定块
+            util.fixbar({
+                bar1: false
+                , bar2: false
+                , css: { right: 50, bottom: 100 }
+                , bgcolor: '#393D49'
+                , click: function (type) {
+                    if (type === 'bar1') {
+                        layer.msg('www.xdpsg.com')
+                    } else if (type === 'bar2') {
+                        layer.msg('www.xdpsg.com')
+                    }
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>
