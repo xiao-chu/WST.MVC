@@ -65,130 +65,139 @@
             </ul>
         </div>
         @*主内容区域*@
-        <div class="layui-body">
-            @*查询，时间操作*@
-            <div style="padding: 15px;">
-                @*查询模块*@
-                <div class="layui-inline">
-                    <label class="layui-form-label">编号查询</label>
-                    <div class="layui-input-inline">
-                        <input id="val" type="tel" name="Qnumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
-                    </div>
-                    <button id="chkQnumber" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe615;</i>查询</button>
-                    <button id="Resetcondition" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe9aa;</i>重置</button>
-                    <button id="Addquestionnaire" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe608;</i> 添加</button>
+    <div class="layui-body">
+        @*查询，时间操作*@
+        <div style="padding: 15px;">
+            @*查询模块*@
+            <div class="layui-inline">
+                <label class="layui-form-label">编号查询</label>
+                <div class="layui-input-inline">
+                    <input id="val" type="tel" name="Qnumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
                 </div>
-                @*数据网格*@
-                @*文件数据网格*@
-                <table class="layui-hide" id="demo1" lay-filter="test"></table>
-                @*题目数据网格*@
-                <div id="showtimu" style="display:none">
-                    <table class="layui-hide" id="demo2" lay-filter="test" lay-data="{id: 'idTest'}"></table>
-                </div>
-                @*题目添加*@
-                <script type="text/html" id="AddDemo">
-                    <a class="layui-btn layui-btn-xs" lay-event="create">新增题目</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="Seethetitle">查看题目</a>
-                </script>
-                @*表格后面的操作*@
-                <script type="text/html" id="barDemo">
-                    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="Pushemail">推邮箱</a>
-                </script>
-                @*题目后面操作*@
-                <script type="text/html" id="telDemo">
-                    <a class="layui-btn layui-btn-xs" lay-event="Newtopic">新增题目</a>                    
-                </script>
-
+                <button id="chkQnumber" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe615;</i>查询</button>
+                <button id="Resetcondition" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe9aa;</i>重置</button>
+                <button id="Addquestionnaire" type="button" class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe608;</i> 添加</button>
             </div>
-            <!--添加表单-->
-            <form class="layui-form" action="" id="AddQuest" style="display:none">
-                <div class="layui-form-item" style="width:350px">
-                    <label class="layui-form-label">问卷标题</label>
-                    <div class="layui-input-block">
-                        <input type="hidden" name="qid" value="0" />
-                        <input type="text" name="qtitle" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
-                    </div>
-                </div>
+            @*数据网格*@
+            @*文件数据网格*@
+            <table class="layui-hide" id="demo1" lay-filter="test"></table>
+            @*题目数据网格*@
+            <div id="showtimu" style="display:none">
+                <table class="layui-hide" id="demo2" lay-filter="test" lay-data="{id: 'idTest'}"></table>
+            </div>
+            @*题目添加*@
+            <script type="text/html" id="AddDemo">
+                <a class="layui-btn layui-btn-xs" lay-event="create">新增题目</a>
+                <a class="layui-btn layui-btn-xs" lay-event="Seethetitle">查看题目</a>
+            </script>
+            @*表格后面的操作*@
+            <script type="text/html" id="barDemo">
+                <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                <a class="layui-btn layui-btn-xs" lay-event="Pushemail">推邮箱</a>
+            </script>
+            @*题目后面操作*@
+            <script type="text/html" id="telDemo">
+                <a class="layui-btn layui-btn-xs" lay-event="Newtopic">新增题目</a>
+            </script>
 
-                <div class="layui-form-item" style="width:350px">
-                    <label class="layui-form-label">开始描述</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="qstratdesc" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item" style="width:350px">
-                    <label class="layui-form-label">结束描述</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="qenddesc" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item" style="width:350px">
-                    <label class="layui-form-label">问卷状态</label>
-                    <div class="layui-input-block">
-                        <input id="ch1" type="radio" name="qstate" value="1" title="启用">
-                        <input id="ch2" type="radio" name="qstate" value="0" title="禁用">
-                    </div>
-                </div>
-
-            </form>
-            <!--新增题目表单-->
-            <form class="layui-form" action="" id="Newtopic" style="display:none">
-
-                <div class="layui-form-item" style="width:350px">
-                    <label class="layui-form-label">1.请编辑问题？</label>
-                </div>
-
-                <div class="layui-form-item" style="width:350px">
-                    <div class="layui-input-block">
-                        <input type="hidden" name="qid" value="0" />
-                        <input type="text" name="etitle" lay-verify="title" autocomplete="off" placeholder="请编辑问题" class="layui-input">
-                    </div>
-                </div>
-
-                @*<div class="layui-form-item" style="width:350px">
-                        <div class="layui-input-block">
-                            <input type="text" name="ememo" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
-                        </div>
-                    </div>*@
-
-                @*<div class="layui-form-item" style="width:350px">
-
-                        <div class="layui-input-block">
-                            <button type="button" id="Addaoption" class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-add-circle-fine"></i>添加选项</button>
-                        </div>
-                    </div>*@
-
-                <div class="layui-form-item" style="width:350px">
-                    <div class="layui-input-block" style="width:100px;height:3px">
-                        <select name="questiontypes" lay-verify>
-                            <option value="">添加问题</option>
-                            <option value="1">单选</option>
-                            <option value="2">多选</option>
-                        </select>
-                    </div>
-                </div>
-
-            </form>
-            <!--增加题目选项-->
-            <form class="layui-form" action="" id="Subjectoptions" style="display:none">
-
-                <div class="layui-form-item" style="width:350px">
-                    <label class="layui-form-label">题目选项编辑</label>
-                </div>
-
-                <input type="hidden" name="qid" value="0" />
-                <div class="layui-form-item" style="width:350px">
-                    <div class="layui-input-block">
-                        <input type="text" name="titem" lay-verify="title" autocomplete="off" placeholder="请编辑题目" class="layui-input">
-                    </div>
-                </div>
-
-            </form>
         </div>
+        <!--添加表单-->
+        <form class="layui-form" action="" id="AddQuest" style="display:none">
+            <div class="layui-form-item" style="width:350px">
+                <label class="layui-form-label">问卷标题</label>
+                <div class="layui-input-block">
+                    <input type="hidden" name="qid" value="0" />
+                    <input type="text" name="qtitle" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="width:350px">
+                <label class="layui-form-label">开始描述</label>
+                <div class="layui-input-block">
+                    <input type="text" name="qstratdesc" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="width:350px">
+                <label class="layui-form-label">结束描述</label>
+                <div class="layui-input-block">
+                    <input type="text" name="qenddesc" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="width:350px">
+                <label class="layui-form-label">问卷状态</label>
+                <div class="layui-input-block">
+                    <input id="ch1" type="radio" name="qstate" value="1" title="启用">
+                    <input id="ch2" type="radio" name="qstate" value="0" title="禁用">
+                </div>
+            </div>
+
+        </form>
+        <!--新增题目表单-->
+        <form class="layui-form" action="" id="Newtopic" style="display:none">
+
+            <div class="layui-form-item" style="width:350px">
+                <label class="layui-form-label">1.请编辑问题？</label>
+            </div>
+
+            <div class="layui-form-item" style="width:350px">
+                <div class="layui-input-block">
+                    <input type="hidden" name="qid" value="0" />
+                    <input type="text" name="etitle" lay-verify="title" autocomplete="off" placeholder="请编辑问题" class="layui-input">
+                </div>
+            </div>
+
+            @*<div class="layui-form-item" style="width:350px">
+                <div class="layui-input-block">
+                    <input type="text" name="ememo" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                </div>
+            </div>*@
+
+            @*<div class="layui-form-item" style="width:350px">
+
+                <div class="layui-input-block">
+                    <button type="button" id="Addaoption" class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-add-circle-fine"></i>添加选项</button>
+                </div>
+            </div>*@
+
+            <div class="layui-form-item" style="width:350px">
+                <div class="layui-input-block" style="width:100px;height:3px">
+                    <select name="questiontypes" lay-verify>
+                        <option value="">添加问题</option>
+                        <option value="1">单选</option>
+                        <option value="2">多选</option>
+                    </select>
+                </div>
+            </div>
+
+        </form>
+        <!--增加题目选项-->
+        <form class="layui-form" action="" id="Subjectoptions" style="display:none">
+
+            <div class="layui-form-item" style="width:350px">
+                <label class="layui-form-label">题目选项编辑</label>
+            </div>
+
+            <input type="hidden" name="qid" value="0" />
+            <div class="layui-form-item" style="width:350px">
+                <div class="layui-input-block">
+                    <input type="text" name="titem" lay-verify="title" autocomplete="off" placeholder="请编辑题目" class="layui-input">
+                </div>
+            </div>
+
+        </form>
+        @*邮箱号*@
+        <form class="layui-form" action="" id="Emails" style="display:none">          
+            <div class="layui-form-item" style="width:350px">
+                <div class="layui-input-block">
+                    <input type="text" id="Email" lay-verify="title" autocomplete="off" placeholder="请输入要推送的邮箱" class="layui-input">
+                </div>
+            </div>
+
+        </form>
+    </div>
 
     </div>
     <script src="~/layui/layui.js"></script>
@@ -205,7 +214,7 @@
                 , element = layui.element //元素操作
                 , slider = layui.slider //滑块
                 , form = layui.form
-                , util = layui.util-
+                , util = layui.util
 
             //执行一个 问卷数据table 实例
             table.render({
@@ -446,18 +455,45 @@
                     });
                 }//编辑              
                 else if (layEvent == 'Pushemail') {
-                    $.ajax({
-                        url: 'http://localhost:53305/api/Qusetionnaire/SendEmail?qid=' + data.qid,
-                        type: 'get',
-                        success: function (data) {
-                            if (data == true) {
-                                layer.msg("推送成功");
-                            } else {
-                                layer.msg("推送失败");
-                            }
+                    layer.open({
+                        title: '邮箱推送'               //弹框标题
+                        , type: 1                       //类型
+                        , content: $("#Emails")       //需要弹出的表单//需要弹出的表单
+                        , area: ['400px', '200px']      //弹框宽高//弹框宽高
+                        , closeBtn: 1                   //右上关闭按钮//右上关闭按钮
+                        , shade: 0                      //遮罩//遮罩
+                        , anim: 1                       //动画//动画
+                        , resize: true                  //是否允许拉伸//是否允许拉伸  
+                        , btnAlign: 'c'//按钮排序 
+                        , btn: ['推送', '取消'] //可以无限个按钮
+                        , yes: function (index, layero) {
+                            //按钮【按钮一】的回调
+                            $.ajax({
+                                url: 'http://localhost:53305/api/Qusetionnaire/SendEmail',
+                                type: 'get',
+                                data: {                             
+                                    Email: $("#Email").val(),
+                                },
+                                success: function (data) {
+                                    if (data) {
+                                        layer.msg("推送成功");
+                                        layer.close(index); //疯狂模式，关闭所有层                                     
+                                    } else {
+                                        layer.msg("推送失败");
+                                    }
+                                },
+                                //dataType: "json",
+                                //contentType: "application/json"
+                            })
+                        }
+                        , btn2: function (index, layero) {
+                            //按钮【按钮二】的回调
+                            layer.closeAll(); //疯狂模式，关闭所有层
+                            //return false 开启该代码可禁止点击该按钮关闭
                         }
                     })
-                }
+                    
+                }//推邮箱
                 else if (layEvent == 'Newtopic') {
                     layer.open({
                         title: '新增选项'               //弹框标题
@@ -469,19 +505,14 @@
                         , anim: 1                       //动画//动画
                         , resize: true                  //是否允许拉伸//是否允许拉伸  
                         , btnAlign: 'c'//按钮排序 
-                        , btn: ['取消', '添加'] //可以无限个按钮
+                        , btn: ['添加', '取消'] //可以无限个按钮
                         , yes: function (index, layero) {
                             //按钮【按钮一】的回调
-                            layer.closeAll(); //疯狂模式，关闭所有层
-                            //return false 开启该代码可禁止点击该按钮关闭
-                        }
-                        , btn2: function (index, layero) {
-                            //按钮【按钮二】的回调
                             $.ajax({
                                 url: 'http://localhost:53305/api/Qusetionnaire/Addaoption',
                                 type: 'post',
                                 data: JSON.stringify({
-                                    eid:data.eid,
+                                    eid: data.eid,
                                     titem: $("[name=titem]").val(),
                                 }),
                                 success: function (data) {
@@ -503,8 +534,13 @@
                                 contentType: "application/json"
                             })
                         }
+                        , btn2: function (index, layero) {                       
+                            //按钮【按钮二】的回调
+                            layer.closeAll(); //疯狂模式，关闭所有层
+                            //return false 开启该代码可禁止点击该按钮关闭
+                        }
                     })
-                }
+                }//新增选项
             });
             //查询
             $("#chkQnumber").click(function () {
