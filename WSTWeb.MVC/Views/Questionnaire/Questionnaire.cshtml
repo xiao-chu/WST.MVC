@@ -58,7 +58,7 @@
                             var str = '';
                             $(result).each(function () {
                                 $("#data").val(this.qid);
-                                str = '<span style="height:20px;"><input name="' + this.etitle + '" type="' + (this.questiontypes == 1 ? "radio" : "checkbox") + '" value="' + this.tid + '"/>' + this.titem + '</span></br></br>';
+                                str = '<span style="height:20px;"><input name="' + this.etitle + '" type="' + (this.questiontypes == 1 ? "radio" : "checkbox") + '" class="'+this.eid+'" value="' + this.tid + '"/>' + this.titem + '</span></br></br>';
                                 $('#' + this.eid + '').after(str);
                             });
                         }
@@ -70,24 +70,24 @@
         });
 
         $("#present").click(function () {
-            var h = $("#div2").children();
+            var h = $("#div2").children("h2");
             //所有题的id
             var topic = [];
             for (var i = 0; i < h.length; i++) {
                 topic.push(h[i].id);
             }
-            ////获取所有的选项
+            ////获取所有选中的id
             var option = [];
             for (var i = 0; i < topic.length; i++) {
-                option.push($("#" + topic[i] + "").children().find("input"));
+                option.push(getChecked($("." + topic[i]+":checked")));
             }
 
-            
+
             ////选中的选项id
-            var pitch = [];
-            for (var i = 0; i < option.length; i++) {
-                pitch.push(getChecked(option[i]));
-            }
+            //var pitch = [];
+            //for (var i = 0; i < option.length; i++) {
+            //    pitch.push(getChecked(option[i]));
+            //}
 
             //var a1 = $("#div2").children().eq(0).attr("id");
             //var a2 = $("#div2").children().eq(1).attr("id");
@@ -110,47 +110,47 @@
             console.log(h);
             console.log(topic);
             console.log(option);
-            console.log(pitch);
+            //console.log(pitch);
 
-            for (var i = 0; i < topic.length; i++)
-            {
-                    $.ajax({
-                        url: 'http://localhost:53305/api/Qusetionnaire/Addanswer',
-                        type: 'post',
-                        data: JSON.stringify({
-                            qid: $("#data").val(),
-                            eid: topic[i],
-                            tid: pitch[i].toString(),
-                        }),
-                        success: function (data) {
-                            if (data > 0){
-                                console.log("提交成功");
-                            } else {
-                                console.log("提交失败");
-                            }
-                        },
-                       contentType: "application/json"
-                    })
-            }  
+            for (var i = 0; i < topic.length; i++) {
+                $.ajax({
+                    url: 'http://localhost:53305/api/Qusetionnaire/Addanswer',
+                    type: 'post',
+                    data: JSON.stringify({
+                        qid: $("#data").val(),
+                        eid: topic[i],
+                        tid: option[i].toString(),
+                    }),
+                    success: function (data) {
+                        if (data > 0) {
+                            console.log("提交成功");
+                        } else {
+                            console.log("提交失败");
+                        }
+                    },
+                    contentType: "application/json"
+                });
+            }
             //提交成功后，修改一次回收的数量
             $.ajax({
                 url: 'http://localhost:53305/api/Qusetionnaire/UpdateNum',
                 type: 'put',
-                data: JSON.stringify( {
-                    qid:$("#data").val(),
+                data: JSON.stringify({
+                    qid: $("#data").val(),
                 }),
                 success: function (data) {
                     if (data > 0) {
-                        console.log("回收成功");
+                        alert("添加成功");
+                        location.href = 'http://localhost:51813/Admin/Questionnaire/QuestionnaireShow';
                     } else {
                         console.log("回收失败");
                     }
                 },
-                contentType:"application/json"
-            })
+                contentType: "application/json"
+            });
 
 
-        })
+        });
 
         //封装的方法
         function getChecked(id) {
